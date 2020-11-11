@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/element_toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.kumela.socialnet.ui.common.views.LockableScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/abl">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="64dp">
+
+            <com.kumela.roundimageview.RoundedImageView
+                android:id="@+id/image_profile"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="32dp"
+                android:scaleType="centerCrop"
+                app:cornerRadius="8dp"
+                app:layout_constraintStart_toStartOf="@id/image_post"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:background="@color/accent" />
+
+            <TextView
+                android:id="@+id/text_username"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="32dp"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/image_profile"
+                app:layout_constraintEnd_toEndOf="@+id/image_post"
+                app:layout_constraintStart_toEndOf="@id/image_profile"
+                app:layout_constraintTop_toTopOf="@id/image_profile"
+                tools:text="James" />
+
+            <com.kumela.roundimageview.RoundedImageView
+                android:id="@+id/image_post"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="16dp"
+                android:scaleType="centerCrop"
+                app:cornerRadius="24dp"
+                app:layout_constraintDimensionRatio="4:5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image_profile"
+                tools:background="@color/primary" />
+
+            <EditText
+                android:id="@+id/et_header"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bgr_et"
+                android:hint="Header"
+                android:imeOptions="actionDone"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:maxLength="128"
+                android:maxLines="1"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@id/image_post"
+                app:layout_constraintStart_toStartOf="@id/image_post"
+                app:layout_constraintTop_toBottomOf="@id/image_post" />
+
+            <EditText
+                android:id="@+id/et_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bgr_et"
+                android:hint="Say something more about this post..."
+                android:imeOptions="actionDone"
+                android:importantForAutofill="no"
+                android:inputType="textCapSentences|textMultiLine"
+                android:maxLength="1024"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="@id/image_post"
+                app:layout_constraintStart_toStartOf="@id/image_post"
+                app:layout_constraintTop_toBottomOf="@id/et_header" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.kumela.socialnet.ui.common.views.LockableScrollView>
+
+    <include layout="@layout/element_progress" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

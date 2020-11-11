@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingStart="12dp"
+    tools:ignore="ContentDescription">
+
+    <com.kumela.roundimageview.RoundedImageView
+        android:id="@+id/image"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:cornerRadius="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@color/primary" />
+
+    <com.kumela.roundimageview.RoundedImageView
+        android:id="@+id/iv_online"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        app:cornerRadius="6dp"
+        android:background="@color/online"
+        app:layout_constraintBottom_toBottomOf="@id/image"
+        app:layout_constraintEnd_toEndOf="@id/image"
+        app:layout_constraintTop_toTopOf="@id/image"
+        app:layout_constraintHorizontal_bias=".9"
+        app:layout_constraintVertical_bias=".94"
+        app:layout_constraintStart_toStartOf="@id/image" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

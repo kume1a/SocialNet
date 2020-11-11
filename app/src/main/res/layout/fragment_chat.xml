@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary"
+    app:layoutDescription="@xml/scene_chat"
+    tools:ignore="ContentDescription">
+
+    <include layout="@layout/element_toolbar_no_elevation" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_messages"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bgr_chat_recycler"
+        android:overScrollMode="never"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        tools:listitem="@layout/item_chat_msg_left" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white" />
+
+    <ImageButton
+        android:id="@+id/button_file"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:padding="10dp"
+        android:tint="@color/primary"
+        app:srcCompat="@drawable/ic_share_file" />
+
+    <ImageButton
+        android:id="@+id/button_emoji"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:padding="10dp"
+        android:tint="@color/primary"
+        app:srcCompat="@drawable/ic_emoji" />
+
+    <EditText
+        android:id="@+id/et_input_message"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:hint="Type message..."
+        android:importantForAutofill="no"
+        android:inputType="textCapSentences|textMultiLine"
+        android:maxLength="2000"
+        android:maxLines="4"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp" />
+
+    <ImageButton
+        android:id="@+id/button_send"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:padding="10dp"
+        android:tint="@color/primary"
+        app:srcCompat="@drawable/ic_send" />
+</androidx.constraintlayout.motion.widget.MotionLayout>

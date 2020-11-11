@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    tools:ignore="ContentDescription"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:background="@color/primary"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageButton
+        android:id="@+id/button_close"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="@color/transparent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:tint="@color/white"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="12dp"
+        app:srcCompat="@drawable/ic_close" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/button_upload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="16dp"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        app:rippleColor="@color/accent"
+        android:textAlignment="center"
+        app:backgroundTint="@color/primary"
+        android:textColor="@color/white"
+        android:text="Upload" />
+
+    <include layout="@layout/element_progress" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

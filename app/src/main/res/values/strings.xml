@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">SocialNet</string>
+
+    <string name="oauth_client_id">197515846046-kpaoj08068kv4hr2p69r1r8b1j009p2i.apps.googleusercontent.com</string>
+    <string name="oauth_client_secret">J778SZM9OxoZi6E2x_GHPpBW</string>
+
+    <string name="facebook_app_id">355497652314602</string>
+    <string name="fb_login_protocol_scheme">fb355497652314602</string>
+
+    <string name="follow">Follow</string>
+    <string name="following">Following</string>
+
+</resources>

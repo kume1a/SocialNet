@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:layout_height="match_parent"
+    app:layoutDescription="@xml/scene_explore">
+
+    <EditText
+        android:id="@+id/et_search"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_search"
+        android:drawablePadding="12dp"
+        android:hint="Search..."
+        android:importantForAutofill="no"
+        android:inputType="text" />
+
+    <com.kumela.roundimageview.RoundedImageView
+        android:id="@+id/image_header"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        tools:background="@color/primary" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_explore"
+        android:layout_width="0dp"
+        android:overScrollMode="never"
+        android:layout_height="0dp"
+        tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:itemCount="20"
+        tools:listitem="@layout/item_explore_double_image_right_header" />
+
+</androidx.constraintlayout.motion.widget.MotionLayout>

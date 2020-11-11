@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.kumela.socialnet.ui.splash.SplashFragment"
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/action_splashFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splashFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splashFragment_to_personalInfoFragment"
+            app:destination="@id/personalInfoFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.kumela.socialnet.ui.login.LoginFragment"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_personalInfoFragment"
+            app:destination="@id/personalInfoFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.kumela.socialnet.ui.register.RegisterFragment"
+        tools:layout="@layout/fragment_register">
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/registerFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_registerFragment_to_personalInfoFragment"
+            app:destination="@id/personalInfoFragment"
+            app:popUpTo="@id/registerFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_registerFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/registerFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.kumela.socialnet.ui.home.HomeFragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_exploreFragment"
+            app:destination="@id/exploreFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_homeFragment_to_messagesFragment"
+            app:destination="@id/messagesFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_homeFragment_to_storyUploaderFragment"
+            app:destination="@id/storyUploaderFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_userListFragment"
+            app:destination="@id/userListFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_commentsFragment"
+            app:destination="@id/commentsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_storyPresenterFragment"
+            app:destination="@id/storyPresenterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/exploreFragment"
+        android:name="com.kumela.socialnet.ui.explore.ExploreFragment"
+        tools:layout="@layout/fragment_explore">
+        <action
+            android:id="@+id/action_exploreFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/exploreFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_exploreFragment_to_messagesFragment"
+            app:destination="@id/messagesFragment"
+            app:popUpTo="@id/exploreFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_exploreFragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:popUpTo="@id/exploreFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_exploreFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/messagesFragment"
+        android:name="com.kumela.socialnet.ui.messages.MessagesFragment"
+        tools:layout="@layout/fragment_messages">
+        <action
+            android:id="@+id/action_messagesFragment_to_exploreFragment"
+            app:destination="@id/exploreFragment"
+            app:popUpTo="@id/messagesFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_messagesFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/messagesFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_messagesFragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:popUpTo="@id/messagesFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_messagesFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_messagesFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.kumela.socialnet.ui.profile.ProfileFragment"
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profileFragment_to_messagesFragment"
+            app:destination="@id/messagesFragment"
+            app:popUpTo="@id/profileFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_profileFragment_to_exploreFragment"
+            app:destination="@id/exploreFragment"
+            app:popUpTo="@id/profileFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_profileFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/profileFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_profileFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/profileFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_profileFragment_to_userListFragment"
+            app:destination="@id/userListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/personalInfoFragment"
+        android:name="com.kumela.socialnet.ui.personal_info.PersonalInfoFragment"
+        tools:layout="@layout/fragment_personal_info">
+        <action
+            android:id="@+id/action_personalInfoFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/personalInfoFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="uid"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.kumela.socialnet.ui.chat.ChatFragment"
+        tools:layout="@layout/fragment_chat">
+        <argument
+            android:name="userId"
+            app:argType="string" />
+        <argument
+            android:name="userImageUri"
+            app:argType="string" />
+        <argument
+            android:name="userUsername"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.kumela.socialnet.ui.search.SearchFragment"
+        tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/commentsFragment"
+        android:name="com.kumela.socialnet.ui.comments.CommentsFragment"
+        tools:layout="@layout/fragment_comments">
+        <argument
+            android:name="postId"
+            app:argType="string" />
+        <argument
+            android:name="currentUserId"
+            app:argType="string" />
+        <argument
+            android:name="currentUserProfileImageUri"
+            app:argType="string" />
+        <argument
+            android:name="currentUserUsername"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/postImageFragment"
+        android:name="com.kumela.socialnet.ui.post_image.PostImageFragment"
+        tools:layout="@layout/fragment_post_image">
+        <argument
+            android:name="imageUri"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="imageBitmap"
+            android:defaultValue="@null"
+            app:argType="android.graphics.Bitmap"
+            app:nullable="true" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_postImageFragment"
+        app:destination="@id/postImageFragment" />
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="com.kumela.socialnet.ui.user_profile.UserProfileFragment"
+        tools:layout="@layout/fragment_user_profile">
+        <argument
+            android:name="userId"
+            app:argType="string" />
+        <argument
+            android:name="userImageUri"
+            app:argType="string" />
+        <argument
+            android:name="userUsername"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_userProfileFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+        <action
+            android:id="@+id/action_userProfileFragment_to_userListFragment"
+            app:destination="@id/userListFragment" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_userProfileFragment"
+        app:destination="@id/userProfileFragment"
+        app:launchSingleTop="true" />
+    <fragment
+        android:id="@+id/userListFragment"
+        android:name="com.kumela.socialnet.ui.user_list.UserListFragment"
+        tools:layout="@layout/fragment_user_list">
+        <argument
+            android:name="dataType"
+            app:argType="com.kumela.socialnet.ui.user_list.DataType" />
+        <argument
+            android:name="key"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/storyUploaderFragment"
+        android:name="com.kumela.socialnet.ui.story_uploder.StoryUploaderFragment"
+        tools:layout="@layout/fragment_story_uploader">
+        <argument
+            android:name="imageUri"
+            app:argType="android.net.Uri" />
+    </fragment>
+    <fragment
+        android:id="@+id/storyPresenterFragment"
+        tools:layout="@layout/fragment_story_presenter"
+        android:name="com.kumela.socialnet.ui.story_presenter.StoryPresenterFragment" >
+        <argument
+            android:name="initialAuthorId"
+            app:argType="string" />
+    </fragment>
+</navigation>

@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/element_toolbar" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="64dp"
+            tools:ignore="MissingConstraints,ContentDescription">
+
+            <com.kumela.roundimageview.RoundedImageView
+                android:id="@+id/image_profile"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="32dp"
+                app:cornerRadius="50dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:background="@color/primary" />
+
+            <TextView
+                android:id="@+id/text_username"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="12dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textAlignment="textStart"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/image_profile"
+                app:layout_constraintTop_toBottomOf="@id/image_profile"
+                app:layout_constraintTop_toTopOf="@id/image_profile"
+                tools:text="Anna Alvarad" />
+
+            <TextView
+                android:id="@+id/text_bio"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="12dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textAlignment="textStart"
+                android:textColor="@color/secondary_text"
+                android:textSize="14sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/image_profile"
+                app:layout_constraintTop_toBottomOf="@id/text_username"
+                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                tools:visibility="visible" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_follow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                tools:text="Follow"
+                android:textAllCaps="false"
+                app:cornerRadius="20dp"
+                app:layout_constraintStart_toEndOf="@id/image_profile"
+                app:layout_constraintTop_toBottomOf="@id/text_bio" />
+
+            <ImageButton
+                android:id="@+id/button_send_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:background="@drawable/bgr_primary_20dp"
+                android:paddingStart="18dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="18dp"
+                android:paddingBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="@id/button_follow"
+                app:layout_constraintStart_toEndOf="@id/button_follow"
+                app:layout_constraintTop_toTopOf="@id/button_follow"
+                app:srcCompat="@drawable/ic_send_2" />
+
+            <androidx.constraintlayout.helper.widget.Flow
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="64dp"
+                app:constraint_referenced_ids="text_post_count,text_follower_count,text_following_count"
+                app:flow_wrapMode="chain"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button_follow" />
+
+            <TextView
+                android:id="@+id/text_post_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:text="509" />
+
+            <TextView
+                android:id="@+id/text_posts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Posts"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@id/text_post_count"
+                app:layout_constraintStart_toStartOf="@id/text_post_count"
+                app:layout_constraintTop_toBottomOf="@id/text_post_count" />
+
+            <TextView
+                android:id="@+id/text_follower_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:text="619" />
+
+            <TextView
+                android:id="@+id/text_followers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Followers"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@id/text_follower_count"
+                app:layout_constraintStart_toStartOf="@id/text_follower_count"
+                app:layout_constraintTop_toBottomOf="@id/text_follower_count" />
+
+            <TextView
+                android:id="@+id/text_following_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:text="79" />
+
+            <TextView
+                android:id="@+id/text_following"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Following"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@id/text_following_count"
+                app:layout_constraintStart_toStartOf="@id/text_following_count"
+                app:layout_constraintTop_toBottomOf="@id/text_following_count" />
+
+            <TextView
+                android:id="@+id/text_stories_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="48dp"
+                android:text="Stories"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_posts"
+                tools:visibility="visible" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_stories"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal"
+                android:overScrollMode="never"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_stories_header"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_story_profile"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/text_posts_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="24dp"
+                android:text="Posts"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recycler_stories"
+                tools:visibility="visible" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_posts"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="9dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="9dp"
+                android:layout_marginBottom="32dp"
+                android:overScrollMode="never"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_posts_header"
+                tools:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/image_camera"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="32dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recycler_stories"
+                app:srcCompat="@drawable/ic_camera"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/text_no_posts_yet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No posts yet"
+                android:textColor="@color/secondary_text"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image_camera"
+                tools:visibility="visible" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

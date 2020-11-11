@@ -1,0 +1,79 @@
+package com.kumela.socialnet.ui.story_presenter
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.RecyclerView
+import com.kumela.roundimageview.RoundedImageView
+import com.kumela.socialnet.R
+import com.kumela.socialnet.models.firebase.FeedStoryModel
+import com.kumela.socialnet.models.firebase.UserModel
+import com.kumela.socialnet.ui.adapters.story_images.ImagePagerAdapter
+import com.kumela.socialnet.ui.common.mvc.BaseObservableViewMvc
+import com.kumela.socialnet.ui.common.utils.OnRecyclerSnapListener
+import com.kumela.socialnet.ui.common.utils.load
+import com.kumela.socialnet.ui.common.views.PagerIndexIndicator
+
+/**
+ * Created by Toko on 09,November,2020
+ **/
+
+class StoryPresenterViewMvcImpl(
+    inflater: LayoutInflater,
+    parent: ViewGroup?
+) : BaseObservableViewMvc<StoryPresenterViewMvc.Listener>(
+    inflater, parent, R.layout.fragment_story_presenter
+), StoryPresenterViewMvc {
+
+    private val pagerIndicator: PagerIndexIndicator = findViewById(R.id.pager_indicator)
+    private val buttonClose: ImageButton = findViewById(R.id.button_close)
+    private val recyclerImages: RecyclerView = findViewById(R.id.recycler_images)
+    private val imageProfile: RoundedImageView = findViewById(R.id.image_profile)
+    private val textUsername: TextView = findViewById(R.id.text_username)
+
+    private val imagePagerAdapter = ImagePagerAdapter()
+
+    init {
+        buttonClose.setOnClickListener { listener?.onCloseClicked() }
+
+        recyclerImages.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            setHasFixedSize(true)
+            adapter = imagePagerAdapter
+
+            val snapHelper = PagerSnapHelper()
+            addOnScrollListener(OnRecyclerSnapListener(snapHelper) { position ->
+                listener?.onPageChanged(position)
+            })
+            snapHelper.attachToRecyclerView(this)
+        }
+    }
+
+    override fun bindStoryAuthor(userModel: UserModel) {
+        imageProfile.load(userModel.imageUri)
+        textUsername.text = userModel.username
+    }
+
+    override fun bindStories(feedStories: List<FeedStoryModel>) {
+        imagePagerAdapter.bindImages(feedStories)
+    }
+
+    override fun bindImageCount(count: Int, initialIndex: Int) {
+        pagerIndicator.setItemCount(count, initialIndex)
+    }
+
+    override fun nextIndex() {
+        pagerIndicator.next()
+    }
+
+    override fun previousIndex() {
+        pagerIndicator.previous()
+    }
+
+    override fun imageIndexTo(index: Int) {
+        recyclerImages.scrollToPosition(index)
+    }
+}
