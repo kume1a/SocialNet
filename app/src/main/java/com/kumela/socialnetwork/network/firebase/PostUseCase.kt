@@ -1,19 +1,19 @@
-package com.kumela.socialnet.network.firebase
+package com.kumela.socialnetwork.network.firebase
 
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
-import com.kumela.socialnet.common.UseCase
-import com.kumela.socialnet.models.PostFields
-import com.kumela.socialnet.models.firebase.CommentModel
-import com.kumela.socialnet.models.firebase.FeedModel
-import com.kumela.socialnet.models.list.PostModel
-import com.kumela.socialnet.network.firebase.helpers.DatabaseHelper
-import com.kumela.socialnet.network.firebase.helpers.FunctionsHelper
-import com.kumela.socialnet.network.firebase.helpers.FunctionsObjectsDeserializer
-import com.kumela.socialnet.network.firebase.helpers.UnknownFunctionException
+import com.kumela.socialnetwork.common.UseCase
+import com.kumela.socialnetwork.models.PostFields
+import com.kumela.socialnetwork.models.firebase.CommentModel
+import com.kumela.socialnetwork.models.firebase.FeedModel
+import com.kumela.socialnetwork.models.list.PostModel
+import com.kumela.socialnetwork.network.firebase.helpers.DatabaseHelper
+import com.kumela.socialnetwork.network.firebase.helpers.FunctionsHelper
+import com.kumela.socialnetwork.network.firebase.helpers.FunctionsObjectsDeserializer
+import com.kumela.socialnetwork.network.firebase.helpers.UnknownFunctionException
 import java.util.*
 
 /**

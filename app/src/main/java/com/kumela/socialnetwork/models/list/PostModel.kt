@@ -1,7 +1,7 @@
-package com.kumela.socialnet.models.list
+package com.kumela.socialnetwork.models.list
 
 import com.google.firebase.database.Exclude
-import com.kumela.socialnet.models.PostFields
+import com.kumela.socialnetwork.models.PostFields
 
 /**
  * Created by Toko on 01,October,2020

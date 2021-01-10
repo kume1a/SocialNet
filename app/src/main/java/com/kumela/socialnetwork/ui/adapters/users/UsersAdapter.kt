@@ -1,9 +1,9 @@
-package com.kumela.socialnet.ui.adapters.users
+package com.kumela.socialnetwork.ui.adapters.users
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.kumela.socialnet.models.firebase.UserModel
-import com.kumela.socialnet.ui.common.ViewMvcFactory
+import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 
 /**
  * Created by Toko on 18,October,2020

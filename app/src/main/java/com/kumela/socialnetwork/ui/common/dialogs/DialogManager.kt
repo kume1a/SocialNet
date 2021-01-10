@@ -1,8 +1,8 @@
-package com.kumela.socialnet.ui.common.dialogs
+package com.kumela.socialnetwork.ui.common.dialogs
 
 import android.content.Context
 import androidx.fragment.app.FragmentManager
-import com.kumela.socialnet.ui.common.dialogs.alertdialog.AlertDialog
+import com.kumela.socialnetwork.ui.common.dialogs.alertdialog.AlertDialog
 
 
 /**
@@ -37,7 +37,7 @@ class DialogManager(
         dialog.show(fragmentManager, null)
     }
 
-    private fun getString(stringId: Int): String? {
+    private fun getString(stringId: Int): String {
         return context.getString(stringId)
     }
 

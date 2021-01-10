@@ -1,13 +1,13 @@
-package com.kumela.socialnet.ui.story_presenter
+package com.kumela.socialnetwork.ui.story_presenter
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
-import com.kumela.socialnet.models.firebase.FeedStoriesModel
-import com.kumela.socialnet.models.firebase.UserModel
-import com.kumela.socialnet.network.firebase.StoryUseCase
-import com.kumela.socialnet.network.firebase.UserUseCase
-import com.kumela.socialnet.ui.common.utils.isOutdated
-import com.kumela.socialnet.ui.common.viewmodels.ObservableViewModel
+import com.kumela.socialnetwork.models.firebase.FeedStoriesModel
+import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.network.firebase.StoryUseCase
+import com.kumela.socialnetwork.network.firebase.UserUseCase
+import com.kumela.socialnetwork.ui.common.utils.isOutdated
+import com.kumela.socialnetwork.ui.common.viewmodels.ObservableViewModel
 import kotlinx.coroutines.launch
 
 /**

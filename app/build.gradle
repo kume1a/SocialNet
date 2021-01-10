@@ -10,7 +10,7 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        applicationId "com.kumela.socialnet"
+        applicationId "com.kumela.socialnetwork"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
@@ -34,6 +34,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    //noinspection DifferentStdlibGradleVersion
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.3.2'
     implementation 'androidx.appcompat:appcompat:1.2.0'
@@ -53,22 +54,17 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:2.28.3"
 
     // material design
-    implementation group: 'com.google.android.material', name: 'material', version: '1.3.0-alpha03'
-
-    // view libraries
-    implementation 'com.github.kume1a:PopupMenu:0.1.1'
-    implementation 'com.github.kume1a:BottomNav:0.1.0'
-    implementation 'com.github.kume1a:RoundedImageView:0.1.1'
+    implementation group: 'com.google.android.material', name: 'material', version: '1.3.0-beta01'
 
     // Navigation components
-    implementation "androidx.navigation:navigation-fragment-ktx:2.3.1"
-    implementation "androidx.navigation:navigation-ui-ktx:2.3.1"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.3.2"
+    implementation "androidx.navigation:navigation-ui-ktx:2.3.2"
 
     // Firebase
     implementation platform('com.google.firebase:firebase-bom:25.12.0')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-auth-ktx'
-    implementation 'com.google.android.gms:play-services-auth:18.1.0'
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
     implementation 'com.google.firebase:firebase-database-ktx'
     implementation 'com.google.firebase:firebase-storage-ktx'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1'

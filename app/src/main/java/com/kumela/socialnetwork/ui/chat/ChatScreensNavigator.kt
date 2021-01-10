@@ -1,4 +1,4 @@
-package com.kumela.socialnet.ui.chat
+package com.kumela.socialnetwork.ui.chat
 
 import androidx.navigation.NavController
 import javax.inject.Inject

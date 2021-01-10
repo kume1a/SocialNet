@@ -1,4 +1,4 @@
-package com.kumela.socialnet.ui.messages
+package com.kumela.socialnetwork.ui.messages
 
 import androidx.navigation.NavController
 import javax.inject.Inject

@@ -1,4 +1,4 @@
-package com.kumela.socialnet.ui.common.utils
+package com.kumela.socialnetwork.ui.common.utils
 
 import android.text.format.DateUtils
 import android.util.Log
@@ -8,8 +8,8 @@ import android.widget.TextView
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import com.bumptech.glide.Glide
-import com.kumela.socialnet.common.Constants
-import com.kumela.socialnet.models.firebase.UserModel
+import com.kumela.socialnetwork.common.Constants
+import com.kumela.socialnetwork.models.firebase.UserModel
 import java.text.SimpleDateFormat
 import java.util.*
 

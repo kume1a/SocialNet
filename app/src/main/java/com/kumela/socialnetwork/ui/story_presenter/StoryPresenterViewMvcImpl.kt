@@ -1,4 +1,4 @@
-package com.kumela.socialnet.ui.story_presenter
+package com.kumela.socialnetwork.ui.story_presenter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,15 +7,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.kumela.roundimageview.RoundedImageView
-import com.kumela.socialnet.R
-import com.kumela.socialnet.models.firebase.FeedStoryModel
-import com.kumela.socialnet.models.firebase.UserModel
-import com.kumela.socialnet.ui.adapters.story_images.ImagePagerAdapter
-import com.kumela.socialnet.ui.common.mvc.BaseObservableViewMvc
-import com.kumela.socialnet.ui.common.utils.OnRecyclerSnapListener
-import com.kumela.socialnet.ui.common.utils.load
-import com.kumela.socialnet.ui.common.views.PagerIndexIndicator
+import com.kumela.socialnetwork.ui.common.views.RoundedImageView
+import com.kumela.socialnetwork.R
+import com.kumela.socialnetwork.models.firebase.FeedStoryModel
+import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.ui.adapters.story_images.ImagePagerAdapter
+import com.kumela.socialnetwork.ui.common.mvc.BaseObservableViewMvc
+import com.kumela.socialnetwork.ui.common.utils.OnRecyclerSnapListener
+import com.kumela.socialnetwork.ui.common.utils.load
+import com.kumela.socialnetwork.ui.common.views.PagerIndexIndicator
 
 /**
  * Created by Toko on 09,November,2020

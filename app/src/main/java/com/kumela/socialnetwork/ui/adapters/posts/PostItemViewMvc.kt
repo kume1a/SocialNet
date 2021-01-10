@@ -1,7 +1,7 @@
-package com.kumela.socialnet.ui.adapters.posts
+package com.kumela.socialnetwork.ui.adapters.posts
 
-import com.kumela.socialnet.models.list.PostModel
-import com.kumela.socialnet.ui.common.mvc.ObservableViewMvc
+import com.kumela.socialnetwork.models.list.PostModel
+import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
 
 /**
  * Created by Toko on 05,October,2020

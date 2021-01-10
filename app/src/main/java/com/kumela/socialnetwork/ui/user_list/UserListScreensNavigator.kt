@@ -1,4 +1,4 @@
-package com.kumela.socialnet.ui.user_list
+package com.kumela.socialnetwork.ui.user_list
 
 import androidx.navigation.NavController
 import javax.inject.Inject

@@ -1,13 +1,13 @@
-package com.kumela.socialnet.ui.user_list
+package com.kumela.socialnetwork.ui.user_list
 
 import android.util.Log
 import com.google.firebase.database.DatabaseReference
-import com.kumela.socialnet.models.firebase.UserModel
-import com.kumela.socialnet.network.firebase.FollowUseCase
-import com.kumela.socialnet.network.firebase.PostUseCase
-import com.kumela.socialnet.network.firebase.UserUseCase
-import com.kumela.socialnet.network.firebase.helpers.QueryPager
-import com.kumela.socialnet.ui.common.viewmodels.ObservableViewModel
+import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.network.firebase.FollowUseCase
+import com.kumela.socialnetwork.network.firebase.PostUseCase
+import com.kumela.socialnetwork.network.firebase.UserUseCase
+import com.kumela.socialnetwork.network.firebase.helpers.QueryPager
+import com.kumela.socialnetwork.ui.common.viewmodels.ObservableViewModel
 
 /**
  * Created by Toko on 05,November,2020

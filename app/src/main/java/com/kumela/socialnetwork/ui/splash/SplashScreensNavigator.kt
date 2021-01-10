@@ -1,7 +1,7 @@
-package com.kumela.socialnet.ui.splash
+package com.kumela.socialnetwork.ui.splash
 
 import androidx.navigation.NavController
-import com.kumela.socialnet.ui.common.utils.navigateSafely
+import com.kumela.socialnetwork.ui.common.utils.navigateSafely
 import javax.inject.Inject
 
 /**

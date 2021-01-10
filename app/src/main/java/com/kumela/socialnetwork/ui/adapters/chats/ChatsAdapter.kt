@@ -1,9 +1,9 @@
-package com.kumela.socialnet.ui.adapters.chats
+package com.kumela.socialnetwork.ui.adapters.chats
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.kumela.socialnet.models.list.ChatListModel
-import com.kumela.socialnet.ui.common.ViewMvcFactory
+import com.kumela.socialnetwork.models.list.ChatListModel
+import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 
 /**
  * Created by Toko on 04,October,2020

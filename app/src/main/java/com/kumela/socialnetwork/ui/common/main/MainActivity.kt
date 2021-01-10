@@ -1,4 +1,4 @@
-package com.kumela.socialnet.ui.common.main
+package com.kumela.socialnetwork.ui.common.main
 
 import android.app.Activity
 import android.content.Context
@@ -14,11 +14,11 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.navigation.findNavController
-import com.kumela.socialnet.R
-import com.kumela.socialnet.common.permissions.PermissionHelper
-import com.kumela.socialnet.ui.common.bottomnav.BottomNavHelper
-import com.kumela.socialnet.ui.common.bottomnav.BottomNavViewMvc
-import com.kumela.socialnet.ui.common.controllers.*
+import com.kumela.socialnetwork.R
+import com.kumela.socialnetwork.common.permissions.PermissionHelper
+import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper
+import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavViewMvc
+import com.kumela.socialnetwork.ui.common.controllers.*
 
 
 class MainActivity : BaseActivity(),

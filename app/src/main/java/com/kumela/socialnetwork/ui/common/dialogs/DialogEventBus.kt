@@ -1,6 +1,6 @@
-package com.kumela.socialnet.ui.common.dialogs
+package com.kumela.socialnetwork.ui.common.dialogs
 
-import com.kumela.socialnet.common.BaseObservable
+import com.kumela.socialnetwork.common.BaseObservable
 
 /**
  * Created by Toko on 14,October,2020

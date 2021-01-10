@@ -1,4 +1,4 @@
-package com.kumela.socialnet.ui.home
+package com.kumela.socialnetwork.ui.home
 
 import android.app.Activity
 import android.content.Intent
@@ -8,17 +8,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.kumela.socialnet.models.firebase.FeedModel
-import com.kumela.socialnet.models.firebase.UserModel
-import com.kumela.socialnet.ui.common.ViewMvcFactory
-import com.kumela.socialnet.ui.common.bottomnav.BottomNavHelper
-import com.kumela.socialnet.ui.common.controllers.ActivityResultListener
-import com.kumela.socialnet.ui.common.controllers.BaseFragment
-import com.kumela.socialnet.ui.common.controllers.IntentDispatcher
-import com.kumela.socialnet.ui.common.controllers.RequestResultDispatcher
-import com.kumela.socialnet.ui.common.viewmodels.ViewModelFactory
-import com.kumela.socialnet.ui.story_presenter.StoryViewModel
-import com.kumela.socialnet.ui.user_list.DataType
+import com.kumela.socialnetwork.models.firebase.FeedModel
+import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.ui.common.ViewMvcFactory
+import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper
+import com.kumela.socialnetwork.ui.common.controllers.ActivityResultListener
+import com.kumela.socialnetwork.ui.common.controllers.BaseFragment
+import com.kumela.socialnetwork.ui.common.controllers.IntentDispatcher
+import com.kumela.socialnetwork.ui.common.controllers.RequestResultDispatcher
+import com.kumela.socialnetwork.ui.common.viewmodels.ViewModelFactory
+import com.kumela.socialnetwork.ui.story_presenter.StoryViewModel
+import com.kumela.socialnetwork.ui.user_list.DataType
 import javax.inject.Inject
 
 /**
@@ -43,7 +43,7 @@ class HomeFragment : BaseFragment(), HomeViewMvc.Listener,
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         injector.inject(this)
 
         mViewMvc = mViewMvcFactory.newInstance(HomeViewMvc::class, container)

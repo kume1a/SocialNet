@@ -1,4 +1,4 @@
-package com.kumela.socialnet.ui.story_uploder
+package com.kumela.socialnetwork.ui.story_uploder
 
 import android.net.Uri
 import android.view.LayoutInflater
@@ -8,8 +8,8 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.constraintlayout.widget.Group
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-import com.kumela.socialnet.R
-import com.kumela.socialnet.ui.common.mvc.BaseObservableViewMvc
+import com.kumela.socialnetwork.R
+import com.kumela.socialnetwork.ui.common.mvc.BaseObservableViewMvc
 
 /**
  * Created by Toko on 06,November,2020

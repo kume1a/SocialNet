@@ -1,18 +1,18 @@
-package com.kumela.socialnet.ui.explore
+package com.kumela.socialnetwork.ui.explore
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.kumela.roundimageview.RoundedImageView
-import com.kumela.socialnet.R
-import com.kumela.socialnet.common.Constants.images
-import com.kumela.socialnet.models.list.PostModel
-import com.kumela.socialnet.ui.adapters.explore.ExploreAdapter
-import com.kumela.socialnet.ui.common.ViewMvcFactory
-import com.kumela.socialnet.ui.common.mvc.BaseObservableViewMvc
-import com.kumela.socialnet.ui.common.utils.load
+import com.kumela.socialnetwork.ui.common.views.RoundedImageView
+import com.kumela.socialnetwork.R
+import com.kumela.socialnetwork.common.Constants.images
+import com.kumela.socialnetwork.models.list.PostModel
+import com.kumela.socialnetwork.ui.adapters.explore.ExploreAdapter
+import com.kumela.socialnetwork.ui.common.ViewMvcFactory
+import com.kumela.socialnetwork.ui.common.mvc.BaseObservableViewMvc
+import com.kumela.socialnetwork.ui.common.utils.load
 
 /**
  * Created by Toko on 24,September,2020

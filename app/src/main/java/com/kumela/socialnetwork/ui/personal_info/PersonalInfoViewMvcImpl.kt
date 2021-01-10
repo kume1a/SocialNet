@@ -1,4 +1,4 @@
-package com.kumela.socialnet.ui.personal_info
+package com.kumela.socialnetwork.ui.personal_info
 
 import android.net.Uri
 import android.view.LayoutInflater
@@ -9,9 +9,9 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.google.android.material.snackbar.Snackbar
-import com.kumela.roundimageview.RoundedImageView
-import com.kumela.socialnet.R
-import com.kumela.socialnet.ui.common.mvc.BaseObservableViewMvc
+import com.kumela.socialnetwork.ui.common.views.RoundedImageView
+import com.kumela.socialnetwork.R
+import com.kumela.socialnetwork.ui.common.mvc.BaseObservableViewMvc
 
 
 /**

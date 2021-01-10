@@ -1,8 +1,8 @@
-package com.kumela.socialnet.ui.story_presenter
+package com.kumela.socialnetwork.ui.story_presenter
 
-import com.kumela.socialnet.models.firebase.FeedStoryModel
-import com.kumela.socialnet.models.firebase.UserModel
-import com.kumela.socialnet.ui.common.mvc.ObservableViewMvc
+import com.kumela.socialnetwork.models.firebase.FeedStoryModel
+import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
 
 /**
  * Created by Toko on 09,November,2020

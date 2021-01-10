@@ -1,14 +1,14 @@
-package com.kumela.socialnet.ui.story_presenter
+package com.kumela.socialnetwork.ui.story_presenter
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.kumela.socialnet.models.firebase.FeedStoryModel
-import com.kumela.socialnet.ui.common.ViewMvcFactory
-import com.kumela.socialnet.ui.common.bottomnav.BottomNavHelper
-import com.kumela.socialnet.ui.common.controllers.BaseFragment
+import com.kumela.socialnetwork.models.firebase.FeedStoryModel
+import com.kumela.socialnetwork.ui.common.ViewMvcFactory
+import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper
+import com.kumela.socialnetwork.ui.common.controllers.BaseFragment
 import javax.inject.Inject
 
 /**
@@ -30,7 +30,11 @@ class StoryPresenterFragment : BaseFragment(), StoryPresenterViewMvc.Listener {
     @Inject lateinit var mViewMvcFactory: ViewMvcFactory
     @Inject lateinit var mBottomNavHelper: BottomNavHelper
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         injector.inject(this)
 
         mBottomNavHelper.hideBottomNav()
@@ -98,7 +102,8 @@ class StoryPresenterFragment : BaseFragment(), StoryPresenterViewMvc.Listener {
             val currentFeedStory = feedStories[storyPage]
 
             // change story author and reset indicator
-            mViewMvc.bindStoryAuthor(mViewModel.getStoryPosters().first { it.id == currentFeedStory.userId })
+            mViewMvc.bindStoryAuthor(
+                mViewModel.getStoryPosters().first { it.id == currentFeedStory.userId })
             mViewMvc.bindImageCount(
                 currentFeedStory.stories.size,
                 if (mLastStoryPage > storyPage) currentFeedStory.stories.size - 1 else 0

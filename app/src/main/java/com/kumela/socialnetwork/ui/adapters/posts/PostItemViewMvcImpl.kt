@@ -1,12 +1,12 @@
-package com.kumela.socialnet.ui.adapters.posts
+package com.kumela.socialnetwork.ui.adapters.posts
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.kumela.roundimageview.RoundedImageView
-import com.kumela.socialnet.R
-import com.kumela.socialnet.models.list.PostModel
-import com.kumela.socialnet.ui.common.utils.load
-import com.kumela.socialnet.ui.common.mvc.BaseObservableViewMvc
+import com.kumela.socialnetwork.ui.common.views.RoundedImageView
+import com.kumela.socialnetwork.R
+import com.kumela.socialnetwork.models.list.PostModel
+import com.kumela.socialnetwork.ui.common.utils.load
+import com.kumela.socialnetwork.ui.common.mvc.BaseObservableViewMvc
 
 /**
  * Created by Toko on 05,October,2020

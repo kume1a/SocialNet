@@ -1,4 +1,4 @@
-package com.kumela.socialnet.ui.story_presenter
+package com.kumela.socialnetwork.ui.story_presenter
 
 import androidx.navigation.NavController
 import javax.inject.Inject

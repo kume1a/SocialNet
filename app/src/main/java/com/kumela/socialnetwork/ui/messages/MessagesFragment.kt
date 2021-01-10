@@ -1,16 +1,16 @@
-package com.kumela.socialnet.ui.messages
+package com.kumela.socialnetwork.ui.messages
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.kumela.socialnet.models.firebase.UserModel
-import com.kumela.socialnet.models.list.ChatListModel
-import com.kumela.socialnet.ui.common.ViewMvcFactory
-import com.kumela.socialnet.ui.common.bottomnav.BottomNavHelper
-import com.kumela.socialnet.ui.common.controllers.BaseFragment
-import com.kumela.socialnet.ui.common.viewmodels.ViewModelFactory
+import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.models.list.ChatListModel
+import com.kumela.socialnetwork.ui.common.ViewMvcFactory
+import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper
+import com.kumela.socialnetwork.ui.common.controllers.BaseFragment
+import com.kumela.socialnetwork.ui.common.viewmodels.ViewModelFactory
 import javax.inject.Inject
 
 /**
@@ -36,7 +36,7 @@ class MessagesFragment : BaseFragment(), MessagesViewMvc.Listener, MessagesViewM
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         mBottomNavHelper.showBottomNav()
 
         mViewMvc = mViewMvcFactory.newInstance(MessagesViewMvc::class, container)

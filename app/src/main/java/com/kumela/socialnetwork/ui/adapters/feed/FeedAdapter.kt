@@ -1,11 +1,11 @@
-package com.kumela.socialnet.ui.adapters.feed
+package com.kumela.socialnetwork.ui.adapters.feed
 
 import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.kumela.socialnet.models.firebase.FeedModel
-import com.kumela.socialnet.models.firebase.UserModel
-import com.kumela.socialnet.ui.common.ViewMvcFactory
+import com.kumela.socialnetwork.models.firebase.FeedModel
+import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 
 /**
  * Created by Toko on 01,October,2020

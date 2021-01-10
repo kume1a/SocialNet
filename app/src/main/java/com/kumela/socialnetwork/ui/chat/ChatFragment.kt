@@ -1,4 +1,4 @@
-package com.kumela.socialnet.ui.chat
+package com.kumela.socialnetwork.ui.chat
 
 import android.os.Bundle
 import android.util.Log
@@ -6,14 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.kumela.socialnet.models.firebase.MessageModel
-import com.kumela.socialnet.models.list.MessageListModel
-import com.kumela.socialnet.network.firebase.UserUseCase
-import com.kumela.socialnet.ui.common.ViewMvcFactory
-import com.kumela.socialnet.ui.common.bottomnav.BottomNavHelper
-import com.kumela.socialnet.ui.common.controllers.BaseFragment
-import com.kumela.socialnet.ui.common.utils.getUniqueId
-import com.kumela.socialnet.ui.common.viewmodels.ViewModelFactory
+import com.kumela.socialnetwork.models.firebase.MessageModel
+import com.kumela.socialnetwork.models.list.MessageListModel
+import com.kumela.socialnetwork.network.firebase.UserUseCase
+import com.kumela.socialnetwork.ui.common.ViewMvcFactory
+import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper
+import com.kumela.socialnetwork.ui.common.controllers.BaseFragment
+import com.kumela.socialnetwork.ui.common.utils.getUniqueId
+import com.kumela.socialnetwork.ui.common.viewmodels.ViewModelFactory
 import javax.inject.Inject
 
 /**
@@ -42,7 +42,7 @@ class ChatFragment : BaseFragment(), ChatViewMvc.Listener, ChatViewModel.Listene
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         injector.inject(this)
 
         mBottomNavHelper.hideBottomNav()

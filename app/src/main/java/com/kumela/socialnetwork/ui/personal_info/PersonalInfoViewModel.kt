@@ -1,12 +1,12 @@
-package com.kumela.socialnet.ui.personal_info
+package com.kumela.socialnetwork.ui.personal_info
 
 import android.net.Uri
 import android.util.Log
-import com.kumela.socialnet.models.firebase.UserModel
-import com.kumela.socialnet.network.firebase.ImageType
-import com.kumela.socialnet.network.firebase.ImageUseCase
-import com.kumela.socialnet.network.firebase.UserUseCase
-import com.kumela.socialnet.ui.common.viewmodels.ObservableViewModel
+import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.network.firebase.ImageType
+import com.kumela.socialnetwork.network.firebase.ImageUseCase
+import com.kumela.socialnetwork.network.firebase.UserUseCase
+import com.kumela.socialnetwork.ui.common.viewmodels.ObservableViewModel
 
 /**
  * Created by Toko on 29,October,2020

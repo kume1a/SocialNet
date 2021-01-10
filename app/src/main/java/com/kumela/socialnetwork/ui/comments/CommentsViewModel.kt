@@ -1,11 +1,11 @@
-package com.kumela.socialnet.ui.comments
+package com.kumela.socialnetwork.ui.comments
 
 import android.util.Log
-import com.kumela.socialnet.models.firebase.CommentModel
-import com.kumela.socialnet.models.list.CommentListModel
-import com.kumela.socialnet.network.firebase.PostUseCase
-import com.kumela.socialnet.network.firebase.UserUseCase
-import com.kumela.socialnet.ui.common.viewmodels.ObservableViewModel
+import com.kumela.socialnetwork.models.firebase.CommentModel
+import com.kumela.socialnetwork.models.list.CommentListModel
+import com.kumela.socialnetwork.network.firebase.PostUseCase
+import com.kumela.socialnetwork.network.firebase.UserUseCase
+import com.kumela.socialnetwork.ui.common.viewmodels.ObservableViewModel
 
 /**
  * Created by Toko on 08,November,2020

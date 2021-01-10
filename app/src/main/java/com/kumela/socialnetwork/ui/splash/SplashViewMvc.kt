@@ -1,10 +1,9 @@
-package com.kumela.socialnet.ui.splash
+package com.kumela.socialnetwork.ui.splash
 
-import com.kumela.socialnet.ui.common.mvc.ViewMvc
+import com.kumela.socialnetwork.ui.common.mvc.ViewMvc
 
 /**
  * Created by Toko on 24,September,2020
  **/
 
-interface SplashViewMvc : ViewMvc {
-}
+interface SplashViewMvc : ViewMvc

@@ -1,7 +1,7 @@
-package com.kumela.socialnet.ui.user_list
+package com.kumela.socialnetwork.ui.user_list
 
-import com.kumela.socialnet.models.firebase.UserModel
-import com.kumela.socialnet.ui.common.mvc.ObservableViewMvc
+import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
 
 /**
  * Created by Toko on 05,November,2020

@@ -5,9 +5,9 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:paddingStart="12dp"
-    tools:ignore="ContentDescription">
+    tools:ignore="ContentDescription,RtlSymmetry">
 
-    <com.kumela.roundimageview.RoundedImageView
+    <com.kumela.socialnetwork.ui.common.views.RoundedImageView
         android:id="@+id/image"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:background="@color/primary" />
 
-    <com.kumela.roundimageview.RoundedImageView
+    <com.kumela.socialnetwork.ui.common.views.RoundedImageView
         android:id="@+id/iv_online"
         android:layout_width="12dp"
         android:layout_height="12dp"

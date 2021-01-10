@@ -1,4 +1,4 @@
-package com.kumela.socialnet.common.di.presentation
+package com.kumela.socialnetwork.common.di.presentation
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,9 +7,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import androidx.savedstate.SavedStateRegistryOwner
-import com.kumela.socialnet.ui.common.ViewMvcFactory
-import com.kumela.socialnet.ui.common.dialogs.DialogManager
+import com.kumela.socialnetwork.ui.common.ViewMvcFactory
+import com.kumela.socialnetwork.ui.common.dialogs.DialogManager
 import dagger.Module
 import dagger.Provides
 

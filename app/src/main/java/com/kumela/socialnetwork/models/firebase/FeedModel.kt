@@ -1,4 +1,4 @@
-package com.kumela.socialnet.models.firebase
+package com.kumela.socialnetwork.models.firebase
 
 
 /**

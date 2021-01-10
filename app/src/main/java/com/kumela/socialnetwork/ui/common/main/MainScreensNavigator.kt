@@ -1,9 +1,9 @@
-package com.kumela.socialnet.ui.common.main
+package com.kumela.socialnetwork.ui.common.main
 
 import android.graphics.Bitmap
 import androidx.navigation.NavController
-import com.kumela.socialnet.R
-import com.kumela.socialnet.ui.post_image.PostImageFragmentDirections
+import com.kumela.socialnetwork.R
+import com.kumela.socialnetwork.ui.post_image.PostImageFragmentDirections
 import javax.inject.Inject
 
 /**
@@ -74,9 +74,5 @@ class MainScreensNavigator @Inject constructor(private val navController: NavCon
     fun toPostImage(imageBitmap: Bitmap) {
         val action = PostImageFragmentDirections.actionGlobalPostImageFragment(imageBitmap = imageBitmap)
         navController.navigate(action)
-    }
-
-    fun getCurrentBottomNavDest(): BottomNavDest? {
-        return getBottomNavDest(navController.currentDestination?.id)
     }
 }

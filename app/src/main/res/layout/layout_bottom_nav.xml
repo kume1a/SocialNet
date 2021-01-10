@@ -16,9 +16,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/nav_graph" />
+        app:navGraph="@navigation/nav_graph"
+        tools:ignore="FragmentTagUsage" />
 
-    <com.kumela.popupmenu.PopupMenu
+    <com.kumela.socialnetwork.ui.common.views.popupmenu.PopupMenu
         android:id="@+id/popup_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,7 +35,7 @@
         app:marginVertical="10dp"
         app:menu="@menu/fab_menu" />
 
-    <com.kumela.library.BottomNav
+    <com.kumela.socialnetwork.ui.common.views.bottomnav.BottomNav
         android:id="@+id/bottom_nav"
         android:layout_width="0dp"
         android:layout_height="56dp"

@@ -1,11 +1,11 @@
-package com.kumela.socialnet.common.di.presentation
+package com.kumela.socialnetwork.common.di.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import com.facebook.CallbackManager
 import com.facebook.login.LoginManager
 import com.google.firebase.auth.FirebaseAuth
-import com.kumela.socialnet.common.utils.CredentialChecker
-import com.kumela.socialnet.network.authentication.*
+import com.kumela.socialnetwork.common.utils.CredentialChecker
+import com.kumela.socialnetwork.network.authentication.*
 import dagger.Module
 import dagger.Provides
 

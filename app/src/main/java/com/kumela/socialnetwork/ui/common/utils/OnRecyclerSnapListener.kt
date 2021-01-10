@@ -1,4 +1,4 @@
-package com.kumela.socialnet.ui.common.utils
+package com.kumela.socialnetwork.ui.common.utils
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.SnapHelper
 
 class OnRecyclerSnapListener(
     private val snapHelper: SnapHelper,
-    var onSnapPositionChangeListener: (Int) -> Unit
+    private val onSnapPositionChangeListener: (Int) -> Unit
 ) : RecyclerView.OnScrollListener() {
 
     private var snapPosition = RecyclerView.NO_POSITION

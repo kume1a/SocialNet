@@ -1,10 +1,10 @@
-package com.kumela.socialnet.ui.adapters.messages
+package com.kumela.socialnetwork.ui.adapters.messages
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.kumela.socialnet.models.list.MessageListModel
-import com.kumela.socialnet.network.firebase.UserUseCase
-import com.kumela.socialnet.ui.common.ViewMvcFactory
+import com.kumela.socialnetwork.models.list.MessageListModel
+import com.kumela.socialnetwork.network.firebase.UserUseCase
+import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 
 /**
  * Created by Toko on 08,October,2020

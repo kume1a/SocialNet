@@ -1,4 +1,4 @@
-package com.kumela.socialnet.network.authentication
+package com.kumela.socialnetwork.network.authentication
 
 import com.google.firebase.auth.FirebaseAuth
 

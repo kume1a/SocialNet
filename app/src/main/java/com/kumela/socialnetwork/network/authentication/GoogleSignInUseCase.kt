@@ -1,4 +1,4 @@
-package com.kumela.socialnet.network.authentication
+package com.kumela.socialnetwork.network.authentication
 
 import android.content.Intent
 import android.util.Log
@@ -9,9 +9,9 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
-import com.kumela.socialnet.R
-import com.kumela.socialnet.common.BaseObservable
-import com.kumela.socialnet.ui.register.RegisterFragment.Companion.RC_GOOGLE_SIGN_IN
+import com.kumela.socialnetwork.R
+import com.kumela.socialnetwork.common.BaseObservable
+import com.kumela.socialnetwork.ui.register.RegisterFragment.Companion.RC_GOOGLE_SIGN_IN
 
 
 /**

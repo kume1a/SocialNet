@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:ignore="ContentDescription">
 
-    <com.kumela.roundimageview.RoundedImageView
+    <com.kumela.socialnetwork.ui.common.views.RoundedImageView
         android:id="@+id/image_profile"
         android:layout_width="0dp"
         android:layout_height="0dp"

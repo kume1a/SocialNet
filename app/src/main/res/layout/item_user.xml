@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     
-    <com.kumela.roundimageview.RoundedImageView
+    <com.kumela.socialnetwork.ui.common.views.RoundedImageView
         android:id="@+id/image_profile"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

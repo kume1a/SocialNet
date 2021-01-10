@@ -1,14 +1,14 @@
-package com.kumela.socialnet.ui.adapters.story
+package com.kumela.socialnetwork.ui.adapters.story
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import com.kumela.roundimageview.RoundedImageView
-import com.kumela.socialnet.R
-import com.kumela.socialnet.models.firebase.UserModel
-import com.kumela.socialnet.ui.common.mvc.BaseObservableViewMvc
-import com.kumela.socialnet.ui.common.utils.load
+import com.kumela.socialnetwork.ui.common.views.RoundedImageView
+import com.kumela.socialnetwork.R
+import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.ui.common.mvc.BaseObservableViewMvc
+import com.kumela.socialnetwork.ui.common.utils.load
 
 /**
  * Created by Toko on 02,October,2020

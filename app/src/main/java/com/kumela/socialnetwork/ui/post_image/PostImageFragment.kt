@@ -1,4 +1,4 @@
-package com.kumela.socialnet.ui.post_image
+package com.kumela.socialnetwork.ui.post_image
 
 import android.graphics.Bitmap
 import android.net.Uri
@@ -8,14 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.kumela.socialnet.models.firebase.UserModel
-import com.kumela.socialnet.models.list.PostModel
-import com.kumela.socialnet.network.firebase.ImageType
-import com.kumela.socialnet.network.firebase.UserUseCase
-import com.kumela.socialnet.ui.common.ViewMvcFactory
-import com.kumela.socialnet.ui.common.bottomnav.BottomNavHelper
-import com.kumela.socialnet.ui.common.controllers.BaseFragment
-import com.kumela.socialnet.ui.common.dialogs.DialogManager
+import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.models.list.PostModel
+import com.kumela.socialnetwork.network.firebase.ImageType
+import com.kumela.socialnetwork.network.firebase.UserUseCase
+import com.kumela.socialnetwork.ui.common.ViewMvcFactory
+import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper
+import com.kumela.socialnetwork.ui.common.controllers.BaseFragment
+import com.kumela.socialnetwork.ui.common.dialogs.DialogManager
 import javax.inject.Inject
 
 /**
@@ -40,7 +40,7 @@ class PostImageFragment : BaseFragment(), PostImageViewMvc.Listener,
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         injector.inject(this)
 
         mBottomNavHelper.hideBottomNav()

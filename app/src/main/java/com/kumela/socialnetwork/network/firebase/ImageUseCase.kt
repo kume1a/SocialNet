@@ -1,10 +1,10 @@
-package com.kumela.socialnet.network.firebase
+package com.kumela.socialnetwork.network.firebase
 
 import android.graphics.Bitmap
 import android.net.Uri
 import com.google.firebase.storage.ktx.storageMetadata
-import com.kumela.socialnet.common.UseCase
-import com.kumela.socialnet.network.firebase.helpers.StorageHelper
+import com.kumela.socialnetwork.common.UseCase
+import com.kumela.socialnetwork.network.firebase.helpers.StorageHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext

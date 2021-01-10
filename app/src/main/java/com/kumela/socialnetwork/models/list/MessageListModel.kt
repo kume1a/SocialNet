@@ -1,4 +1,4 @@
-package com.kumela.socialnet.models.list
+package com.kumela.socialnetwork.models.list
 
 /**
  * Created by Toko on 02,November,2020

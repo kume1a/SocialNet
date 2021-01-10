@@ -1,4 +1,4 @@
-package com.kumela.socialnet.ui.profile
+package com.kumela.socialnetwork.ui.profile
 
 import android.view.LayoutInflater
 import android.view.View
@@ -11,16 +11,16 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.kumela.roundimageview.RoundedImageView
-import com.kumela.socialnet.R
-import com.kumela.socialnet.models.firebase.StoryModel
-import com.kumela.socialnet.models.list.PostModel
-import com.kumela.socialnet.ui.adapters.posts.PostsAdapter
-import com.kumela.socialnet.ui.adapters.story_profile.ProfileStoryAdapter
-import com.kumela.socialnet.ui.common.ViewMvcFactory
-import com.kumela.socialnet.ui.common.mvc.BaseObservableViewMvc
-import com.kumela.socialnet.ui.common.toolbar.ToolbarViewMvc
-import com.kumela.socialnet.ui.common.utils.load
+import com.kumela.socialnetwork.ui.common.views.RoundedImageView
+import com.kumela.socialnetwork.R
+import com.kumela.socialnetwork.models.firebase.StoryModel
+import com.kumela.socialnetwork.models.list.PostModel
+import com.kumela.socialnetwork.ui.adapters.posts.PostsAdapter
+import com.kumela.socialnetwork.ui.adapters.story_profile.ProfileStoryAdapter
+import com.kumela.socialnetwork.ui.common.ViewMvcFactory
+import com.kumela.socialnetwork.ui.common.mvc.BaseObservableViewMvc
+import com.kumela.socialnetwork.ui.common.toolbar.ToolbarViewMvc
+import com.kumela.socialnetwork.ui.common.utils.load
 
 /**
  * Created by Toko on 24,September,2020

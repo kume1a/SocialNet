@@ -1,4 +1,4 @@
-package com.kumela.socialnet.common.di.annotations
+package com.kumela.socialnetwork.common.di.annotations
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey

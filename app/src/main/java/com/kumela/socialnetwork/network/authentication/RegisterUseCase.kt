@@ -1,10 +1,10 @@
-package com.kumela.socialnet.network.authentication
+package com.kumela.socialnetwork.network.authentication
 
 import android.content.Intent
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.kumela.socialnet.common.BaseObservable
+import com.kumela.socialnetwork.common.BaseObservable
 
 /**
  * Created by Toko on 26,September,2020

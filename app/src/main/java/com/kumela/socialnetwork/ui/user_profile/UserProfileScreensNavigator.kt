@@ -1,7 +1,7 @@
-package com.kumela.socialnet.ui.user_profile
+package com.kumela.socialnetwork.ui.user_profile
 
 import androidx.navigation.NavController
-import com.kumela.socialnet.ui.user_list.DataType
+import com.kumela.socialnetwork.ui.user_list.DataType
 import javax.inject.Inject
 
 /**

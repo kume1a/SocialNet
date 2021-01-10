@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.kumela.socialnet.ui.splash.SplashFragment"
+        android:name="com.kumela.socialnetwork.ui.splash.SplashFragment"
         tools:layout="@layout/fragment_splash">
         <action
             android:id="@+id/action_splashFragment_to_loginFragment"
@@ -27,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.kumela.socialnet.ui.login.LoginFragment"
+        android:name="com.kumela.socialnetwork.ui.login.LoginFragment"
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
@@ -47,7 +47,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.kumela.socialnet.ui.register.RegisterFragment"
+        android:name="com.kumela.socialnetwork.ui.register.RegisterFragment"
         tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
@@ -67,7 +67,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.kumela.socialnet.ui.home.HomeFragment"
+        android:name="com.kumela.socialnetwork.ui.home.HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_exploreFragment"
@@ -99,7 +99,7 @@
     </fragment>
     <fragment
         android:id="@+id/exploreFragment"
-        android:name="com.kumela.socialnet.ui.explore.ExploreFragment"
+        android:name="com.kumela.socialnetwork.ui.explore.ExploreFragment"
         tools:layout="@layout/fragment_explore">
         <action
             android:id="@+id/action_exploreFragment_to_homeFragment"
@@ -122,7 +122,7 @@
     </fragment>
     <fragment
         android:id="@+id/messagesFragment"
-        android:name="com.kumela.socialnet.ui.messages.MessagesFragment"
+        android:name="com.kumela.socialnetwork.ui.messages.MessagesFragment"
         tools:layout="@layout/fragment_messages">
         <action
             android:id="@+id/action_messagesFragment_to_exploreFragment"
@@ -148,7 +148,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.kumela.socialnet.ui.profile.ProfileFragment"
+        android:name="com.kumela.socialnetwork.ui.profile.ProfileFragment"
         tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_profileFragment_to_messagesFragment"
@@ -176,7 +176,7 @@
     </fragment>
     <fragment
         android:id="@+id/personalInfoFragment"
-        android:name="com.kumela.socialnet.ui.personal_info.PersonalInfoFragment"
+        android:name="com.kumela.socialnetwork.ui.personal_info.PersonalInfoFragment"
         tools:layout="@layout/fragment_personal_info">
         <action
             android:id="@+id/action_personalInfoFragment_to_homeFragment"
@@ -189,7 +189,7 @@
     </fragment>
     <fragment
         android:id="@+id/chatFragment"
-        android:name="com.kumela.socialnet.ui.chat.ChatFragment"
+        android:name="com.kumela.socialnetwork.ui.chat.ChatFragment"
         tools:layout="@layout/fragment_chat">
         <argument
             android:name="userId"
@@ -203,11 +203,11 @@
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.kumela.socialnet.ui.search.SearchFragment"
+        android:name="com.kumela.socialnetwork.ui.search.SearchFragment"
         tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/commentsFragment"
-        android:name="com.kumela.socialnet.ui.comments.CommentsFragment"
+        android:name="com.kumela.socialnetwork.ui.comments.CommentsFragment"
         tools:layout="@layout/fragment_comments">
         <argument
             android:name="postId"
@@ -225,7 +225,7 @@
 
     <fragment
         android:id="@+id/postImageFragment"
-        android:name="com.kumela.socialnet.ui.post_image.PostImageFragment"
+        android:name="com.kumela.socialnetwork.ui.post_image.PostImageFragment"
         tools:layout="@layout/fragment_post_image">
         <argument
             android:name="imageUri"
@@ -243,7 +243,7 @@
         app:destination="@id/postImageFragment" />
     <fragment
         android:id="@+id/userProfileFragment"
-        android:name="com.kumela.socialnet.ui.user_profile.UserProfileFragment"
+        android:name="com.kumela.socialnetwork.ui.user_profile.UserProfileFragment"
         tools:layout="@layout/fragment_user_profile">
         <argument
             android:name="userId"
@@ -267,18 +267,18 @@
         app:launchSingleTop="true" />
     <fragment
         android:id="@+id/userListFragment"
-        android:name="com.kumela.socialnet.ui.user_list.UserListFragment"
+        android:name="com.kumela.socialnetwork.ui.user_list.UserListFragment"
         tools:layout="@layout/fragment_user_list">
         <argument
             android:name="dataType"
-            app:argType="com.kumela.socialnet.ui.user_list.DataType" />
+            app:argType="com.kumela.socialnetwork.ui.user_list.DataType" />
         <argument
             android:name="key"
             app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/storyUploaderFragment"
-        android:name="com.kumela.socialnet.ui.story_uploder.StoryUploaderFragment"
+        android:name="com.kumela.socialnetwork.ui.story_uploder.StoryUploaderFragment"
         tools:layout="@layout/fragment_story_uploader">
         <argument
             android:name="imageUri"
@@ -287,7 +287,7 @@
     <fragment
         android:id="@+id/storyPresenterFragment"
         tools:layout="@layout/fragment_story_presenter"
-        android:name="com.kumela.socialnet.ui.story_presenter.StoryPresenterFragment" >
+        android:name="com.kumela.socialnetwork.ui.story_presenter.StoryPresenterFragment" >
         <argument
             android:name="initialAuthorId"
             app:argType="string" />

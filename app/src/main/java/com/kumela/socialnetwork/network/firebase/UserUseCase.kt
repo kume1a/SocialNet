@@ -1,4 +1,4 @@
-package com.kumela.socialnet.network.firebase
+package com.kumela.socialnetwork.network.firebase
 
 import android.os.CountDownTimer
 import com.google.firebase.auth.ktx.auth
@@ -8,17 +8,17 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
-import com.kumela.socialnet.common.Constants
-import com.kumela.socialnet.common.UseCase
-import com.kumela.socialnet.common.listeners.OnFailureListener
-import com.kumela.socialnet.common.listeners.OnSuccessListener
-import com.kumela.socialnet.models.UserFields
-import com.kumela.socialnet.models.firebase.UserExtraInfoModel
-import com.kumela.socialnet.models.firebase.UserModel
-import com.kumela.socialnet.network.firebase.helpers.DatabaseHelper
-import com.kumela.socialnet.network.firebase.helpers.FunctionsHelper
-import com.kumela.socialnet.network.firebase.helpers.FunctionsObjectsDeserializer
-import com.kumela.socialnet.network.firebase.helpers.UnknownFunctionException
+import com.kumela.socialnetwork.common.Constants
+import com.kumela.socialnetwork.common.UseCase
+import com.kumela.socialnetwork.common.listeners.OnFailureListener
+import com.kumela.socialnetwork.common.listeners.OnSuccessListener
+import com.kumela.socialnetwork.models.UserFields
+import com.kumela.socialnetwork.models.firebase.UserExtraInfoModel
+import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.network.firebase.helpers.DatabaseHelper
+import com.kumela.socialnetwork.network.firebase.helpers.FunctionsHelper
+import com.kumela.socialnetwork.network.firebase.helpers.FunctionsObjectsDeserializer
+import com.kumela.socialnetwork.network.firebase.helpers.UnknownFunctionException
 import java.util.*
 
 /**
@@ -103,7 +103,7 @@ object UserUseCase : UseCase() {
     ) {
         val userRef = DatabaseHelper.getUserTableRef()
 
-        userRef.child(uid ?: this.uid)
+        userRef.child(uid ?: UserUseCase.uid)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (isActive(uuid)) {
@@ -148,7 +148,7 @@ object UserUseCase : UseCase() {
     ) {
         val userExtraInfoRef = DatabaseHelper.getUserExtraInfoTableRef()
 
-        userExtraInfoRef.child(uid ?: this.uid)
+        userExtraInfoRef.child(uid ?: UserUseCase.uid)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (isActive(uuid)) {

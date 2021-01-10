@@ -1,13 +1,13 @@
-package com.kumela.socialnet.ui.adapters.messages
+package com.kumela.socialnetwork.ui.adapters.messages
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import com.kumela.socialnet.R
-import com.kumela.socialnet.models.list.MessageListModel
-import com.kumela.socialnet.ui.common.mvc.BaseViewMvc
-import com.kumela.socialnet.ui.common.utils.setTime
+import com.kumela.socialnetwork.R
+import com.kumela.socialnetwork.models.list.MessageListModel
+import com.kumela.socialnetwork.ui.common.mvc.BaseViewMvc
+import com.kumela.socialnetwork.ui.common.utils.setTime
 
 /**
  * Created by Toko on 08,October,2020

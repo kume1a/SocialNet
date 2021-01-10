@@ -1,4 +1,4 @@
-package com.kumela.socialnet.common.utils
+package com.kumela.socialnetwork.common.utils
 
 
 /**

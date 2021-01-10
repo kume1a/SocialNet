@@ -1,6 +1,4 @@
-@file:Suppress("UNCHECKED_CAST")
-
-package com.kumela.socialnet.ui.common.viewmodels
+package com.kumela.socialnetwork.ui.common.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -20,6 +18,7 @@ class ViewModelFactory @Inject constructor(
         val viewModel =
             provider?.get() ?: throw RuntimeException("unsupported view model type: $modelClass")
 
+        @Suppress("UNCHECKED_CAST")
         return viewModel as T
     }
 }

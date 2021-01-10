@@ -1,4 +1,4 @@
-package com.kumela.socialnet.ui.chat
+package com.kumela.socialnetwork.ui.chat
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,12 +10,12 @@ import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.kumela.socialnet.R
-import com.kumela.socialnet.models.list.MessageListModel
-import com.kumela.socialnet.ui.adapters.messages.MessageAdapter
-import com.kumela.socialnet.ui.common.ViewMvcFactory
-import com.kumela.socialnet.ui.common.mvc.BaseObservableViewMvc
-import com.kumela.socialnet.ui.common.toolbar.ToolbarViewMvc
+import com.kumela.socialnetwork.R
+import com.kumela.socialnetwork.models.list.MessageListModel
+import com.kumela.socialnetwork.ui.adapters.messages.MessageAdapter
+import com.kumela.socialnetwork.ui.common.ViewMvcFactory
+import com.kumela.socialnetwork.ui.common.mvc.BaseObservableViewMvc
+import com.kumela.socialnetwork.ui.common.toolbar.ToolbarViewMvc
 
 /**
  * Created by Toko on 24,September,2020

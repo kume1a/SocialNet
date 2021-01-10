@@ -1,10 +1,10 @@
-package com.kumela.socialnet.ui.explore
+package com.kumela.socialnetwork.ui.explore
 
 import android.util.Log
-import com.kumela.socialnet.models.list.PostModel
-import com.kumela.socialnet.network.firebase.PostUseCase
-import com.kumela.socialnet.network.firebase.helpers.QueryPager
-import com.kumela.socialnet.ui.common.viewmodels.ObservableViewModel
+import com.kumela.socialnetwork.models.list.PostModel
+import com.kumela.socialnetwork.network.firebase.PostUseCase
+import com.kumela.socialnetwork.network.firebase.helpers.QueryPager
+import com.kumela.socialnetwork.ui.common.viewmodels.ObservableViewModel
 
 /**
  * Created by Toko on 05,November,2020

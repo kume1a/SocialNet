@@ -1,4 +1,4 @@
-package com.kumela.socialnet.ui.story_uploder
+package com.kumela.socialnetwork.ui.story_uploder
 
 import androidx.navigation.NavController
 import javax.inject.Inject

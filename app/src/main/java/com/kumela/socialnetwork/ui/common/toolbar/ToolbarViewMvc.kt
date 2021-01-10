@@ -1,4 +1,4 @@
-package com.kumela.socialnet.ui.common.toolbar
+package com.kumela.socialnetwork.ui.common.toolbar
 
 import android.graphics.PorterDuff
 import android.graphics.Typeface
@@ -14,8 +14,8 @@ import androidx.annotation.ColorRes
 import androidx.annotation.IntDef
 import androidx.annotation.MenuRes
 import androidx.appcompat.widget.PopupMenu
-import com.kumela.socialnet.R
-import com.kumela.socialnet.ui.common.mvc.BaseViewMvc
+import com.kumela.socialnetwork.R
+import com.kumela.socialnetwork.ui.common.mvc.BaseViewMvc
 
 /**
  * Created by Toko on 02,October,2020

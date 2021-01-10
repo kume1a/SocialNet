@@ -1,4 +1,4 @@
-package com.kumela.socialnet.ui.personal_info
+package com.kumela.socialnetwork.ui.personal_info
 
 import androidx.navigation.NavController
 import javax.inject.Inject

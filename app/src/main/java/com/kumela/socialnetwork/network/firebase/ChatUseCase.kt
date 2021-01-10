@@ -1,13 +1,13 @@
-package com.kumela.socialnet.network.firebase
+package com.kumela.socialnetwork.network.firebase
 
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.getValue
-import com.kumela.socialnet.common.UseCase
-import com.kumela.socialnet.models.firebase.ChatModel
-import com.kumela.socialnet.models.MessageFields
-import com.kumela.socialnet.models.firebase.MessageModel
-import com.kumela.socialnet.network.firebase.helpers.DatabaseHelper
-import com.kumela.socialnet.network.firebase.helpers.FunctionsHelper
+import com.kumela.socialnetwork.common.UseCase
+import com.kumela.socialnetwork.models.firebase.ChatModel
+import com.kumela.socialnetwork.models.MessageFields
+import com.kumela.socialnetwork.models.firebase.MessageModel
+import com.kumela.socialnetwork.network.firebase.helpers.DatabaseHelper
+import com.kumela.socialnetwork.network.firebase.helpers.FunctionsHelper
 import java.util.*
 
 /**

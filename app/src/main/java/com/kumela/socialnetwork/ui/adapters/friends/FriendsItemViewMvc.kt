@@ -1,7 +1,7 @@
-package com.kumela.socialnet.ui.adapters.friends
+package com.kumela.socialnetwork.ui.adapters.friends
 
-import com.kumela.socialnet.models.firebase.UserModel
-import com.kumela.socialnet.ui.common.mvc.ObservableViewMvc
+import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
 
 /**
  * Created by Toko on 04,October,2020

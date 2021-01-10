@@ -1,8 +1,8 @@
-package com.kumela.socialnet.ui.common.dialogs
+package com.kumela.socialnetwork.ui.common.dialogs
 
 import androidx.fragment.app.DialogFragment
-import com.kumela.socialnet.common.di.presentation.PresentationModule
-import com.kumela.socialnet.ui.common.main.MainActivity
+import com.kumela.socialnetwork.common.di.presentation.PresentationModule
+import com.kumela.socialnetwork.ui.common.main.MainActivity
 
 /**
  * Created by Toko on 14,October,2020

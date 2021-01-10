@@ -1,4 +1,4 @@
-package com.kumela.socialnet.network.firebase.helpers
+package com.kumela.socialnetwork.network.firebase.helpers
 
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageReference

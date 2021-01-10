@@ -1,10 +1,10 @@
-package com.kumela.socialnet.common
+package com.kumela.socialnetwork.common
 
 import android.app.Application
-import com.kumela.socialnet.common.di.app.AppComponent
-import com.kumela.socialnet.common.di.app.AppModule
-import com.kumela.socialnet.common.di.app.DaggerAppComponent
-import com.kumela.socialnet.network.firebase.UserUseCase
+import com.kumela.socialnetwork.common.di.app.AppComponent
+import com.kumela.socialnetwork.common.di.app.AppModule
+import com.kumela.socialnetwork.common.di.app.DaggerAppComponent
+import com.kumela.socialnetwork.network.firebase.UserUseCase
 
 /**
  * Created by Toko on 08,September,2020

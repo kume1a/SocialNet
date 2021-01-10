@@ -1,4 +1,4 @@
-package com.kumela.socialnet.common.listeners
+package com.kumela.socialnetwork.common.listeners
 
 /**
  * Created by Toko on 29,October,2020

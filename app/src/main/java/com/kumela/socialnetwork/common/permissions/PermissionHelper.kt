@@ -1,10 +1,10 @@
-package com.kumela.socialnet.common.permissions
+package com.kumela.socialnetwork.common.permissions
 
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.kumela.socialnet.common.BaseObservable
+import com.kumela.socialnetwork.common.BaseObservable
 
 
 /**

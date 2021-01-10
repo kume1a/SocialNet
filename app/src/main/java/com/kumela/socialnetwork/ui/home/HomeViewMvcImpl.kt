@@ -1,18 +1,18 @@
-package com.kumela.socialnet.ui.home
+package com.kumela.socialnetwork.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.kumela.socialnet.R
-import com.kumela.socialnet.models.firebase.FeedModel
-import com.kumela.socialnet.models.firebase.UserModel
-import com.kumela.socialnet.ui.adapters.feed.FeedAdapter
-import com.kumela.socialnet.ui.adapters.story.StoryAdapter
-import com.kumela.socialnet.ui.common.ViewMvcFactory
-import com.kumela.socialnet.ui.common.mvc.BaseObservableViewMvc
-import com.kumela.socialnet.ui.common.toolbar.ToolbarViewMvc
+import com.kumela.socialnetwork.R
+import com.kumela.socialnetwork.models.firebase.FeedModel
+import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.ui.adapters.feed.FeedAdapter
+import com.kumela.socialnetwork.ui.adapters.story.StoryAdapter
+import com.kumela.socialnetwork.ui.common.ViewMvcFactory
+import com.kumela.socialnetwork.ui.common.mvc.BaseObservableViewMvc
+import com.kumela.socialnetwork.ui.common.toolbar.ToolbarViewMvc
 
 /**
  * Created by Toko on 24,September,2020

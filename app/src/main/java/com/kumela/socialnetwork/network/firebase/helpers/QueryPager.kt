@@ -1,12 +1,12 @@
-package com.kumela.socialnet.network.firebase.helpers
+package com.kumela.socialnetwork.network.firebase.helpers
 
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
-import com.kumela.socialnet.common.UseCase
-import com.kumela.socialnet.common.listeners.OnFailureListener
-import com.kumela.socialnet.common.listeners.OnSuccessListener
+import com.kumela.socialnetwork.common.UseCase
+import com.kumela.socialnetwork.common.listeners.OnFailureListener
+import com.kumela.socialnetwork.common.listeners.OnSuccessListener
 import java.util.*
 
 /**

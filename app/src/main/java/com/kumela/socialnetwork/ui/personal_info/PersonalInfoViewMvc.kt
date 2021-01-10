@@ -1,7 +1,7 @@
-package com.kumela.socialnet.ui.personal_info
+package com.kumela.socialnetwork.ui.personal_info
 
 import android.net.Uri
-import com.kumela.socialnet.ui.common.mvc.ObservableViewMvc
+import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
 
 /**
  * Created by Toko on 24,September,2020

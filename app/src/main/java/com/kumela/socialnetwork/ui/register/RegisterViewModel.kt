@@ -1,8 +1,8 @@
-package com.kumela.socialnet.ui.register
+package com.kumela.socialnetwork.ui.register
 
 import android.util.Log
-import com.kumela.socialnet.network.firebase.UserUseCase
-import com.kumela.socialnet.ui.common.viewmodels.ObservableViewModel
+import com.kumela.socialnetwork.network.firebase.UserUseCase
+import com.kumela.socialnetwork.ui.common.viewmodels.ObservableViewModel
 
 /**
  * Created by Toko on 11,November,2020

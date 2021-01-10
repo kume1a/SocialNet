@@ -1,4 +1,4 @@
-package com.kumela.socialnet.ui.common.viewmodels
+package com.kumela.socialnetwork.ui.common.viewmodels
 
 import androidx.lifecycle.ViewModel
 import java.util.*

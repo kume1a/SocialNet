@@ -1,4 +1,4 @@
-package com.kumela.socialnet.network.firebase.helpers
+package com.kumela.socialnetwork.network.firebase.helpers
 
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database

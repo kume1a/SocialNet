@@ -1,12 +1,12 @@
-package com.kumela.socialnet.ui.story_uploder
+package com.kumela.socialnetwork.ui.story_uploder
 
 import android.net.Uri
 import android.util.Log
-import com.kumela.socialnet.models.firebase.StoryModel
-import com.kumela.socialnet.network.firebase.ImageType
-import com.kumela.socialnet.network.firebase.ImageUseCase
-import com.kumela.socialnet.network.firebase.StoryUseCase
-import com.kumela.socialnet.ui.common.viewmodels.ObservableViewModel
+import com.kumela.socialnetwork.models.firebase.StoryModel
+import com.kumela.socialnetwork.network.firebase.ImageType
+import com.kumela.socialnetwork.network.firebase.ImageUseCase
+import com.kumela.socialnetwork.network.firebase.StoryUseCase
+import com.kumela.socialnetwork.ui.common.viewmodels.ObservableViewModel
 
 /**
  * Created by Toko on 07,November,2020

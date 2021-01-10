@@ -1,4 +1,4 @@
-package com.kumela.socialnet.ui.messages
+package com.kumela.socialnetwork.ui.messages
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,14 +6,14 @@ import android.widget.EditText
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.kumela.socialnet.R
-import com.kumela.socialnet.models.firebase.UserModel
-import com.kumela.socialnet.models.list.ChatListModel
-import com.kumela.socialnet.ui.adapters.friends.FriendsAdapter
-import com.kumela.socialnet.ui.adapters.chats.ChatsAdapter
-import com.kumela.socialnet.ui.common.ViewMvcFactory
-import com.kumela.socialnet.ui.common.mvc.BaseObservableViewMvc
-import com.kumela.socialnet.ui.common.toolbar.ToolbarViewMvc
+import com.kumela.socialnetwork.R
+import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.models.list.ChatListModel
+import com.kumela.socialnetwork.ui.adapters.friends.FriendsAdapter
+import com.kumela.socialnetwork.ui.adapters.chats.ChatsAdapter
+import com.kumela.socialnetwork.ui.common.ViewMvcFactory
+import com.kumela.socialnetwork.ui.common.mvc.BaseObservableViewMvc
+import com.kumela.socialnetwork.ui.common.toolbar.ToolbarViewMvc
 
 /**
  * Created by Toko on 24,September,2020

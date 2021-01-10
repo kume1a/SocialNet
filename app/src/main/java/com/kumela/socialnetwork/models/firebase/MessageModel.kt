@@ -1,6 +1,6 @@
-package com.kumela.socialnet.models.firebase
+package com.kumela.socialnetwork.models.firebase
 
-import com.kumela.socialnet.models.MessageFields
+import com.kumela.socialnetwork.models.MessageFields
 
 /**
  * Created by Toko on 30,October,2020

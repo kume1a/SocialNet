@@ -1,12 +1,12 @@
-package com.kumela.socialnet.common.di.presentation
+package com.kumela.socialnetwork.common.di.presentation
 
-import com.kumela.socialnet.common.Constants
-import com.kumela.socialnet.models.firebase.FeedStoriesModel
-import com.kumela.socialnet.models.firebase.MessageModel
-import com.kumela.socialnet.models.firebase.StoryModel
-import com.kumela.socialnet.models.firebase.UserChatModel
-import com.kumela.socialnet.models.list.PostModel
-import com.kumela.socialnet.network.firebase.helpers.QueryPager
+import com.kumela.socialnetwork.common.Constants
+import com.kumela.socialnetwork.models.firebase.FeedStoriesModel
+import com.kumela.socialnetwork.models.firebase.MessageModel
+import com.kumela.socialnetwork.models.firebase.StoryModel
+import com.kumela.socialnetwork.models.firebase.UserChatModel
+import com.kumela.socialnetwork.models.list.PostModel
+import com.kumela.socialnetwork.network.firebase.helpers.QueryPager
 import dagger.Module
 import dagger.Provides
 import javax.inject.Named

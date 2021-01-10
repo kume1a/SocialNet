@@ -1,13 +1,13 @@
-package com.kumela.socialnet.ui.splash
+package com.kumela.socialnetwork.ui.splash
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.kumela.socialnet.network.authentication.AuthCheckerUseCase
-import com.kumela.socialnet.ui.common.ViewMvcFactory
-import com.kumela.socialnet.ui.common.controllers.BaseFragment
+import com.kumela.socialnetwork.network.authentication.AuthCheckerUseCase
+import com.kumela.socialnetwork.ui.common.ViewMvcFactory
+import com.kumela.socialnetwork.ui.common.controllers.BaseFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -33,7 +33,7 @@ class SplashFragment : BaseFragment(), SplashViewModel.Listener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         injector.inject(this)
 
         mViewMvc = mViewMvcFactory.newInstance(SplashViewMvc::class, container)

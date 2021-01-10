@@ -1,4 +1,4 @@
-package com.kumela.socialnet.common
+package com.kumela.socialnetwork.common
 
 /**
  * Created by Toko on 08,September,2020

@@ -1,4 +1,4 @@
-package com.kumela.socialnet.ui.story_uploder
+package com.kumela.socialnetwork.ui.story_uploder
 
 import android.net.Uri
 import android.os.Bundle
@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.kumela.socialnet.ui.common.ViewMvcFactory
-import com.kumela.socialnet.ui.common.bottomnav.BottomNavHelper
-import com.kumela.socialnet.ui.common.controllers.BaseFragment
+import com.kumela.socialnetwork.ui.common.ViewMvcFactory
+import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper
+import com.kumela.socialnetwork.ui.common.controllers.BaseFragment
 import javax.inject.Inject
 
 /**
@@ -23,11 +23,18 @@ class StoryUploaderFragment : BaseFragment(), StoryUploaderViewMvc.Listener,
 
     private lateinit var argImageUri: Uri
 
-    @Inject lateinit var mScreensNavigator: StoryUploaderScreensNavigator
-    @Inject lateinit var mViewMvcFactory: ViewMvcFactory
-    @Inject lateinit var mBottomNavHelper: BottomNavHelper
+    @Inject
+    lateinit var mScreensNavigator: StoryUploaderScreensNavigator
+    @Inject
+    lateinit var mViewMvcFactory: ViewMvcFactory
+    @Inject
+    lateinit var mBottomNavHelper: BottomNavHelper
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         injector.inject(this)
 
         mBottomNavHelper.hideBottomNav()

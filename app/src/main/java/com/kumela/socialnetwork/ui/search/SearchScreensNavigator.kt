@@ -1,4 +1,4 @@
-package com.kumela.socialnet.ui.search
+package com.kumela.socialnetwork.ui.search
 
 import androidx.navigation.NavController
 import javax.inject.Inject

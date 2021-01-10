@@ -1,4 +1,4 @@
-package com.kumela.socialnet.ui.common.mvc
+package com.kumela.socialnetwork.ui.common.mvc
 
 /**
  * Created by Toko on 08,September,2020

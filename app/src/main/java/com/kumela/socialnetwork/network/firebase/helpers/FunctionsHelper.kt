@@ -1,16 +1,16 @@
-package com.kumela.socialnet.network.firebase.helpers
+package com.kumela.socialnetwork.network.firebase.helpers
 
 import android.util.Log
 import com.google.android.gms.tasks.Task
 import com.google.firebase.functions.HttpsCallableResult
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
-import com.kumela.socialnet.models.firebase.FeedModel
-import com.kumela.socialnet.models.firebase.MessageModel
-import com.kumela.socialnet.models.UserFields
-import com.kumela.socialnet.models.firebase.UserModel
-import com.kumela.socialnet.models.list.PostModel
-import com.kumela.socialnet.network.firebase.UserUseCase
+import com.kumela.socialnetwork.models.firebase.FeedModel
+import com.kumela.socialnetwork.models.firebase.MessageModel
+import com.kumela.socialnetwork.models.UserFields
+import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.models.list.PostModel
+import com.kumela.socialnetwork.network.firebase.UserUseCase
 
 /**
  * Created by Toko on 22,October,2020

@@ -1,9 +1,9 @@
-package com.kumela.socialnet.ui.adapters.story_profile
+package com.kumela.socialnetwork.ui.adapters.story_profile
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.kumela.socialnet.models.firebase.StoryModel
-import com.kumela.socialnet.ui.common.ViewMvcFactory
+import com.kumela.socialnetwork.models.firebase.StoryModel
+import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 
 /**
  * Created by Toko on 05,October,2020
@@ -13,7 +13,8 @@ class ProfileStoryAdapter(
     private val viewMvcFactory: ViewMvcFactory,
     private val listener: (StoryModel) -> Unit,
     private val onLastItemBound: () -> Unit
-) : RecyclerView.Adapter<ProfileStoryAdapter.ProfileStoryViewHolder>(), ProfileStoryItemViewMvc.Listener {
+) : RecyclerView.Adapter<ProfileStoryAdapter.ProfileStoryViewHolder>(),
+    ProfileStoryItemViewMvc.Listener {
 
     private val items = mutableListOf<StoryModel>()
 

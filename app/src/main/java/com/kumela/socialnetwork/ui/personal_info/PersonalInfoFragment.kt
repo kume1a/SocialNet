@@ -1,4 +1,4 @@
-package com.kumela.socialnet.ui.personal_info
+package com.kumela.socialnetwork.ui.personal_info
 
 import android.Manifest
 import android.app.Activity
@@ -11,20 +11,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import com.kumela.socialnet.R
-import com.kumela.socialnet.common.Constants
-import com.kumela.socialnet.common.permissions.PermissionHelper
-import com.kumela.socialnet.models.firebase.UserModel
-import com.kumela.socialnet.network.firebase.ImageType
-import com.kumela.socialnet.ui.common.ViewMvcFactory
-import com.kumela.socialnet.ui.common.bottomnav.BottomNavHelper
-import com.kumela.socialnet.ui.common.controllers.ActivityResultListener
-import com.kumela.socialnet.ui.common.controllers.BaseFragment
-import com.kumela.socialnet.ui.common.controllers.IntentDispatcher
-import com.kumela.socialnet.ui.common.controllers.RequestResultDispatcher
-import com.kumela.socialnet.ui.common.dialogs.DialogEventBus
-import com.kumela.socialnet.ui.common.dialogs.DialogManager
-import com.kumela.socialnet.ui.common.dialogs.alertdialog.AlertDialog
+import com.kumela.socialnetwork.R
+import com.kumela.socialnetwork.common.Constants
+import com.kumela.socialnetwork.common.permissions.PermissionHelper
+import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.network.firebase.ImageType
+import com.kumela.socialnetwork.ui.common.ViewMvcFactory
+import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper
+import com.kumela.socialnetwork.ui.common.controllers.ActivityResultListener
+import com.kumela.socialnetwork.ui.common.controllers.BaseFragment
+import com.kumela.socialnetwork.ui.common.controllers.IntentDispatcher
+import com.kumela.socialnetwork.ui.common.controllers.RequestResultDispatcher
+import com.kumela.socialnetwork.ui.common.dialogs.DialogEventBus
+import com.kumela.socialnetwork.ui.common.dialogs.DialogManager
+import com.kumela.socialnetwork.ui.common.dialogs.alertdialog.AlertDialog
 import javax.inject.Inject
 
 /**
@@ -57,7 +57,7 @@ class PersonalInfoFragment : BaseFragment(), PersonalInfoViewMvc.Listener,
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         injector.inject(this)
 
         mBottomNavHelper.hideBottomNav()

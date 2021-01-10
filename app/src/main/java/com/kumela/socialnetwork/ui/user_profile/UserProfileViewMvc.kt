@@ -1,8 +1,8 @@
-package com.kumela.socialnet.ui.user_profile
+package com.kumela.socialnetwork.ui.user_profile
 
-import com.kumela.socialnet.models.list.PostModel
-import com.kumela.socialnet.models.firebase.StoryModel
-import com.kumela.socialnet.ui.common.mvc.ObservableViewMvc
+import com.kumela.socialnetwork.models.list.PostModel
+import com.kumela.socialnetwork.models.firebase.StoryModel
+import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
 
 /**
  * Created by Toko on 17,October,2020

@@ -1,10 +1,10 @@
-package com.kumela.socialnet.ui.common.dialogs.alertdialog
+package com.kumela.socialnetwork.ui.common.dialogs.alertdialog
 
 import android.app.Dialog
 import android.os.Bundle
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.kumela.socialnet.ui.common.dialogs.BaseDialog
-import com.kumela.socialnet.ui.common.dialogs.DialogEventBus
+import com.kumela.socialnetwork.ui.common.dialogs.BaseDialog
+import com.kumela.socialnetwork.ui.common.dialogs.DialogEventBus
 import javax.inject.Inject
 
 /**

@@ -1,7 +1,7 @@
-package com.kumela.socialnet.ui.chat
+package com.kumela.socialnetwork.ui.chat
 
-import com.kumela.socialnet.models.list.MessageListModel
-import com.kumela.socialnet.ui.common.mvc.ObservableViewMvc
+import com.kumela.socialnetwork.models.list.MessageListModel
+import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
 
 /**
  * Created by Toko on 24,September,2020

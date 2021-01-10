@@ -1,6 +1,6 @@
-package com.kumela.socialnet.ui.register
+package com.kumela.socialnetwork.ui.register
 
-import com.kumela.socialnet.ui.common.mvc.ObservableViewMvc
+import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
 
 /**
  * Created by Toko on 24,September,2020

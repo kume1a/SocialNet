@@ -1,4 +1,4 @@
-package com.kumela.socialnet.ui.post_image
+package com.kumela.socialnetwork.ui.post_image
 
 import android.graphics.Bitmap
 import android.net.Uri
@@ -9,13 +9,13 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.Group
-import com.kumela.roundimageview.RoundedImageView
-import com.kumela.socialnet.R
-import com.kumela.socialnet.ui.common.ViewMvcFactory
-import com.kumela.socialnet.ui.common.mvc.BaseObservableViewMvc
-import com.kumela.socialnet.ui.common.toolbar.ToolbarViewMvc
-import com.kumela.socialnet.ui.common.utils.load
-import com.kumela.socialnet.ui.common.views.LockableScrollView
+import com.kumela.socialnetwork.ui.common.views.RoundedImageView
+import com.kumela.socialnetwork.R
+import com.kumela.socialnetwork.ui.common.ViewMvcFactory
+import com.kumela.socialnetwork.ui.common.mvc.BaseObservableViewMvc
+import com.kumela.socialnetwork.ui.common.toolbar.ToolbarViewMvc
+import com.kumela.socialnetwork.ui.common.utils.load
+import com.kumela.socialnetwork.ui.common.views.LockableScrollView
 
 /**
  * Created by Toko on 24,September,2020

@@ -1,7 +1,7 @@
-package com.kumela.socialnet.ui.common.bottomnav
+package com.kumela.socialnetwork.ui.common.bottomnav
 
 import android.widget.FrameLayout
-import com.kumela.socialnet.ui.common.mvc.ObservableViewMvc
+import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
 
 
 /**

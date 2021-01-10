@@ -1,14 +1,13 @@
-package com.kumela.socialnet.ui.adapters.story_images
+package com.kumela.socialnetwork.ui.adapters.story_images
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.kumela.socialnet.R
-import com.kumela.socialnet.models.firebase.FeedStoryModel
-import com.kumela.socialnet.ui.common.utils.load
+import com.kumela.socialnetwork.R
+import com.kumela.socialnetwork.models.firebase.FeedStoryModel
+import com.kumela.socialnetwork.ui.common.utils.load
 
 /**
  * Created by Toko on 07,November,2020

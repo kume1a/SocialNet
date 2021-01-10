@@ -1,4 +1,4 @@
-package com.kumela.socialnet.ui.register
+package com.kumela.socialnetwork.ui.register
 
 import android.app.Activity
 import android.content.Intent
@@ -9,15 +9,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseUser
-import com.kumela.socialnet.common.utils.CredentialChecker
-import com.kumela.socialnet.network.authentication.RegisterUseCase
-import com.kumela.socialnet.network.firebase.UserUseCase
-import com.kumela.socialnet.ui.common.ViewMvcFactory
-import com.kumela.socialnet.ui.common.bottomnav.BottomNavHelper
-import com.kumela.socialnet.ui.common.controllers.RequestResultDispatcher
-import com.kumela.socialnet.ui.common.controllers.ActivityResultListener
-import com.kumela.socialnet.ui.common.controllers.BaseFragment
-import com.kumela.socialnet.ui.common.dialogs.DialogManager
+import com.kumela.socialnetwork.common.utils.CredentialChecker
+import com.kumela.socialnetwork.network.authentication.RegisterUseCase
+import com.kumela.socialnetwork.network.firebase.UserUseCase
+import com.kumela.socialnetwork.ui.common.ViewMvcFactory
+import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper
+import com.kumela.socialnetwork.ui.common.controllers.RequestResultDispatcher
+import com.kumela.socialnetwork.ui.common.controllers.ActivityResultListener
+import com.kumela.socialnetwork.ui.common.controllers.BaseFragment
+import com.kumela.socialnetwork.ui.common.dialogs.DialogManager
 import javax.inject.Inject
 
 /**
@@ -43,7 +43,7 @@ class RegisterFragment : BaseFragment(), RegisterViewMvc.Listener,
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         injector.inject(this)
 
         mBottomNavHelper.hideBottomNav()

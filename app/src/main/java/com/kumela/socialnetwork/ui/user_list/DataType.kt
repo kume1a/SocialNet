@@ -1,4 +1,4 @@
-package com.kumela.socialnet.ui.user_list
+package com.kumela.socialnetwork.ui.user_list
 
 /**
  * Created by Toko on 05,November,2020

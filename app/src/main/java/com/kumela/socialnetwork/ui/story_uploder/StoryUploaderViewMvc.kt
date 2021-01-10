@@ -1,7 +1,7 @@
-package com.kumela.socialnet.ui.story_uploder
+package com.kumela.socialnetwork.ui.story_uploder
 
 import android.net.Uri
-import com.kumela.socialnet.ui.common.mvc.ObservableViewMvc
+import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
 
 /**
  * Created by Toko on 06,November,2020

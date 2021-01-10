@@ -1,4 +1,4 @@
-package com.kumela.socialnet.ui.comments
+package com.kumela.socialnetwork.ui.comments
 
 import androidx.navigation.NavController
 import javax.inject.Inject

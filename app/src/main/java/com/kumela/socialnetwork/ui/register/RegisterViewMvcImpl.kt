@@ -1,4 +1,4 @@
-package com.kumela.socialnet.ui.register
+package com.kumela.socialnetwork.ui.register
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,8 +7,8 @@ import android.widget.ProgressBar
 import androidx.cardview.widget.CardView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
-import com.kumela.socialnet.R
-import com.kumela.socialnet.ui.common.mvc.BaseObservableViewMvc
+import com.kumela.socialnetwork.R
+import com.kumela.socialnetwork.ui.common.mvc.BaseObservableViewMvc
 
 /**
  * Created by Toko on 24,September,2020

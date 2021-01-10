@@ -1,4 +1,4 @@
-package com.kumela.socialnet.ui.post_image
+package com.kumela.socialnetwork.ui.post_image
 
 import androidx.navigation.NavController
 import javax.inject.Inject

@@ -1,25 +1,25 @@
-package com.kumela.socialnet.common.di.presentation
+package com.kumela.socialnetwork.common.di.presentation
 
-import com.kumela.socialnet.common.di.annotations.PresentationScope
-import com.kumela.socialnet.common.permissions.PermissionHelper
-import com.kumela.socialnet.ui.chat.ChatFragment
-import com.kumela.socialnet.ui.comments.CommentsFragment
-import com.kumela.socialnet.ui.common.ViewMvcFactory
-import com.kumela.socialnet.ui.common.dialogs.alertdialog.AlertDialog
-import com.kumela.socialnet.ui.explore.ExploreFragment
-import com.kumela.socialnet.ui.home.HomeFragment
-import com.kumela.socialnet.ui.login.LoginFragment
-import com.kumela.socialnet.ui.messages.MessagesFragment
-import com.kumela.socialnet.ui.personal_info.PersonalInfoFragment
-import com.kumela.socialnet.ui.post_image.PostImageFragment
-import com.kumela.socialnet.ui.profile.ProfileFragment
-import com.kumela.socialnet.ui.register.RegisterFragment
-import com.kumela.socialnet.ui.search.SearchFragment
-import com.kumela.socialnet.ui.splash.SplashFragment
-import com.kumela.socialnet.ui.story_presenter.StoryPresenterFragment
-import com.kumela.socialnet.ui.story_uploder.StoryUploaderFragment
-import com.kumela.socialnet.ui.user_list.UserListFragment
-import com.kumela.socialnet.ui.user_profile.UserProfileFragment
+import com.kumela.socialnetwork.common.di.annotations.PresentationScope
+import com.kumela.socialnetwork.common.permissions.PermissionHelper
+import com.kumela.socialnetwork.ui.chat.ChatFragment
+import com.kumela.socialnetwork.ui.comments.CommentsFragment
+import com.kumela.socialnetwork.ui.common.ViewMvcFactory
+import com.kumela.socialnetwork.ui.common.dialogs.alertdialog.AlertDialog
+import com.kumela.socialnetwork.ui.explore.ExploreFragment
+import com.kumela.socialnetwork.ui.home.HomeFragment
+import com.kumela.socialnetwork.ui.login.LoginFragment
+import com.kumela.socialnetwork.ui.messages.MessagesFragment
+import com.kumela.socialnetwork.ui.personal_info.PersonalInfoFragment
+import com.kumela.socialnetwork.ui.post_image.PostImageFragment
+import com.kumela.socialnetwork.ui.profile.ProfileFragment
+import com.kumela.socialnetwork.ui.register.RegisterFragment
+import com.kumela.socialnetwork.ui.search.SearchFragment
+import com.kumela.socialnetwork.ui.splash.SplashFragment
+import com.kumela.socialnetwork.ui.story_presenter.StoryPresenterFragment
+import com.kumela.socialnetwork.ui.story_uploder.StoryUploaderFragment
+import com.kumela.socialnetwork.ui.user_list.UserListFragment
+import com.kumela.socialnetwork.ui.user_profile.UserProfileFragment
 import dagger.Subcomponent
 
 @PresentationScope

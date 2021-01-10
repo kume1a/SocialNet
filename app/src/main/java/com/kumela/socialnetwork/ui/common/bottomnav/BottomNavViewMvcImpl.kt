@@ -1,4 +1,4 @@
-package com.kumela.socialnet.ui.common.bottomnav
+package com.kumela.socialnetwork.ui.common.bottomnav
 
 import android.animation.ValueAnimator
 import android.view.LayoutInflater
@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
-import com.kumela.library.BottomNav
-import com.kumela.popupmenu.PopupMenu
-import com.kumela.socialnet.R
-import com.kumela.socialnet.ui.common.mvc.BaseObservableViewMvc
+import com.kumela.socialnetwork.ui.common.views.bottomnav.BottomNav
+import com.kumela.socialnetwork.ui.common.views.popupmenu.PopupMenu
+import com.kumela.socialnetwork.R
+import com.kumela.socialnetwork.ui.common.mvc.BaseObservableViewMvc
 
 /**
  * Created by Toko on 24,September,2020

@@ -1,15 +1,15 @@
-package com.kumela.socialnet.network.firebase
+package com.kumela.socialnetwork.network.firebase
 
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
-import com.kumela.socialnet.common.UseCase
-import com.kumela.socialnet.models.firebase.FeedStoriesModel
-import com.kumela.socialnet.models.firebase.FeedStoryModel
-import com.kumela.socialnet.models.firebase.StoryModel
-import com.kumela.socialnet.network.firebase.helpers.DatabaseHelper
+import com.kumela.socialnetwork.common.UseCase
+import com.kumela.socialnetwork.models.firebase.FeedStoriesModel
+import com.kumela.socialnetwork.models.firebase.FeedStoryModel
+import com.kumela.socialnetwork.models.firebase.StoryModel
+import com.kumela.socialnetwork.network.firebase.helpers.DatabaseHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.*

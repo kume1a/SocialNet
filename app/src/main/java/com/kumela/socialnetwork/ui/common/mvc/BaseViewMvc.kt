@@ -1,4 +1,4 @@
-package com.kumela.socialnet.ui.common.mvc
+package com.kumela.socialnetwork.ui.common.mvc
 
 import android.content.Context
 import android.graphics.drawable.Drawable

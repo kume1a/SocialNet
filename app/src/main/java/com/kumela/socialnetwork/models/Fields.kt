@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package com.kumela.socialnet.models
+package com.kumela.socialnetwork.models
 
 /**
  * Created by Toko on 18,October,2020

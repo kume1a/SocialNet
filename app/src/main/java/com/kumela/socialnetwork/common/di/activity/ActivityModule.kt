@@ -1,13 +1,13 @@
-package com.kumela.socialnet.common.di.activity
+package com.kumela.socialnetwork.common.di.activity
 
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
-import com.kumela.socialnet.common.di.annotations.ActivityScope
-import com.kumela.socialnet.common.permissions.PermissionHelper
-import com.kumela.socialnet.ui.common.bottomnav.BottomNavHelper
-import com.kumela.socialnet.ui.common.controllers.IntentDispatcher
-import com.kumela.socialnet.ui.common.controllers.RequestResultDispatcher
+import com.kumela.socialnetwork.common.di.annotations.ActivityScope
+import com.kumela.socialnetwork.common.permissions.PermissionHelper
+import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper
+import com.kumela.socialnetwork.ui.common.controllers.IntentDispatcher
+import com.kumela.socialnetwork.ui.common.controllers.RequestResultDispatcher
 import dagger.Module
 import dagger.Provides
 

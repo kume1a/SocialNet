@@ -1,4 +1,4 @@
-package com.kumela.socialnet.common
+package com.kumela.socialnetwork.common
 
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap

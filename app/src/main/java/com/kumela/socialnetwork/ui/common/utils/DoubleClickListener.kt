@@ -1,4 +1,4 @@
-package com.kumela.socialnet.ui.common.utils
+package com.kumela.socialnetwork.ui.common.utils
 
 import android.view.View
 
@@ -7,7 +7,7 @@ import android.view.View
  **/
 
 abstract class DoubleClickListener : View.OnClickListener {
-    var lastClickTime: Long = 0
+    private var lastClickTime: Long = 0
 
     override fun onClick(v: View) {
         val clickTime = System.currentTimeMillis()

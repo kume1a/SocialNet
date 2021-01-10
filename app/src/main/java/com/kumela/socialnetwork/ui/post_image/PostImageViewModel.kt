@@ -1,13 +1,13 @@
-package com.kumela.socialnet.ui.post_image
+package com.kumela.socialnetwork.ui.post_image
 
 import android.graphics.Bitmap
 import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.viewModelScope
-import com.kumela.socialnet.models.firebase.UserModel
-import com.kumela.socialnet.models.list.PostModel
-import com.kumela.socialnet.network.firebase.*
-import com.kumela.socialnet.ui.common.viewmodels.ObservableViewModel
+import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.models.list.PostModel
+import com.kumela.socialnetwork.ui.common.viewmodels.ObservableViewModel
+import com.kumela.socialnetwork.network.firebase.*
 import kotlinx.coroutines.launch
 
 /**

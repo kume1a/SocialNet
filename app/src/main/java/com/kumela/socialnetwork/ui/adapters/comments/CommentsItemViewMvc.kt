@@ -1,15 +1,15 @@
-package com.kumela.socialnet.ui.adapters.comments
+package com.kumela.socialnetwork.ui.adapters.comments
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
-import com.kumela.roundimageview.RoundedImageView
-import com.kumela.socialnet.R
-import com.kumela.socialnet.models.list.CommentListModel
-import com.kumela.socialnet.ui.common.mvc.BaseObservableViewMvc
-import com.kumela.socialnet.ui.common.utils.load
-import com.kumela.socialnet.ui.common.utils.setTimePassed
+import com.kumela.socialnetwork.ui.common.views.RoundedImageView
+import com.kumela.socialnetwork.R
+import com.kumela.socialnetwork.models.list.CommentListModel
+import com.kumela.socialnetwork.ui.common.mvc.BaseObservableViewMvc
+import com.kumela.socialnetwork.ui.common.utils.load
+import com.kumela.socialnetwork.ui.common.utils.setTimePassed
 
 /**
  * Created by Toko on 08,November,2020

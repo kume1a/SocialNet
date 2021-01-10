@@ -1,12 +1,12 @@
-package com.kumela.socialnet.ui.common.controllers
+package com.kumela.socialnetwork.ui.common.controllers
 
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import androidx.fragment.app.Fragment
-import com.kumela.socialnet.common.di.presentation.PresentationModule
-import com.kumela.socialnet.ui.common.main.MainActivity
+import com.kumela.socialnetwork.common.di.presentation.PresentationModule
+import com.kumela.socialnetwork.ui.common.main.MainActivity
 
 
 /**

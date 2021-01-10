@@ -1,7 +1,7 @@
-package com.kumela.socialnet.common.di.app
+package com.kumela.socialnetwork.common.di.app
 
-import com.kumela.socialnet.common.di.activity.ActivityComponent
-import com.kumela.socialnet.common.di.annotations.AppScope
+import com.kumela.socialnetwork.common.di.activity.ActivityComponent
+import com.kumela.socialnetwork.common.di.annotations.AppScope
 import dagger.Component
 
 @AppScope

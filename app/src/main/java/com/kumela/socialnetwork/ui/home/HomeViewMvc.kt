@@ -1,8 +1,8 @@
-package com.kumela.socialnet.ui.home
+package com.kumela.socialnetwork.ui.home
 
-import com.kumela.socialnet.models.firebase.FeedModel
-import com.kumela.socialnet.models.firebase.UserModel
-import com.kumela.socialnet.ui.common.mvc.ObservableViewMvc
+import com.kumela.socialnetwork.models.firebase.FeedModel
+import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
 
 /**
  * Created by Toko on 24,September,2020

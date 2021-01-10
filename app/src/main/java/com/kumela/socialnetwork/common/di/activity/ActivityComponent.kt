@@ -1,9 +1,9 @@
-package com.kumela.socialnet.common.di.activity
+package com.kumela.socialnetwork.common.di.activity
 
 import androidx.appcompat.app.AppCompatActivity
-import com.kumela.socialnet.common.di.annotations.ActivityScope
-import com.kumela.socialnet.common.di.presentation.PresentationComponent
-import com.kumela.socialnet.common.di.presentation.PresentationModule
+import com.kumela.socialnetwork.common.di.annotations.ActivityScope
+import com.kumela.socialnetwork.common.di.presentation.PresentationComponent
+import com.kumela.socialnetwork.common.di.presentation.PresentationModule
 import dagger.BindsInstance
 import dagger.Subcomponent
 
