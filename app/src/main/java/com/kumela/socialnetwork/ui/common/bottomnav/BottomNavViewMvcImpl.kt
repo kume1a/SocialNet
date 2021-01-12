@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
-import com.kumela.socialnetwork.ui.common.views.bottomnav.BottomNav
-import com.kumela.socialnetwork.ui.common.views.popupmenu.PopupMenu
+import com.kumela.socialnetwork.ui.views.bottomnav.BottomNav
+import com.kumela.socialnetwork.ui.views.popupmenu.PopupMenu
 import com.kumela.socialnetwork.R
 import com.kumela.socialnetwork.ui.common.mvc.BaseObservableViewMvc
 

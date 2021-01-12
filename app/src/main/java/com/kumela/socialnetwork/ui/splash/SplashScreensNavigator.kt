@@ -9,18 +9,13 @@ import javax.inject.Inject
  **/
 
 class SplashScreensNavigator @Inject constructor(private val navController: NavController) {
-    fun toSignIn() {
+    fun toAuth() {
         val action = SplashFragmentDirections.actionSplashFragmentToLoginFragment()
         navController.navigateSafely(action)
     }
 
     fun toHome() {
         val action = SplashFragmentDirections.actionSplashFragmentToHomeFragment()
-        navController.navigateSafely(action)
-    }
-
-    fun toPersonalInfo(uid: String) {
-        val action = SplashFragmentDirections.actionSplashFragmentToPersonalInfoFragment(uid)
         navController.navigateSafely(action)
     }
 }

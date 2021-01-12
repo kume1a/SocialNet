@@ -1,11 +1,9 @@
 package com.kumela.socialnetwork.common.di.presentation
 
-import androidx.appcompat.app.AppCompatActivity
-import com.facebook.CallbackManager
-import com.facebook.login.LoginManager
 import com.google.firebase.auth.FirebaseAuth
 import com.kumela.socialnetwork.common.utils.CredentialChecker
-import com.kumela.socialnetwork.network.authentication.*
+import com.kumela.socialnetwork.network.authentication.AuthCheckerUseCase
+import com.kumela.socialnetwork.network.authentication.AuthUseCase
 import dagger.Module
 import dagger.Provides
 
@@ -23,31 +21,5 @@ class UseCaseModule {
     fun providesAuthCheckerUseCase(firebaseAuth: FirebaseAuth) = AuthCheckerUseCase(firebaseAuth)
 
     @Provides
-    fun providesGoogleSignInUseCase(
-        activity: AppCompatActivity,
-        firebaseAuth: FirebaseAuth
-    ): GoogleSignInUseCase = GoogleSignInUseCase(activity, firebaseAuth)
-
-    @Provides
-    fun providesFacebookLoginUseCase(
-        activity: AppCompatActivity,
-        firebaseAuth: FirebaseAuth,
-        loginManager: LoginManager,
-        callbackManager: CallbackManager
-    ): FacebookSignInUseCase =
-        FacebookSignInUseCase(activity, firebaseAuth, loginManager, callbackManager)
-
-    @Provides
-    fun providesLoginUseCase(
-        firebaseAuth: FirebaseAuth,
-        googleSignInUseCase: GoogleSignInUseCase,
-        facebookSignInUseCase: FacebookSignInUseCase
-    ) = LoginUseCase(firebaseAuth, googleSignInUseCase, facebookSignInUseCase)
-
-    @Provides
-    fun providesRegisterUseCase(
-        firebaseAuth: FirebaseAuth,
-        googleSignInUseCase: GoogleSignInUseCase,
-        facebookSignInUseCase: FacebookSignInUseCase
-    ) = RegisterUseCase(firebaseAuth, googleSignInUseCase, facebookSignInUseCase)
+    fun providesLoginUseCase(firebaseAuth: FirebaseAuth) = AuthUseCase(firebaseAuth)
 }

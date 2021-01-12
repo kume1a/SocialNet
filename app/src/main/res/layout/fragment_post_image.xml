@@ -12,7 +12,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.kumela.socialnetwork.ui.common.views.LockableScrollView
+    <com.kumela.socialnetwork.ui.views.LockableScrollView
         android:id="@+id/scroll_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:paddingBottom="64dp">
 
-            <com.kumela.socialnetwork.ui.common.views.RoundedImageView
+            <com.kumela.socialnetwork.ui.views.RoundedImageView
                 android:id="@+id/image_profile"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
@@ -53,7 +53,7 @@
                 app:layout_constraintTop_toTopOf="@id/image_profile"
                 tools:text="James" />
 
-            <com.kumela.socialnetwork.ui.common.views.RoundedImageView
+            <com.kumela.socialnetwork.ui.views.RoundedImageView
                 android:id="@+id/image_post"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -105,7 +105,7 @@
                 app:layout_constraintTop_toBottomOf="@id/et_header" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.kumela.socialnetwork.ui.common.views.LockableScrollView>
+    </com.kumela.socialnetwork.ui.views.LockableScrollView>
 
     <include layout="@layout/element_progress" />
 

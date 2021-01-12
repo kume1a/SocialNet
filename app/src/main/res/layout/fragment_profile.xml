@@ -20,7 +20,7 @@
             android:overScrollMode="never"
             tools:ignore="MissingConstraints,ContentDescription">
 
-            <com.kumela.socialnetwork.ui.common.views.RoundedImageView
+            <com.kumela.socialnetwork.ui.views.RoundedImageView
                 android:id="@+id/image_profile"
                 android:layout_width="100dp"
                 android:layout_height="100dp"

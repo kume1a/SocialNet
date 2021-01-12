@@ -19,7 +19,7 @@
         app:navGraph="@navigation/nav_graph"
         tools:ignore="FragmentTagUsage" />
 
-    <com.kumela.socialnetwork.ui.common.views.popupmenu.PopupMenu
+    <com.kumela.socialnetwork.ui.views.popupmenu.PopupMenu
         android:id="@+id/popup_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
         app:marginVertical="10dp"
         app:menu="@menu/fab_menu" />
 
-    <com.kumela.socialnetwork.ui.common.views.bottomnav.BottomNav
+    <com.kumela.socialnetwork.ui.views.bottomnav.BottomNav
         android:id="@+id/bottom_nav"
         android:layout_width="0dp"
         android:layout_height="56dp"

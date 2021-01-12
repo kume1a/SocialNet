@@ -1,6 +1,6 @@
 @file:Suppress("MemberVisibilityCanBePrivate")
 
-package com.kumela.socialnetwork.ui.common.views
+package com.kumela.socialnetwork.ui.views
 
 import android.animation.ValueAnimator
 import android.content.Context

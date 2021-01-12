@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:paddingBottom="6dp">
 
-    <com.kumela.socialnetwork.ui.common.views.RoundedImageView
+    <com.kumela.socialnetwork.ui.views.RoundedImageView
         android:id="@+id/image1"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:background="@color/primary" />
 
-    <com.kumela.socialnetwork.ui.common.views.RoundedImageView
+    <com.kumela.socialnetwork.ui.views.RoundedImageView
         android:id="@+id/image2"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -31,7 +31,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:background="@color/primary" />
 
-    <com.kumela.socialnetwork.ui.common.views.RoundedImageView
+    <com.kumela.socialnetwork.ui.views.RoundedImageView
         android:id="@+id/image3"
         android:layout_width="0dp"
         android:layout_height="0dp"

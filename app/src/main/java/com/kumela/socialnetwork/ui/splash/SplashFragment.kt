@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
 import com.kumela.socialnetwork.network.authentication.AuthCheckerUseCase
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.controllers.BaseFragment
@@ -18,12 +17,9 @@ import javax.inject.Inject
  * Created by Toko on 24,September,2020
  **/
 
-class SplashFragment : BaseFragment(), SplashViewModel.Listener {
+class SplashFragment : BaseFragment() {
 
     private lateinit var mViewMvc: SplashViewMvc
-    private lateinit var mViewModel: SplashViewModel
-
-    private var launchCalled = false
 
     @Inject lateinit var mViewMvcFactory: ViewMvcFactory
     @Inject lateinit var mScreensNavigator: SplashScreensNavigator
@@ -40,47 +36,16 @@ class SplashFragment : BaseFragment(), SplashViewModel.Listener {
         return mViewMvc.rootView
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        mViewModel = ViewModelProvider(this).get(SplashViewModel::class.java)
-
-        mViewModel.registerListener(this)
-
-        CoroutineScope(Dispatchers.Main).launch {
-            launchCalled = true
-            delay(500)
-            navigate()
-        }
-    }
-
     override fun onStart() {
         super.onStart()
 
-        if (launchCalled) {
-            navigate()
-        }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-
-        mViewModel.unregisterListener(this)
-    }
-
-    private fun navigate() {
-        if (mAuthChecker.isUserSignedIn()) {
-            mViewModel.fetchIfUserExtraInfoExistsAndNotify()
-        } else {
-            mScreensNavigator.toSignIn()
-        }
-    }
-
-    override fun onUserExtraInfoExistsResult(exists: Boolean) {
-        if (exists) {
-            mScreensNavigator.toHome()
-        } else {
-            mScreensNavigator.toPersonalInfo(mAuthChecker.getUId()!!)
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(500)
+            if (mAuthChecker.isUserSignedIn()) {
+                mScreensNavigator.toHome()
+            } else {
+                mScreensNavigator.toAuth()
+            }
         }
     }
 }

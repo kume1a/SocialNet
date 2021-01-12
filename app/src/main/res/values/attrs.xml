@@ -47,9 +47,15 @@
         <attr name="marginVertical" format="dimension" />
     </declare-styleable>
 
+    <declare-styleable name="AuthBackgroundInk">
+        <attr name="color1" format="color" />
+        <attr name="color2" format="color" />
+    </declare-styleable>
+
     <attr name="PagerIndexIndicator" format="reference" />
     <attr name="RoundedImageView" format="reference" />
     <attr name="BottomNavStyle" format="reference" />
     <attr name="PopupMenu" format="reference" />
+    <attr name="AuthBackgroundInk" format="reference" />
 
 </resources>

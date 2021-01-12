@@ -14,14 +14,6 @@ import com.kumela.socialnetwork.ui.common.main.MainActivity
  **/
 
 abstract class BaseFragment : Fragment() {
-//    private val appComponent get() = (requireActivity().application as App).appComponent
-
-//    private val activityComponent by lazy {
-//        appComponent.newActivityComponentBuilder()
-//            .activity(activity as AppCompatActivity)
-//            .build()
-//    }
-
     protected val injector by lazy {
         (activity as MainActivity)
             .activityComponent

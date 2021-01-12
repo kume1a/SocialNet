@@ -9,13 +9,13 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.Group
-import com.kumela.socialnetwork.ui.common.views.RoundedImageView
+import com.kumela.socialnetwork.ui.views.RoundedImageView
 import com.kumela.socialnetwork.R
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.mvc.BaseObservableViewMvc
 import com.kumela.socialnetwork.ui.common.toolbar.ToolbarViewMvc
 import com.kumela.socialnetwork.ui.common.utils.load
-import com.kumela.socialnetwork.ui.common.views.LockableScrollView
+import com.kumela.socialnetwork.ui.views.LockableScrollView
 
 /**
  * Created by Toko on 24,September,2020

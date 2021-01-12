@@ -3,7 +3,7 @@ package com.kumela.socialnetwork.ui.adapters.users
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
-import com.kumela.socialnetwork.ui.common.views.RoundedImageView
+import com.kumela.socialnetwork.ui.views.RoundedImageView
 import com.kumela.socialnetwork.R
 import com.kumela.socialnetwork.models.firebase.UserModel
 import com.kumela.socialnetwork.ui.common.utils.load

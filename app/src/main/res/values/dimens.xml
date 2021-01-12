@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="pager_index_indicator_default_horizontal_margin">8dp</dimen>
+    <dimen name="auth_translate">-100dp</dimen>
 </resources>

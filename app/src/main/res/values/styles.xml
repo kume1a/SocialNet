@@ -13,4 +13,12 @@
     <style name="DefaultPopupMenuStyle" parent="Widget.AppCompat.Light.PopupMenu">
         <item name="android:popupBackground">@drawable/rounded</item>
     </style>
+
+    <style name="AccentWhite">
+        <item name="colorAccent">#FFF</item>
+    </style>
+
+    <style name="AccentBlack">
+        <item name="colorAccent">@color/accent_auth</item>
+    </style>
 </resources>

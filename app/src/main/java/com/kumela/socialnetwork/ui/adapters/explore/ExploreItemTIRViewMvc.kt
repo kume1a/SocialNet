@@ -2,7 +2,7 @@ package com.kumela.socialnetwork.ui.adapters.explore
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.kumela.socialnetwork.ui.common.views.RoundedImageView
+import com.kumela.socialnetwork.ui.views.RoundedImageView
 import com.kumela.socialnetwork.R
 import com.kumela.socialnetwork.models.list.PostModel
 import com.kumela.socialnetwork.ui.common.mvc.BaseViewMvc

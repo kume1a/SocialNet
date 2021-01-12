@@ -1,4 +1,4 @@
-package com.kumela.socialnetwork.ui.common.views
+package com.kumela.socialnetwork.ui.views
 
 import android.annotation.SuppressLint
 import android.content.Context

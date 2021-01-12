@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.kumela.socialnetwork.ui.common.views.RoundedImageView
+import com.kumela.socialnetwork.ui.views.RoundedImageView
 import com.kumela.socialnetwork.R
 import com.kumela.socialnetwork.common.Constants.images
 import com.kumela.socialnetwork.models.list.PostModel

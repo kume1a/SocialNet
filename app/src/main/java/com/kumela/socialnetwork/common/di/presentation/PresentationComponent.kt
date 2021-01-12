@@ -8,12 +8,10 @@ import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.dialogs.alertdialog.AlertDialog
 import com.kumela.socialnetwork.ui.explore.ExploreFragment
 import com.kumela.socialnetwork.ui.home.HomeFragment
-import com.kumela.socialnetwork.ui.login.LoginFragment
+import com.kumela.socialnetwork.ui.login.AuthFragment
 import com.kumela.socialnetwork.ui.messages.MessagesFragment
-import com.kumela.socialnetwork.ui.personal_info.PersonalInfoFragment
 import com.kumela.socialnetwork.ui.post_image.PostImageFragment
 import com.kumela.socialnetwork.ui.profile.ProfileFragment
-import com.kumela.socialnetwork.ui.register.RegisterFragment
 import com.kumela.socialnetwork.ui.search.SearchFragment
 import com.kumela.socialnetwork.ui.splash.SplashFragment
 import com.kumela.socialnetwork.ui.story_presenter.StoryPresenterFragment
@@ -39,11 +37,9 @@ interface PresentationComponent {
     fun inject(fragment: CommentsFragment)
     fun inject(fragment: ExploreFragment)
     fun inject(fragment: HomeFragment)
-    fun inject(fragment: LoginFragment)
+    fun inject(fragment: AuthFragment)
     fun inject(fragment: MessagesFragment)
-    fun inject(fragment: PersonalInfoFragment)
     fun inject(fragment: ProfileFragment)
-    fun inject(fragment: RegisterFragment)
     fun inject(fragment: SearchFragment)
     fun inject(fragment: SplashFragment)
     fun inject(fragment: PostImageFragment)

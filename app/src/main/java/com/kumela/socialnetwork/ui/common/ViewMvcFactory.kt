@@ -32,18 +32,14 @@ import com.kumela.socialnetwork.ui.explore.ExploreViewMvc
 import com.kumela.socialnetwork.ui.explore.ExploreViewMvcImpl
 import com.kumela.socialnetwork.ui.home.HomeViewMvc
 import com.kumela.socialnetwork.ui.home.HomeViewMvcImpl
-import com.kumela.socialnetwork.ui.login.LoginViewMvc
-import com.kumela.socialnetwork.ui.login.LoginViewMvcImpl
+import com.kumela.socialnetwork.ui.login.AuthViewMvc
+import com.kumela.socialnetwork.ui.login.AuthViewMvcImpl
 import com.kumela.socialnetwork.ui.messages.MessagesViewMvc
 import com.kumela.socialnetwork.ui.messages.MessagesViewMvcImpl
-import com.kumela.socialnetwork.ui.personal_info.PersonalInfoViewMvc
-import com.kumela.socialnetwork.ui.personal_info.PersonalInfoViewMvcImpl
 import com.kumela.socialnetwork.ui.post_image.PostImageViewMvc
 import com.kumela.socialnetwork.ui.post_image.PostImageViewMvcImpl
 import com.kumela.socialnetwork.ui.profile.ProfileViewMvc
 import com.kumela.socialnetwork.ui.profile.ProfileViewMvcImpl
-import com.kumela.socialnetwork.ui.register.RegisterViewMvc
-import com.kumela.socialnetwork.ui.register.RegisterViewMvcImpl
 import com.kumela.socialnetwork.ui.search.SearchViewMvc
 import com.kumela.socialnetwork.ui.search.SearchViewMvcImpl
 import com.kumela.socialnetwork.ui.splash.SplashViewMvc
@@ -63,7 +59,6 @@ import kotlin.reflect.KClass
 
 class ViewMvcFactory(private val inflater: LayoutInflater) {
 
-    @Suppress("UNCHECKED_CAST")
     fun <T : ViewMvc> newInstance(viewMvcClass: KClass<T>, parent: ViewGroup?): T {
         val viewMvc: ViewMvc = when (viewMvcClass) {
             // view elements
@@ -75,11 +70,9 @@ class ViewMvcFactory(private val inflater: LayoutInflater) {
             CommentsViewMvc::class -> CommentsViewMvcImpl(inflater, parent, this)
             ExploreViewMvc::class -> ExploreViewMvcImpl(inflater, parent, this)
             HomeViewMvc::class -> HomeViewMvcImpl(inflater, parent, this)
-            LoginViewMvc::class -> LoginViewMvcImpl(inflater, parent)
+            AuthViewMvc::class -> AuthViewMvcImpl(inflater, parent)
             MessagesViewMvc::class -> MessagesViewMvcImpl(inflater, parent, this)
-            PersonalInfoViewMvc::class -> PersonalInfoViewMvcImpl(inflater, parent)
             ProfileViewMvc::class -> ProfileViewMvcImpl(inflater, parent, this)
-            RegisterViewMvc::class -> RegisterViewMvcImpl(inflater, parent)
             SearchViewMvc::class -> SearchViewMvcImpl(inflater, parent, this)
             SplashViewMvc::class -> SplashViewMvcImpl(inflater, parent)
             PostImageViewMvc::class -> PostImageViewMvcImpl(inflater, parent, this)
@@ -105,6 +98,7 @@ class ViewMvcFactory(private val inflater: LayoutInflater) {
             else -> throw RuntimeException("unsupported mvc class (${viewMvcClass.qualifiedName})")
         }
 
+        @Suppress("UNCHECKED_CAST")
         return viewMvc as T
     }
 }

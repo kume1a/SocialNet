@@ -1,4 +1,4 @@
-package com.kumela.socialnetwork.ui.common.views
+package com.kumela.socialnetwork.ui.views
 
 import android.text.Layout
 import android.util.AttributeSet

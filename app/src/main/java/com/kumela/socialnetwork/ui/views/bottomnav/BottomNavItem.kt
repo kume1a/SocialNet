@@ -1,4 +1,4 @@
-package com.kumela.socialnetwork.ui.common.views.bottomnav
+package com.kumela.socialnetwork.ui.views.bottomnav
 
 import android.graphics.RectF
 import android.graphics.drawable.Drawable

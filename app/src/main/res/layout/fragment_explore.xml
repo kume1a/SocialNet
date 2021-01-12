@@ -18,7 +18,7 @@
         android:importantForAutofill="no"
         android:inputType="text" />
 
-    <com.kumela.socialnetwork.ui.common.views.RoundedImageView
+    <com.kumela.socialnetwork.ui.views.RoundedImageView
         android:id="@+id/image_header"
         android:layout_width="0dp"
         android:layout_height="0dp"

@@ -1,4 +1,4 @@
-package com.kumela.socialnetwork.ui.common.views.bottomnav
+package com.kumela.socialnetwork.ui.views.bottomnav
 
 import android.content.Context
 import android.content.res.Resources

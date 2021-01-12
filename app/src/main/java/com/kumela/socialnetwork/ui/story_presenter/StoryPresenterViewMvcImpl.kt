@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.kumela.socialnetwork.ui.common.views.RoundedImageView
+import com.kumela.socialnetwork.ui.views.RoundedImageView
 import com.kumela.socialnetwork.R
 import com.kumela.socialnetwork.models.firebase.FeedStoryModel
 import com.kumela.socialnetwork.models.firebase.UserModel
@@ -15,7 +15,7 @@ import com.kumela.socialnetwork.ui.adapters.story_images.ImagePagerAdapter
 import com.kumela.socialnetwork.ui.common.mvc.BaseObservableViewMvc
 import com.kumela.socialnetwork.ui.common.utils.OnRecyclerSnapListener
 import com.kumela.socialnetwork.ui.common.utils.load
-import com.kumela.socialnetwork.ui.common.views.PagerIndexIndicator
+import com.kumela.socialnetwork.ui.views.PagerIndexIndicator
 
 /**
  * Created by Toko on 09,November,2020

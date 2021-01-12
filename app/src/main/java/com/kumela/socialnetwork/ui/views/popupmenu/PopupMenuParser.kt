@@ -1,4 +1,4 @@
-package com.kumela.socialnetwork.ui.common.views.popupmenu
+package com.kumela.socialnetwork.ui.views.popupmenu
 
 import android.content.Context
 import android.content.res.XmlResourceParser

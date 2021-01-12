@@ -11,5 +11,8 @@
 
     <string name="follow">Follow</string>
     <string name="following">Following</string>
+    <string name="forgot_password"><u>Forgot password</u></string>
+    <string name="signup"><u>Sign Up</u></string>
+    <string name="signin"><u>Sign In</u></string>
 
 </resources>

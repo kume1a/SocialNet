@@ -1,4 +1,4 @@
-package com.kumela.socialnetwork.ui.common.views.popupmenu
+package com.kumela.socialnetwork.ui.views.popupmenu
 
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
