@@ -6,8 +6,10 @@ package com.kumela.socialnetwork.common
 
 object Constants {
 
+    const val BASE_URL = "http://10.0.2.2:8080"
+
+    const val DEFAULT_IMAGE_URI: String = "https://firebasestorage.googleapis.com/v0/b/social-network-f5e86.appspot.com/o/profile_images%2Fdefault_profile.jpg?alt=media&token=aa9d25d5-bebc-4341-8953-68d1f97d6e51"
     const val PAGE_SIZE_POST = 12
-    const val DEFAULT_IMAGE_URI: String = "https://firebasestorage.googleapis.com/v0/b/social-network-f5e86.appspot.com/o/profile_images%2Fuser.jpg?alt=media&token=6c1a2574-0432-4d2f-80e4-d9d2459c0ba8"
     const val PAGE_SIZE_FEED_IDS = 50
     const val PAGE_SIZE_USERS = 15
     const val PAGE_SIZE_USER_CHATS = 8

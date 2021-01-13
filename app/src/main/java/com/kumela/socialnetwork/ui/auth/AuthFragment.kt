@@ -1,27 +1,30 @@
-package com.kumela.socialnetwork.ui.login
+package com.kumela.socialnetwork.ui.auth
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import com.google.firebase.auth.FirebaseUser
+import androidx.lifecycle.lifecycleScope
 import com.kumela.socialnetwork.common.Constants
 import com.kumela.socialnetwork.common.utils.CredentialChecker
 import com.kumela.socialnetwork.models.firebase.UserModel
 import com.kumela.socialnetwork.network.authentication.AuthUseCase
+import com.kumela.socialnetwork.network.firebase.fold
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper
 import com.kumela.socialnetwork.ui.common.controllers.BaseFragment
 import com.kumela.socialnetwork.ui.common.dialogs.DialogManager
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
  * Created by Toko on 10,September,2020
  **/
 
-class AuthFragment : BaseFragment(), AuthViewMvc.Listener, AuthUseCase.Listener,
+class AuthFragment : BaseFragment(), AuthViewMvc.Listener,
     AuthViewModel.Listener {
 
     private lateinit var mViewMvc: AuthViewMvc
@@ -65,7 +68,6 @@ class AuthFragment : BaseFragment(), AuthViewMvc.Listener, AuthUseCase.Listener,
 
         mViewMvc.registerListener(this)
         mViewModel.registerListener(this)
-        mAuthUseCase.registerListener(this)
     }
 
     override fun onDestroyView() {
@@ -73,7 +75,6 @@ class AuthFragment : BaseFragment(), AuthViewMvc.Listener, AuthUseCase.Listener,
 
         mViewMvc.unregisterListener()
         mViewModel.unregisterListener(this)
-        mAuthUseCase.registerListener(this)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -111,7 +112,7 @@ class AuthFragment : BaseFragment(), AuthViewMvc.Listener, AuthUseCase.Listener,
 
                 if (!anyErrorsPresent) {
                     mViewMvc.showProgressIndication()
-                    mAuthUseCase.signinAndNotify(email, password)
+                    signin(email, password)
                 } else return
             }
             AuthPage.SIGN_UP -> {
@@ -140,40 +141,55 @@ class AuthFragment : BaseFragment(), AuthViewMvc.Listener, AuthUseCase.Listener,
 
                 if (!anyErrorsPresent) {
                     mViewMvc.showProgressIndication()
-                    mAuthUseCase.signupAndNotify(email, password)
+                    signup(name, email, password)
                 } else return
             }
         }
     }
 
+    private fun signin(email: String, password: String) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            val result = mAuthUseCase.signin(email, password)
+            result.fold(
+                onSuccess = { userId ->
+                    mViewMvc.dismissProgressIndication()
+                    mScreensNavigator.toHome()
+                },
+                onFailure = { exception ->
+                    Log.e(javaClass.simpleName, "signin: ", exception)
+                    mViewMvc.dismissProgressIndication()
+                    mDialogManager.showInfoDialog("Error occurred", "Failed to sign in")
+                }
+            )
+
+        }
+    }
+
+    private fun signup(name: String, email: String, password: String) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            val result = mAuthUseCase.signup(name, email, password)
+            result.fold(
+                onSuccess = { userId ->
+                    mViewMvc.dismissProgressIndication()
+                    val user = UserModel(
+                        userId,
+                        mViewMvc.getSignupName(),
+                        Constants.DEFAULT_IMAGE_URI,
+                        System.currentTimeMillis()
+                    )
+                    mViewModel.createUserAndNotify(user)
+                },
+                onFailure = { exception ->
+                    Log.e(javaClass.simpleName, "signup: ", exception)
+                    mViewMvc.dismissProgressIndication()
+                    mDialogManager.showInfoDialog("Error occurred", "Failed to sign up")
+                }
+            )
+        }
+    }
+
     override fun onGoToSignInClicked() {
         authPage = AuthPage.SIGN_IN
-    }
-
-    override fun onSigninCompleted(firebaseUser: FirebaseUser) {
-        mViewMvc.dismissProgressIndication()
-        mScreensNavigator.toHome()
-    }
-
-    override fun onSigninFailed() {
-        mViewMvc.dismissProgressIndication()
-        mDialogManager.showInfoDialog("Error occurred", "Failed to sign in")
-    }
-
-    override fun onSignupCompleted(firebaseUser: FirebaseUser) {
-        mViewMvc.dismissProgressIndication()
-        val user = UserModel(
-            firebaseUser.uid,
-            mViewMvc.getSignupName(),
-            Constants.DEFAULT_IMAGE_URI,
-            System.currentTimeMillis()
-        )
-        mViewModel.createUserAndNotify(user)
-    }
-
-    override fun onSignupFailed() {
-        mViewMvc.dismissProgressIndication()
-        mDialogManager.showInfoDialog("Error occurred", "Failed to sign up")
     }
 
     override fun onUserCreated() {

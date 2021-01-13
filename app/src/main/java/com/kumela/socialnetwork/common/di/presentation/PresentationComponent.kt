@@ -8,7 +8,7 @@ import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.dialogs.alertdialog.AlertDialog
 import com.kumela.socialnetwork.ui.explore.ExploreFragment
 import com.kumela.socialnetwork.ui.home.HomeFragment
-import com.kumela.socialnetwork.ui.login.AuthFragment
+import com.kumela.socialnetwork.ui.auth.AuthFragment
 import com.kumela.socialnetwork.ui.messages.MessagesFragment
 import com.kumela.socialnetwork.ui.post_image.PostImageFragment
 import com.kumela.socialnetwork.ui.profile.ProfileFragment

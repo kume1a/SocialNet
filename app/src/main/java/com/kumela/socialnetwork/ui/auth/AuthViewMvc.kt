@@ -1,4 +1,4 @@
-package com.kumela.socialnetwork.ui.login
+package com.kumela.socialnetwork.ui.auth
 
 import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
 

@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.kumela.socialnetwork.ui.login.AuthFragment"
+        android:name="com.kumela.socialnetwork.ui.auth.AuthFragment"
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"

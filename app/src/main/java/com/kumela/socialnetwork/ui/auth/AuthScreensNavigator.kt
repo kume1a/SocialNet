@@ -1,4 +1,4 @@
-package com.kumela.socialnetwork.ui.login
+package com.kumela.socialnetwork.ui.auth
 
 import androidx.navigation.NavController
 import javax.inject.Inject
@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class AuthScreensNavigator @Inject constructor(private val navController: NavController) {
     fun toHome() {
-        val action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
+        val action = AuthFragmentDirections.actionLoginFragmentToHomeFragment()
         navController.navigate(action)
     }
 }

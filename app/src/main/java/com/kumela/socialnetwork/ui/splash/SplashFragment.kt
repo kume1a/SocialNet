@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.kumela.socialnetwork.network.authentication.AuthCheckerUseCase
+import com.kumela.socialnetwork.network.authentication.KeyStore
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.controllers.BaseFragment
 import kotlinx.coroutines.CoroutineScope
@@ -23,7 +23,7 @@ class SplashFragment : BaseFragment() {
 
     @Inject lateinit var mViewMvcFactory: ViewMvcFactory
     @Inject lateinit var mScreensNavigator: SplashScreensNavigator
-    @Inject lateinit var mAuthChecker: AuthCheckerUseCase
+    @Inject lateinit var mKeyStore: KeyStore
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,7 +41,7 @@ class SplashFragment : BaseFragment() {
 
         CoroutineScope(Dispatchers.Main).launch {
             delay(500)
-            if (mAuthChecker.isUserSignedIn()) {
+            if (mKeyStore.readKey() != null) {
                 mScreensNavigator.toHome()
             } else {
                 mScreensNavigator.toAuth()

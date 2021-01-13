@@ -32,8 +32,8 @@ import com.kumela.socialnetwork.ui.explore.ExploreViewMvc
 import com.kumela.socialnetwork.ui.explore.ExploreViewMvcImpl
 import com.kumela.socialnetwork.ui.home.HomeViewMvc
 import com.kumela.socialnetwork.ui.home.HomeViewMvcImpl
-import com.kumela.socialnetwork.ui.login.AuthViewMvc
-import com.kumela.socialnetwork.ui.login.AuthViewMvcImpl
+import com.kumela.socialnetwork.ui.auth.AuthViewMvc
+import com.kumela.socialnetwork.ui.auth.AuthViewMvcImpl
 import com.kumela.socialnetwork.ui.messages.MessagesViewMvc
 import com.kumela.socialnetwork.ui.messages.MessagesViewMvcImpl
 import com.kumela.socialnetwork.ui.post_image.PostImageViewMvc

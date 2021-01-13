@@ -1,9 +1,9 @@
 package com.kumela.socialnetwork.common.di.presentation
 
-import com.google.firebase.auth.FirebaseAuth
 import com.kumela.socialnetwork.common.utils.CredentialChecker
-import com.kumela.socialnetwork.network.authentication.AuthCheckerUseCase
+import com.kumela.socialnetwork.network.api.ApiService
 import com.kumela.socialnetwork.network.authentication.AuthUseCase
+import com.kumela.socialnetwork.network.authentication.KeyStore
 import dagger.Module
 import dagger.Provides
 
@@ -18,8 +18,6 @@ class UseCaseModule {
     fun providesCredentialChecker() = CredentialChecker()
 
     @Provides
-    fun providesAuthCheckerUseCase(firebaseAuth: FirebaseAuth) = AuthCheckerUseCase(firebaseAuth)
-
-    @Provides
-    fun providesLoginUseCase(firebaseAuth: FirebaseAuth) = AuthUseCase(firebaseAuth)
+    fun providesLoginUseCase(apiService: ApiService, keyStore: KeyStore) =
+        AuthUseCase(apiService, keyStore)
 }

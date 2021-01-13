@@ -1,65 +1,55 @@
 package com.kumela.socialnetwork.network.authentication
 
-import android.util.Log
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.kumela.socialnetwork.common.BaseObservable
+import com.kumela.socialnetwork.network.api.ApiService
+import com.kumela.socialnetwork.network.api.SigninBody
+import com.kumela.socialnetwork.network.api.SignupBody
+import com.kumela.socialnetwork.network.firebase.Result
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import java.util.*
 
 /**
  * Created by Toko on 26,September,2020
  **/
 
-class AuthUseCase(private val firebaseAuth: FirebaseAuth) :
-    BaseObservable<AuthUseCase.Listener>() {
+class AuthUseCase(
+    private val apiService: ApiService,
+    private val keyStore: KeyStore
+) {
 
-    interface Listener {
-        fun onSigninCompleted(firebaseUser: FirebaseUser)
-        fun onSigninFailed()
-
-        fun onSignupCompleted(firebaseUser: FirebaseUser)
-        fun onSignupFailed()
+    suspend fun signin(
+        email: String,
+        password: String
+    ): Result<String, Exception> = withContext(Dispatchers.IO) {
+        try {
+            val response = apiService.signin(SigninBody(email, password))
+            val body = response.body()
+            if (response.isSuccessful && body != null) {
+                keyStore.saveKey(body.token)
+                return@withContext Result.Success(body.userId)
+            }
+            return@withContext Result.Failure(Exception("unknown error status code: ${response.code()}"))
+        } catch (e: Exception) {
+            return@withContext Result.Failure(e)
+        }
     }
 
-    fun signinAndNotify(email: String, password: String) {
-        firebaseAuth.signInWithEmailAndPassword(email, password)
-            .addOnSuccessListener { authResult ->
-                val user = authResult.user
-                if (user != null) {
-                    for (listener in listeners) {
-                        listener.onSigninCompleted(user)
-                    }
-                } else {
-                    for (listener in listeners) {
-                        listener.onSigninFailed()
-                    }
-                }
-            }.addOnFailureListener {
-                Log.e(javaClass.simpleName, "loginAndNotify: failed", it)
-                for (listener in listeners) {
-                    listener.onSigninFailed()
-                }
+    suspend fun signup(
+        name: String,
+        email: String,
+        password: String
+    ): Result<String, Exception> = withContext(Dispatchers.IO) {
+        try {
+            val response = apiService.signup(SignupBody(name, email, password))
+            val body = response.body()
+            if (response.isSuccessful && body != null) {
+                keyStore.saveKey(body.token)
+                return@withContext Result.Success(body.userId)
             }
-    }
-
-    fun signupAndNotify(email: String, password: String) {
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
-            .addOnSuccessListener { authResult ->
-                val user = authResult.user
-                if (user != null) {
-                    for (listener in listeners) {
-                        listener.onSignupCompleted(user)
-                    }
-                } else {
-                    for (listener in listeners) {
-                        listener.onSignupFailed()
-                    }
-                }
-            }.addOnFailureListener {
-                Log.e(javaClass.simpleName, "registerAndNotify: failed", it)
-                for (listener in listeners) {
-                    listener.onSignupFailed()
-                }
-            }
+            return@withContext Result.Failure(Exception("unknown error status code: ${response.code()}"))
+        } catch (e: Exception) {
+            return@withContext Result.Failure(e)
+        }
     }
 
 }

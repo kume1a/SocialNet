@@ -1,4 +1,4 @@
-package com.kumela.socialnetwork.ui.login
+package com.kumela.socialnetwork.ui.auth
 
 import android.util.Log
 import com.kumela.socialnetwork.models.firebase.UserModel
