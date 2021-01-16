@@ -1,22 +1,44 @@
 package com.kumela.socialnetwork.network
 
+import android.util.Log
+import com.kumela.socialnetwork.network.firebase.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
+import retrofit2.Response
 
 /**
  * Created by Toko on 15,January,2021
  **/
 
 suspend fun <T> safeCall(
-    apiCall: suspend () -> T
+    apiCall: suspend () -> Response<T>
 ): NetworkResult<T> = withContext(Dispatchers.IO) {
     try {
-        return@withContext NetworkResult.Success(apiCall.invoke())
+        val response = apiCall.invoke()
+        val body = response.body()
+        if (response.isSuccessful && body != null) {
+            return@withContext NetworkResult.Success(body)
+        } else {
+            val throwable = HttpException(response)
+            Log.e(javaClass.simpleName, "safeCall: ", throwable)
+            return@withContext NetworkResult.HttpError(response.code(), throwable)
+        }
     } catch (throwable: Throwable) {
+        Log.e(javaClass.simpleName, "safeCall: ", throwable)
         return@withContext when (throwable) {
             is HttpException -> NetworkResult.HttpError(throwable.code(), throwable)
             else -> NetworkResult.Error(throwable)
         }
+    }
+}
+
+fun <T, R> NetworkResult<T>.mapToResult(
+    onSuccess: (body: T) -> Result<R, NetworkError>
+): Result<R, NetworkError> {
+    return when (this) {
+        is NetworkResult.Success -> onSuccess.invoke(this.body)
+        is NetworkResult.HttpError -> Result.Failure(NetworkError.HttpError(this.statusCode))
+        is NetworkResult.Error -> Result.Failure(NetworkError.Error)
     }
 }

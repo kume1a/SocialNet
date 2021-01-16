@@ -5,7 +5,7 @@ package com.kumela.socialnetwork.network
  **/
 
 sealed class NetworkResult<out T> {
-    data class Success<T>(val value: T) : NetworkResult<T>()
+    data class Success<T>(val body: T) : NetworkResult<T>()
     data class HttpError(val statusCode: Int, val error: Throwable) : NetworkResult<Nothing>()
     data class Error(val error: Throwable) : NetworkResult<Nothing>()
 }
