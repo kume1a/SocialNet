@@ -17,6 +17,7 @@ import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper
 import com.kumela.socialnetwork.ui.common.controllers.BaseFragment
 import com.kumela.socialnetwork.ui.common.dialogs.DialogManager
+import com.kumela.socialnetwork.ui.common.utils.getAuthError
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -152,16 +153,16 @@ class AuthFragment : BaseFragment(), AuthViewMvc.Listener,
             val result = mAuthUseCase.signin(email, password)
             result.fold(
                 onSuccess = { userId ->
+                    Log.d(javaClass.simpleName, "signin: success, id = $userId")
                     mViewMvc.dismissProgressIndication()
                     mScreensNavigator.toHome()
                 },
-                onFailure = { exception ->
-                    Log.e(javaClass.simpleName, "signin: ", exception)
+                onFailure = { error ->
+                    Log.d(javaClass.simpleName, "signin: error = $error")
                     mViewMvc.dismissProgressIndication()
-                    mDialogManager.showInfoDialog("Error occurred", "Failed to sign in")
+                    mViewMvc.showSnackBar(getAuthError(error))
                 }
             )
-
         }
     }
 
@@ -170,6 +171,7 @@ class AuthFragment : BaseFragment(), AuthViewMvc.Listener,
             val result = mAuthUseCase.signup(name, email, password)
             result.fold(
                 onSuccess = { userId ->
+                    Log.d(javaClass.simpleName, "signup: success, userId = $userId")
                     mViewMvc.dismissProgressIndication()
                     val user = UserModel(
                         userId,
@@ -179,10 +181,10 @@ class AuthFragment : BaseFragment(), AuthViewMvc.Listener,
                     )
                     mViewModel.createUserAndNotify(user)
                 },
-                onFailure = { exception ->
-                    Log.e(javaClass.simpleName, "signup: ", exception)
+                onFailure = { error ->
+                    Log.d(javaClass.simpleName, "signup: error = $error")
                     mViewMvc.dismissProgressIndication()
-                    mDialogManager.showInfoDialog("Error occurred", "Failed to sign up")
+                    mViewMvc.showSnackBar(getAuthError(error))
                 }
             )
         }

@@ -1,12 +1,13 @@
 package com.kumela.socialnetwork.ui.auth
 
 import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
+import com.kumela.socialnetwork.ui.common.views.SnackBarView
 
 /**
  * Created by Toko on 10,September,2020
  **/
 
-interface AuthViewMvc : ObservableViewMvc<AuthViewMvc.Listener> {
+interface AuthViewMvc : ObservableViewMvc<AuthViewMvc.Listener>, SnackBarView {
     interface Listener {
         fun onAuthClicked()
 

@@ -7,6 +7,7 @@ import android.widget.ImageButton
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.annotation.FloatRange
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.kumela.socialnetwork.R
 import com.kumela.socialnetwork.ui.common.mvc.BaseObservableViewMvc
@@ -50,6 +51,10 @@ class AuthViewMvcImpl(
         btnForgotPassword.setOnClickListener { listener?.onForgotPasswordClicked() }
 
         textSignupSignin.setOnClickListener { listener?.onGoToSignInClicked() }
+    }
+
+    override fun showSnackBar(stringResId: Int, duration: Int) {
+        Snackbar.make(rootView, stringResId, duration).show()
     }
 
     override fun showProgressIndication() {

@@ -3,11 +3,12 @@
 
     <string name="ellipsis">&#8230;</string>
 
-    <string name="oauth_client_id">197515846046-kpaoj08068kv4hr2p69r1r8b1j009p2i.apps.googleusercontent.com</string>
-<!--    <string name="oauth_client_secret">J778SZM9OxoZi6E2x_GHPpBW</string>-->
-
-    <string name="facebook_app_id">355497652314602</string>
-    <string name="fb_login_protocol_scheme">fb355497652314602</string>
+    <!--  Errors  -->
+    <string name="generic_error">error occurred, please try again later</string>
+    <string name="invalid_value_error">invalid value</string>
+    <string name="user_conflict_error">user already exists with the same email</string>
+    <string name="password_or_email_invalid_error">password or email invalid</string>
+    <string name="connection_timed_out">connection timed out</string>
 
     <string name="follow">Follow</string>
     <string name="following">Following</string>
