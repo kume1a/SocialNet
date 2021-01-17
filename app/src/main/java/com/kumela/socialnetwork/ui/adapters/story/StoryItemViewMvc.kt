@@ -37,7 +37,7 @@ class StoryItemViewMvc(
     fun bindStoryModel(user: User) {
         this.user = user
 
-        imageStory.load(user.imageUri)
+        imageStory.load(user.imageUrl)
     }
 
 //    override fun startAnimation() {

@@ -58,17 +58,17 @@ class CommentsViewModel : ObservableViewModel<CommentsViewModel.Listener>() {
     private fun fetchCommentAuthorAndNotifyListeners(comment: Comment) {
         UserUseCase.fetchUserAndNotify(uuid, comment.userId,
             onSuccessListener = { userModel ->
-                val commentListModel = CommentList(
-                    userModel.id,
-                    userModel.imageUri,
-                    userModel.username,
-                    comment.comment,
-                    comment.timestamp
-                )
-                this.comments.add(commentListModel)
-                for (listener in listeners) {
-                    listener.onCommentFetched(commentListModel)
-                }
+//                val commentListModel = CommentList(
+//                    userModel.id,
+//                    userModel.imageUrl,
+//                    userModel.name,
+//                    comment.comment,
+//                    comment.timestamp
+//                )
+//                this.comments.add(commentListModel)
+//                for (listener in listeners) {
+//                    listener.onCommentFetched(commentListModel)
+//                }
             },
             onFailureListener = { databaseError ->
                 Log.e(javaClass.simpleName, "fetchCommentAuthorAndNotifyListeners: ", databaseError.toException())

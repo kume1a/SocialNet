@@ -82,9 +82,9 @@ class CommentsFragment : BaseFragment(), CommentsViewMvc.Listener, CommentsViewM
     }
 
     override fun onUserClicked(user: User) {
-        if (user.id != UserUseCase.uid) {
-            mScreensNavigator.toUserProfile(user.id, user.imageUri, user.username)
-        }
+//        if (user.id != UserUseCase.uid) {
+//            mScreensNavigator.toUserProfile(user.id, user.imageUrl, user.name)
+//        }
     }
 
     override fun onPostClicked() {

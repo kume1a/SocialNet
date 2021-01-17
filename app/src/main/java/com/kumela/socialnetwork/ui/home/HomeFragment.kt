@@ -100,7 +100,7 @@ class HomeFragment : BaseFragment(), HomeViewMvc.Listener,
         if (position == 0) {
             mIntentDispatcher.dispatchImagePickerIntent(REQUEST_PICK_STORY_IMAGE)
         } else {
-            mScreensNavigator.toStoryPresenter(user.id)
+//            mScreensNavigator.toStoryPresenter(user.id)
         }
     }
 
@@ -123,7 +123,7 @@ class HomeFragment : BaseFragment(), HomeViewMvc.Listener,
 
     // feed item view callbacks
     override fun onUserProfileOrUsernameClicked(user: User) {
-        mScreensNavigator.toUserProfile(user.id, user.imageUri, user.username)
+//        mScreensNavigator.toUserProfile(user.id, user.imageUrl, user.name)
     }
 
     override fun onLikeClicked(position: Int, feedModel: Feed) {
@@ -141,7 +141,7 @@ class HomeFragment : BaseFragment(), HomeViewMvc.Listener,
     override fun onCommentClicked(postId: String) {
         val user = mViewModel.getUser()
         if (user != null) {
-            mScreensNavigator.toComments(postId, user.id, user.imageUri, user.username)
+//            mScreensNavigator.toComments(postId, user.id, user.imageUrl, user.name)
         }
     }
 

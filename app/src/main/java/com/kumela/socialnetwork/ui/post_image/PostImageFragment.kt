@@ -98,8 +98,8 @@ class PostImageFragment : BaseFragment(), PostImageViewMvc.Listener,
     }
 
     override fun onUserFetched(user: User) {
-        mViewMvc.bindProfileImage(user.imageUri)
-        mViewMvc.bindUsername(user.username)
+        mViewMvc.bindProfileImage(user.imageUrl)
+        mViewMvc.bindUsername(user.name)
     }
 
     // image use case

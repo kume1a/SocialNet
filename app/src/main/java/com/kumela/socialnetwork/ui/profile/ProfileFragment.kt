@@ -121,8 +121,8 @@ class ProfileFragment : BaseFragment(), ProfileViewMvc.Listener,
 
     // view model callbacks
     override fun onUserFetched(user: User) {
-        mViewMvc.bindProfileImage(user.imageUri)
-        mViewMvc.bindUsername(user.username)
+        mViewMvc.bindProfileImage(user.imageUrl)
+        mViewMvc.bindUsername(user.name)
     }
 
     override fun onUserExtraInfoFetched(userExtraInfo: UserExtraInfo) {

@@ -1,6 +1,8 @@
-package com.kumela.socialnetwork.network
+package com.kumela.socialnetwork.network.common
 
 import android.util.Log
+import com.kumela.socialnetwork.network.NetworkError
+import com.kumela.socialnetwork.network.NetworkResult
 import com.kumela.socialnetwork.network.firebase.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -38,6 +40,14 @@ fun <T, R> NetworkResult<T>.mapToResult(
 ): Result<R, NetworkError> {
     return when (this) {
         is NetworkResult.Success -> onSuccess.invoke(this.body)
+        is NetworkResult.HttpError -> Result.Failure(NetworkError.HttpError(this.statusCode))
+        is NetworkResult.Error -> Result.Failure(NetworkError.Error)
+    }
+}
+
+fun <T> NetworkResult<T>.mapToResult(): Result<T, NetworkError> {
+    return when (this) {
+        is NetworkResult.Success -> Result.Success(this.body)
         is NetworkResult.HttpError -> Result.Failure(NetworkError.HttpError(this.statusCode))
         is NetworkResult.Error -> Result.Failure(NetworkError.Error)
     }

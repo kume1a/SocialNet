@@ -78,7 +78,7 @@ class MessagesFragment : BaseFragment(), MessagesViewMvc.Listener, MessagesViewM
     }
 
     override fun onFriendClicked(user: User) {
-        mScreensNavigator.toChat(user.id, user.imageUri, user.username)
+//        mScreensNavigator.toChat(user.id, user.imageUrl, user.name)
     }
 
     override fun onSearchClicked() {

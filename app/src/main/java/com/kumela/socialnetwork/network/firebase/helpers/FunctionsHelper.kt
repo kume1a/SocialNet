@@ -160,10 +160,9 @@ object FunctionsObjectsDeserializer {
                 map["description"] as String,
             ) as T
             User::class -> User(
-                map[UserFields.id] as String,
+                map[UserFields.id] as Int,
                 map[UserFields.username] as String,
                 map[UserFields.imageUri] as String,
-                map[UserFields.lastOnline] as Long
             ) as T
             else -> Any() as T
         }

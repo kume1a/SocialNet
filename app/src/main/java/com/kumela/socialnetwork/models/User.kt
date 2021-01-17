@@ -5,8 +5,8 @@ package com.kumela.socialnetwork.models
  **/
 
 data class User(
-    val id: String = "",
-    val username: String = "",
-    val imageUri: String = "",
-    val lastOnline: Long = 0L
+    val id: Int,
+    val name: String,
+    val imageUrl: String,
+    val bio: String = "",
 )

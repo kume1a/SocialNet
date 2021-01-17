@@ -61,40 +61,6 @@ object UserUseCase : UseCase() {
         }.start()
     }
 
-    inline fun createUserAndNotify(
-        uuid: UUID,
-        user: User,
-        crossinline onSuccessListener: () -> Unit,
-        crossinline onFailureListener: (Exception) -> Unit
-    ) {
-        val userRefKey = DatabaseHelper.getUserTableRef().child(user.id).key
-        val userExtraInfoRefKey = DatabaseHelper.getUserExtraInfoTableRef().child(user.id).key
-
-        if (userRefKey == null || userExtraInfoRefKey == null) {
-            if (isActive(uuid)) {
-                onFailureListener.invoke(Exception("User create failed, could not get the key of reference"))
-            }
-        }
-
-        val childUpdates = hashMapOf(
-            "${DatabaseHelper.DB_KEY_USERS}/$userRefKey" to user,
-            "${DatabaseHelper.DB_KEY_USER_EXTRA_INFO}/$userExtraInfoRefKey" to UserExtraInfo()
-        )
-
-        DatabaseHelper.databaseRef
-            .updateChildren(childUpdates)
-            .addOnSuccessListener {
-                if (isActive(uuid)) {
-                    onSuccessListener.invoke()
-                }
-            }
-            .addOnFailureListener { exception ->
-                if (isActive(uuid)) {
-                    onFailureListener.invoke(exception)
-                }
-            }
-    }
-
     fun fetchUserAndNotify(
         uuid: UUID,
         uid: String?,
@@ -182,7 +148,7 @@ object UserUseCase : UseCase() {
 
                     val users = snapshot.children
                         .map { it.getValue<User>()!! }
-                        .filter { it.id != uid }
+//                        .filter { it.id != uid }
 
                     onSuccessListener.onSuccess(users)
                 }

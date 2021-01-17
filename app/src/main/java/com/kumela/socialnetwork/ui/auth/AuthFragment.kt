@@ -6,11 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.kumela.socialnetwork.common.Constants
 import com.kumela.socialnetwork.common.utils.CredentialChecker
-import com.kumela.socialnetwork.models.User
 import com.kumela.socialnetwork.network.authentication.AuthUseCase
 import com.kumela.socialnetwork.network.firebase.fold
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
@@ -25,11 +22,9 @@ import javax.inject.Inject
  * Created by Toko on 10,September,2020
  **/
 
-class AuthFragment : BaseFragment(), AuthViewMvc.Listener,
-    AuthViewModel.Listener {
+class AuthFragment : BaseFragment(), AuthViewMvc.Listener {
 
     private lateinit var mViewMvc: AuthViewMvc
-    private lateinit var mViewModel: AuthViewModel
 
     @Inject lateinit var mViewMvcFactory: ViewMvcFactory
     @Inject lateinit var mScreensNavigator: AuthScreensNavigator
@@ -65,17 +60,13 @@ class AuthFragment : BaseFragment(), AuthViewMvc.Listener,
         authPage =
             savedInstanceState?.getSerializable(KEY_AUTH_PAGE) as? AuthPage ?: AuthPage.SIGN_IN
 
-        mViewModel = ViewModelProvider(this).get(AuthViewModel::class.java)
-
         mViewMvc.registerListener(this)
-        mViewModel.registerListener(this)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
 
         mViewMvc.unregisterListener()
-        mViewModel.unregisterListener(this)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -173,13 +164,7 @@ class AuthFragment : BaseFragment(), AuthViewMvc.Listener,
                 onSuccess = { userId ->
                     Log.d(javaClass.simpleName, "signup: success, userId = $userId")
                     mViewMvc.dismissProgressIndication()
-                    val user = User(
-                        userId,
-                        mViewMvc.getSignupName(),
-                        Constants.DEFAULT_IMAGE_URI,
-                        System.currentTimeMillis()
-                    )
-                    mViewModel.createUserAndNotify(user)
+                    mScreensNavigator.toHome()
                 },
                 onFailure = { error ->
                     Log.d(javaClass.simpleName, "signup: error = $error")
@@ -192,16 +177,6 @@ class AuthFragment : BaseFragment(), AuthViewMvc.Listener,
 
     override fun onGoToSignInClicked() {
         authPage = AuthPage.SIGN_IN
-    }
-
-    override fun onUserCreated() {
-        mViewMvc.dismissProgressIndication()
-        mScreensNavigator.toHome()
-    }
-
-    override fun onUserCreateFailed(e: Exception) {
-        mViewMvc.dismissProgressIndication()
-        mDialogManager.showInfoDialog("Error occurred", "Failed to connect to server")
     }
 
     private fun onAuthPageChanged(prev: AuthPage, curr: AuthPage) {

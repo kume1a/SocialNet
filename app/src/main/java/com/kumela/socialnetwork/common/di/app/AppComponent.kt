@@ -5,7 +5,7 @@ import com.kumela.socialnetwork.common.di.annotations.AppScope
 import dagger.Component
 
 @AppScope
-@Component(modules = [AppModule::class, NetworkingModule::class])
+@Component(modules = [AppModule::class, NetworkingModule::class, RepositoryModule::class])
 interface AppComponent {
 
     fun newActivityComponentBuilder(): ActivityComponent.Builder

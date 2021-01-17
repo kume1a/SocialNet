@@ -35,7 +35,7 @@ class FriendsItemViewMvcImpl(
     override fun bindUserModel(user: User) {
         this.user = user
 
-        image.load(user.imageUri)
+        image.load(user.imageUrl)
         imageOnlineIndicator.visibility = View.GONE
         imageOnlineIndicator.visibility = if (user.isOnline()) View.VISIBLE else View.GONE
     }

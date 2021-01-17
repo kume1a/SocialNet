@@ -5,8 +5,8 @@ import com.kumela.socialnetwork.network.api.ApiService
 import com.kumela.socialnetwork.network.api.SigninBody
 import com.kumela.socialnetwork.network.api.SignupBody
 import com.kumela.socialnetwork.network.firebase.Result
-import com.kumela.socialnetwork.network.mapToResult
-import com.kumela.socialnetwork.network.safeCall
+import com.kumela.socialnetwork.network.common.mapToResult
+import com.kumela.socialnetwork.network.common.safeCall
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.*
@@ -22,7 +22,7 @@ class AuthUseCase(
     suspend fun signin(
         email: String,
         password: String
-    ): Result<String, NetworkError> = withContext(Dispatchers.IO) {
+    ): Result<Int, NetworkError> = withContext(Dispatchers.IO) {
         val result = safeCall { apiService.signin(SigninBody(email, password)) }
         return@withContext result.mapToResult { body ->
             keyStore.saveKey(body.token)
@@ -34,7 +34,7 @@ class AuthUseCase(
         name: String,
         email: String,
         password: String
-    ): Result<String, NetworkError> = withContext(Dispatchers.IO) {
+    ): Result<Int, NetworkError> = withContext(Dispatchers.IO) {
         val result = safeCall { apiService.signup(SignupBody(name, email, password)) }
         return@withContext result.mapToResult { body ->
             keyStore.saveKey(body.token)

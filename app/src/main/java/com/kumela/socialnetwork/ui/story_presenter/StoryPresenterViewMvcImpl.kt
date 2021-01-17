@@ -53,8 +53,8 @@ class StoryPresenterViewMvcImpl(
     }
 
     override fun bindStoryAuthor(user: User) {
-        imageProfile.load(user.imageUri)
-        textUsername.text = user.username
+        imageProfile.load(user.imageUrl)
+        textUsername.text = user.name
     }
 
     override fun bindStories(feedStories: List<FeedStoryModel>) {

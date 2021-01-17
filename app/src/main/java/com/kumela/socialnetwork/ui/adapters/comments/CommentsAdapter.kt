@@ -49,11 +49,11 @@ class CommentsAdapter(
 
     // view callbacks
     override fun onUserProfileImageClicked(data: CommentList) {
-        listener.onUserClicked(User(data.posterId, data.posterUsername, data.posterImageUri))
+//        listener.onUserClicked(User(data.posterId, data.posterUsername, data.posterImageUri))
     }
 
     override fun onUserUsernameClicked(data: CommentList) {
-        listener.onUserClicked(User(data.posterId, data.posterUsername, data.posterImageUri))
+//        listener.onUserClicked(User(data.posterId, data.posterUsername, data.posterImageUri))
     }
 
     override fun onMenuClicked(data: CommentList) {

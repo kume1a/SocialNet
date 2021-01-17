@@ -102,21 +102,21 @@ class MessagesViewModel(
                     for (uid in followingUserIds) {
                         UserUseCase.fetchUserAndNotify(uuid, uid,
                             { userModel ->
-                                val chatListModel = ChatList(
-                                    targetUid = userModel.id,
-                                    targetUsername = userModel.username,
-                                    targetImageUri = userModel.imageUri,
-                                    targetIsOnline = userModel.isOnline()
-                                )
-
-                                mChats.add(chatListModel)
-                                for (listener in listeners) {
-                                    listener.onChatFetched(chatListModel)
-                                }
-
-                                if (followingUserIds.indexOf(uid) == followingUserIds.size - 1) {
-                                    fetchingChats = false
-                                }
+//                                val chatListModel = ChatList(
+//                                    targetUid = userModel.id,
+//                                    targetUsername = userModel.name,
+//                                    targetImageUri = userModel.imageUrl,
+//                                    targetIsOnline = userModel.isOnline()
+//                                )
+//
+//                                mChats.add(chatListModel)
+//                                for (listener in listeners) {
+//                                    listener.onChatFetched(chatListModel)
+//                                }
+//
+//                                if (followingUserIds.indexOf(uid) == followingUserIds.size - 1) {
+//                                    fetchingChats = false
+//                                }
                             },
                             { databaseError ->
                                 fetchingUsers = false
@@ -148,19 +148,19 @@ class MessagesViewModel(
                 if (oldChatModelIndex == -1) {
                     UserUseCase.fetchUserAndNotify(uuid, userChat.targetId,
                         { userModel ->
-                            val chatListModel = ChatList(
-                                chatModel.id,
-                                chatModel.lastMessage,
-                                chatModel.lastUpdated,
-                                userModel.id,
-                                userModel.username,
-                                userModel.imageUri,
-                                userChat.unseenMessageCount,
-                                userModel.isOnline()
-                            )
-
-                            mChats.add(chatListModel)
-                            notifyListenerAndCheckIfLastChatFetched(index, chatListModel)
+//                            val chatListModel = ChatList(
+//                                chatModel.id,
+//                                chatModel.lastMessage,
+//                                chatModel.lastUpdated,
+//                                userModel.id,
+//                                userModel.name,
+//                                userModel.imageUrl,
+//                                userChat.unseenMessageCount,
+//                                userModel.isOnline()
+//                            )
+//
+//                            mChats.add(chatListModel)
+//                            notifyListenerAndCheckIfLastChatFetched(index, chatListModel)
                         },
                         { databaseError ->
                             fetchingChats = false

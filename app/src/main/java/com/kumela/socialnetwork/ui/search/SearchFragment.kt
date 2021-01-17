@@ -5,22 +5,25 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.kumela.socialnetwork.models.User
+import com.kumela.socialnetwork.network.firebase.fold
+import com.kumela.socialnetwork.network.repositories.SearchRepository
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper
 import com.kumela.socialnetwork.ui.common.controllers.BaseFragment
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
  * Created by Toko on 24,September,2020
  **/
 
-class SearchFragment : BaseFragment(), SearchViewMvc.Listener,
-    SearchViewModel.Listener {
+class SearchFragment : BaseFragment(), SearchViewMvc.Listener {
 
     private lateinit var mViewMvc: SearchViewMvc
-    private lateinit var mViewModel: SearchViewModel
+
+    @Inject lateinit var mSearchRepository: SearchRepository
 
     @Inject lateinit var mViewMvcFactory: ViewMvcFactory
     @Inject lateinit var mBottomNavHelper: BottomNavHelper
@@ -39,24 +42,14 @@ class SearchFragment : BaseFragment(), SearchViewMvc.Listener,
         return mViewMvc.rootView
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        mViewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
-    }
-
     override fun onStart() {
         super.onStart()
         mViewMvc.registerListener(this)
-        mViewModel.registerListener(this)
-
-        mViewModel.users?.let { mViewMvc.bindSearchItems(it) }
     }
 
     override fun onStop() {
         super.onStop()
         mViewMvc.unregisterListener()
-        mViewModel.unregisterListener(this)
     }
 
     override fun onBackPressed() {
@@ -69,15 +62,22 @@ class SearchFragment : BaseFragment(), SearchViewMvc.Listener,
             return
         }
 
-//        mViewModel.fetchUsersByNameAndNotify(query)
+        viewLifecycleOwner.lifecycleScope.launch {
+            val result = mSearchRepository.searchUsers(query)
+            
+            result.fold(
+                onSuccess = { users ->
+                    mViewMvc.bindSearchItems(users)
+                },
+                onFailure = { error ->
+                    Log.e(javaClass.simpleName, "onQueryTextChanged: $error")
+                }
+            )
+        }
     }
 
     override fun onSearchItemClicked(user: User) {
-        mScreensNavigator.toUserProfile(user.id, user.imageUri, user.username)
-    }
-
-    override fun onUsersFetched(users: List<User>) {
-        Log.d(javaClass.simpleName, "onUsersFetched() called with: users = $users")
-        mViewMvc.bindSearchItems(users)
+//        mScreensNavigator.toUserProfile(user.id, user.imageUrl, user.name)
+        Log.d(javaClass.simpleName, "onSearchItemClicked() called with: user = $user")
     }
 }

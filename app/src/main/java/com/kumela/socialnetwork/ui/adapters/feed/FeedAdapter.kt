@@ -62,15 +62,15 @@ class FeedAdapter(
 
     // view callbacks
     override fun onProfileImageClicked(position: Int, feedModel: Feed) {
-        val user =
-            User(feedModel.posterUid, feedModel.posterUsername, feedModel.posterImageUri)
-        listener.onUserProfileOrUsernameClicked(user)
+//        val user =
+//            User(feedModel.posterUid, feedModel.posterUsername, feedModel.posterImageUri)
+//        listener.onUserProfileOrUsernameClicked(user)
     }
 
     override fun onUsernameClicked(position: Int, feedModel: Feed) {
-        val user =
-            User(feedModel.posterUid, feedModel.posterUsername, feedModel.posterImageUri)
-        listener.onUserProfileOrUsernameClicked(user)
+//        val user =
+//            User(feedModel.posterUid, feedModel.posterUsername, feedModel.posterImageUri)
+//        listener.onUserProfileOrUsernameClicked(user)
     }
 
     override fun onLikeClicked(position: Int, feedModel: Feed) {

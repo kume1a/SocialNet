@@ -74,7 +74,7 @@ class StoryPresenterFragment : BaseFragment(), StoryPresenterViewMvc.Listener {
             mViewMvc.bindStories(mAllStories)
 
             // bind initial story author
-            mViewMvc.bindStoryAuthor(feedStoryAuthors.first { it.id == argInitialAuthorId })
+//            mViewMvc.bindStoryAuthor(feedStoryAuthors.first { it.id == argInitialAuthorId })
 
             // bind image count for indicator
             mViewMvc.bindImageCount(initialFeedStories.stories.size, 0)
@@ -102,8 +102,8 @@ class StoryPresenterFragment : BaseFragment(), StoryPresenterViewMvc.Listener {
             val currentFeedStory = feedStories[storyPage]
 
             // change story author and reset indicator
-            mViewMvc.bindStoryAuthor(
-                mViewModel.getStoryPosters().first { it.id == currentFeedStory.userId })
+//            mViewMvc.bindStoryAuthor(
+//                mViewModel.getStoryPosters().first { it.id == currentFeedStory.userId })
             mViewMvc.bindImageCount(
                 currentFeedStory.stories.size,
                 if (mLastStoryPage > storyPage) currentFeedStory.stories.size - 1 else 0

@@ -36,7 +36,7 @@ class UserItemViewMvc(
     fun bindUser(user: User) {
         this.user = user
 
-        imageProfile.load(user.imageUri)
-        textUsername.text = user.username
+        imageProfile.load(user.imageUrl)
+        textUsername.text = user.name
     }
 }

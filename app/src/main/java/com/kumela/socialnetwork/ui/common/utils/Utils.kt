@@ -80,7 +80,8 @@ fun getUniqueId(id1: String, id2: String): String {
 }
 
 fun User.isOnline(): Boolean {
-    return System.currentTimeMillis() - lastOnline <= Constants.INTERVAL_ONLINE_UPDATE
+    return false
+//    return System.currentTimeMillis() - lastOnline <= Constants.INTERVAL_ONLINE_UPDATE
 }
 
 fun Long.isOutdated() : Boolean {
