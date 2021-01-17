@@ -1,5 +1,6 @@
-package com.kumela.socialnetwork.common.di.presentation
+package com.kumela.socialnetwork.common.di.app
 
+import com.kumela.socialnetwork.common.di.annotations.AppScope
 import com.kumela.socialnetwork.common.utils.CredentialChecker
 import com.kumela.socialnetwork.network.api.ApiService
 import com.kumela.socialnetwork.network.authentication.AuthUseCase
@@ -17,7 +18,8 @@ class UseCaseModule {
     @Provides
     fun providesCredentialChecker() = CredentialChecker()
 
+    @AppScope
     @Provides
-    fun providesLoginUseCase(apiService: ApiService, keyStore: KeyStore) =
+    fun providesAuthUseCase(apiService: ApiService, keyStore: KeyStore) =
         AuthUseCase(apiService, keyStore)
 }

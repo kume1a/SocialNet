@@ -137,6 +137,8 @@ class UserProfileViewMvcImpl(
         buttonFollow.text = text
     }
 
+    override fun getFollowingButtonText(): String = buttonFollow.text.toString()
+
     private fun showPosts() {
         if (!textPostsHeader.isVisible) {
             textPostsHeader.visibility = View.VISIBLE

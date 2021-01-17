@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class SplashScreensNavigator @Inject constructor(private val navController: NavController) {
     fun toAuth() {
-        val action = SplashFragmentDirections.actionSplashFragmentToLoginFragment()
+        val action = SplashFragmentDirections.actionSplashFragmentToAuthFragment()
         navController.navigateSafely(action)
     }
 

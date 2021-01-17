@@ -30,6 +30,7 @@ interface UserProfileViewMvc : ObservableViewMvc<UserProfileViewMvc.Listener> {
     fun bindFollowingCount(followingCount: Int)
     fun showNoPostsAvailable()
     fun setFollowingButtonText(text: String)
+    fun getFollowingButtonText(): String
 
     fun bindPosts(posts: List<Post>)
 

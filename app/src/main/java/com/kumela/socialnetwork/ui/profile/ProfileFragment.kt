@@ -10,6 +10,7 @@ import com.kumela.socialnetwork.models.Story
 import com.kumela.socialnetwork.models.UserExtraInfo
 import com.kumela.socialnetwork.models.User
 import com.kumela.socialnetwork.models.list.Post
+import com.kumela.socialnetwork.network.authentication.AuthUseCase
 import com.kumela.socialnetwork.network.firebase.UserUseCase
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper
@@ -32,6 +33,7 @@ class ProfileFragment : BaseFragment(), ProfileViewMvc.Listener,
     @Inject lateinit var mViewModelFactory: ViewModelFactory
     @Inject lateinit var mScreensNavigator: ProfileScreensNavigator
     @Inject lateinit var mBottomNavHelper: BottomNavHelper
+    @Inject lateinit var mAuthUseCase: AuthUseCase
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,34 +53,34 @@ class ProfileFragment : BaseFragment(), ProfileViewMvc.Listener,
 
         mViewModel = ViewModelProvider(this, mViewModelFactory).get(ProfileViewModel::class.java)
 
-        val user = mViewModel.getUser()
-        val userExtraInfo = mViewModel.getUserExtraInfo()
-        val userPosts = mViewModel.getUserPosts()
-        val userStories = mViewModel.getUserStories()
-
-        if (user != null) {
-            onUserFetched(user)
-        } else {
-            mViewModel.fetchUserAndNotify()
-        }
-
-        if (userExtraInfo != null) {
-            onUserExtraInfoFetched(userExtraInfo)
-        } else {
-            mViewModel.fetchUserExtraInfoAndNotify()
-        }
-
-        if (userPosts != null) {
-            onPostsFetched(userPosts)
-        } else {
-            mViewModel.fetchUserPostsAndNotify()
-        }
-
-        if (userStories.isNotEmpty()) {
-            onStoriesFetched(userStories)
-        } else {
-            mViewModel.fetchNextStoriesPageAndNotify()
-        }
+//        val user = mViewModel.getUser()
+//        val userExtraInfo = mViewModel.getUserExtraInfo()
+//        val userPosts = mViewModel.getUserPosts()
+//        val userStories = mViewModel.getUserStories()
+//
+//        if (user != null) {
+//            onUserFetched(user)
+//        } else {
+//            mViewModel.fetchUserAndNotify()
+//        }
+//
+//        if (userExtraInfo != null) {
+//            onUserExtraInfoFetched(userExtraInfo)
+//        } else {
+//            mViewModel.fetchUserExtraInfoAndNotify()
+//        }
+//
+//        if (userPosts != null) {
+//            onPostsFetched(userPosts)
+//        } else {
+//            mViewModel.fetchUserPostsAndNotify()
+//        }
+//
+//        if (userStories.isNotEmpty()) {
+//            onStoriesFetched(userStories)
+//        } else {
+//            mViewModel.fetchNextStoriesPageAndNotify()
+//        }
     }
 
     override fun onStart() {
@@ -103,8 +105,8 @@ class ProfileFragment : BaseFragment(), ProfileViewMvc.Listener,
 
     override fun onSignOutClicked() {
         activity?.viewModelStore?.clear()
-        UserUseCase.signOut()
-        mScreensNavigator.toSignIn()
+        mAuthUseCase.signout()
+        mScreensNavigator.toAuth()
     }
 
     override fun onFollowerClicked() {

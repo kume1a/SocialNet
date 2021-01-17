@@ -42,4 +42,7 @@ class AuthUseCase(
         }
     }
 
+    fun signout() {
+        keyStore.deleteKey()
+    }
 }

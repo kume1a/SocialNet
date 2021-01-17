@@ -12,8 +12,8 @@ import javax.inject.Inject
 class HomeScreensNavigator @Inject constructor(private val navController: NavController) {
 
     fun toUserProfile(uid: String, imageUri: String, username: String) {
-        val action = HomeFragmentDirections.actionGlobalUserProfileFragment(uid, imageUri, username)
-        navController.navigate(action)
+//        val action = HomeFragmentDirections.actionGlobalUserProfileFragment(uid, imageUri, username)
+//        navController.navigate(action)
     }
 
     fun toStoryUploader(imageUri: Uri) {

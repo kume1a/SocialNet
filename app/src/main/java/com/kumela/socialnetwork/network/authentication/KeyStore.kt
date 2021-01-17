@@ -30,6 +30,10 @@ class KeyStore(private val sharedPreferences: SharedPreferences) {
         return sharedPreferences.getString(KEY, null)
     }
 
+    fun deleteKey() {
+        sharedPreferences.edit().remove(KEY).apply()
+    }
+
     companion object {
         private const val KEY = "key"
 

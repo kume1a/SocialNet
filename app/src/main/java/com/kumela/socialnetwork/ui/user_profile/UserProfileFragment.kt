@@ -5,39 +5,35 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.kumela.socialnetwork.R
 import com.kumela.socialnetwork.models.Story
-import com.kumela.socialnetwork.models.UserExtraInfo
 import com.kumela.socialnetwork.models.list.Post
+import com.kumela.socialnetwork.network.firebase.fold
+import com.kumela.socialnetwork.network.repositories.FollowRepository
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper
 import com.kumela.socialnetwork.ui.common.controllers.BaseFragment
-import com.kumela.socialnetwork.ui.common.viewmodels.ViewModelFactory
-import com.kumela.socialnetwork.ui.user_list.DataType
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
  * Created by Toko on 17,October,2020
  **/
 
-class UserProfileFragment : BaseFragment(), UserProfileViewMvc.Listener,
-    UserProfileViewModel.Listener {
+class UserProfileFragment : BaseFragment(), UserProfileViewMvc.Listener {
 
     private lateinit var mViewMvc: UserProfileViewMvc
-    private lateinit var mViewModel: UserProfileViewModel
 
-    private lateinit var argUserId: String
-    private lateinit var argUserImageUri: String
-    private lateinit var argUserUsername: String
-
-    private var following = false
-    private var followUnFollowClicked = false
+    private var argId: Int = -1
+    private lateinit var argImageUri: String
+    private lateinit var argName: String
+    private lateinit var argBio: String
 
     @Inject lateinit var mViewMvcFactory: ViewMvcFactory
-    @Inject lateinit var mViewModelFactory: ViewModelFactory
     @Inject lateinit var mScreensNavigator: UserProfileScreensNavigator
     @Inject lateinit var mBottomNavHelper: BottomNavHelper
+    @Inject lateinit var mFollowRepository: FollowRepository
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,48 +53,59 @@ class UserProfileFragment : BaseFragment(), UserProfileViewMvc.Listener,
         super.onViewCreated(view, savedInstanceState)
 
         val args = UserProfileFragmentArgs.fromBundle(requireArguments())
-        argUserId = args.userId
-        argUserImageUri = args.userImageUri
-        argUserUsername = args.userUsername
+        argId = args.id
+        argImageUri = args.imageUrl
+        argName = args.name
+        argBio = args.bio
 
-        mViewMvc.bindProfileImage(argUserImageUri)
-        mViewMvc.bindUsername(argUserUsername)
-
-        mViewModel = ViewModelProvider(this, mViewModelFactory).get(UserProfileViewModel::class.java)
+        mViewMvc.bindProfileImage(argImageUri)
+        mViewMvc.bindUsername(argName)
 
         mViewMvc.registerListener(this)
-        mViewModel.registerListener(this)
 
-        mViewModel.fetchIfUserFollowsAndNotify(argUserId)
-
-        val userPosts = mViewModel.getUserPosts()
-        val userExtraInfo = mViewModel.getUserExtraInfo()
-        val userStories = mViewModel.getUserStories()
-
-        if (userExtraInfo != null) {
-            onUserExtraInfoFetched(userExtraInfo)
-        } else {
-            mViewModel.fetchUserExtraInfoAndNotify(argUserId)
+        lifecycleScope.launch {
+            val followStatusResult = mFollowRepository.fetchFollowStatus(argId)
+            followStatusResult.fold(
+                onSuccess = { follows ->
+                    mViewMvc.setFollowingButtonText(
+                        getString(
+                            if (follows) R.string.following
+                            else R.string.follow
+                        )
+                    )
+                },
+                onFailure = { error ->
+                    Log.e(javaClass.simpleName, "onViewCreated: $error")
+                },
+            )
         }
-
-        if (userPosts != null) {
-            onPostsFetched(userPosts)
-        } else {
-            mViewModel.fetchUserPostsAndNotify(argUserId)
-        }
-
-        if (userStories.isNotEmpty()) {
-            onStoriesFetched(userStories)
-        } else {
-            mViewModel.fetchNextStoriesPageAndNotify(argUserId)
-        }
+//        val userPosts = mViewModel.getUserPosts()
+//        val userExtraInfo = mViewModel.getUserExtraInfo()
+//        val userStories = mViewModel.getUserStories()
+//
+//        if (userExtraInfo != null) {
+//            onUserExtraInfoFetched(userExtraInfo)
+//        } else {
+//            mViewModel.fetchUserExtraInfoAndNotify(argId)
+//        }
+//
+//        if (userPosts != null) {
+//            onPostsFetched(userPosts)
+//        } else {
+//            mViewModel.fetchUserPostsAndNotify(argId)
+//        }
+//
+//        if (userStories.isNotEmpty()) {
+//            onStoriesFetched(userStories)
+//        } else {
+//            mViewModel.fetchNextStoriesPageAndNotify(argId)
+//        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
 
         mViewMvc.unregisterListener()
-        mViewModel.unregisterListener(this)
     }
 
     override fun onNavigateUpClicked() {
@@ -106,12 +113,21 @@ class UserProfileFragment : BaseFragment(), UserProfileViewMvc.Listener,
     }
 
     override fun onFollowClicked() {
-        followUnFollowClicked = true
-        mViewModel.fetchIfUserFollowsAndNotify(argUserId)
+        lifecycleScope.launchWhenStarted {
+            mFollowRepository.switchFollowStatus(argId)
+
+            val following = mViewMvc.getFollowingButtonText() == getString(R.string.following)
+            mViewMvc.setFollowingButtonText(
+                getString(
+                    if (following) R.string.follow
+                    else R.string.following
+                )
+            )
+        }
     }
 
     override fun onSendMessageClicked() {
-        mScreensNavigator.toChat(argUserId, argUserImageUri, argUserUsername)
+//        mScreensNavigator.toChat(argId, argImageUri, argName)
     }
 
     override fun onStoryItemClicked(story: Story) {
@@ -123,62 +139,34 @@ class UserProfileFragment : BaseFragment(), UserProfileViewMvc.Listener,
     }
 
     override fun onFollowerClicked() {
-        mScreensNavigator.toDataPresenter(DataType.FOLLOWERS, argUserId)
+//        mScreensNavigator.toDataPresenter(DataType.FOLLOWERS, argId)
     }
 
     override fun onFollowingClicked() {
-        mScreensNavigator.toDataPresenter(DataType.FOLLOWING, argUserId)
+//        mScreensNavigator.toDataPresenter(DataType.FOLLOWING, argId)
     }
 
     override fun onLastStoryBound() {
-        mViewModel.fetchNextStoriesPageAndNotify(argUserId)
+//        mViewModel.fetchNextStoriesPageAndNotify(argId)
     }
 
     // view model callbacks
-    override fun onPostsFetched(posts: List<Post>) {
-        if (posts.isNotEmpty()) {
-            mViewMvc.bindPosts(posts)
-        } else {
-            mViewMvc.showNoPostsAvailable()
-        }
-    }
-
-    override fun onUserExtraInfoFetched(userExtraInfo: UserExtraInfo) {
-        mViewMvc.bindBio(userExtraInfo.bio)
-        mViewMvc.bindPostCount(userExtraInfo.postCount)
-        mViewMvc.bindFollowerCount(userExtraInfo.followerCount)
-        mViewMvc.bindFollowingCount(userExtraInfo.followingCount)
-    }
-
-    override fun onFollowUnFollowCompleted() {
-        following = !following
-        mViewMvc.setFollowingButtonText(
-            if (following) getString(R.string.following)
-            else getString(R.string.follow)
-        )
-    }
-
-    override fun onFollowResultReceived(following: Boolean) {
-        this.following = following
-
-        if (following) {
-            if (followUnFollowClicked) {
-                followUnFollowClicked = false
-                mViewModel.unFollowUserAndNotify(argUserId)
-            } else {
-                mViewMvc.setFollowingButtonText(getString(R.string.following))
-            }
-        } else {
-            if (followUnFollowClicked) {
-                followUnFollowClicked = false
-                mViewModel.followUserAndNotify(argUserId)
-            } else {
-                mViewMvc.setFollowingButtonText(getString(R.string.follow))
-            }
-        }
-    }
-
-    override fun onStoriesFetched(stories: List<Story>) {
-        mViewMvc.addStories(stories)
-    }
+//    override fun onPostsFetched(posts: List<Post>) {
+//        if (posts.isNotEmpty()) {
+//            mViewMvc.bindPosts(posts)
+//        } else {
+//            mViewMvc.showNoPostsAvailable()
+//        }
+//    }
+//
+//    override fun onUserExtraInfoFetched(userExtraInfo: UserExtraInfo) {
+//        mViewMvc.bindBio(userExtraInfo.bio)
+//        mViewMvc.bindPostCount(userExtraInfo.postCount)
+//        mViewMvc.bindFollowerCount(userExtraInfo.followerCount)
+//        mViewMvc.bindFollowingCount(userExtraInfo.followingCount)
+//    }
+//
+//    override fun onStoriesFetched(stories: List<Story>) {
+//        mViewMvc.addStories(stories)
+//    }
 }

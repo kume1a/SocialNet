@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class AuthScreensNavigator @Inject constructor(private val navController: NavController) {
     fun toHome() {
-        val action = AuthFragmentDirections.actionLoginFragmentToHomeFragment()
+        val action = AuthFragmentDirections.actionAuthFragmentToHomeFragment()
         navController.navigate(action)
     }
 }

@@ -1,7 +1,6 @@
 package com.kumela.socialnetwork.network.api
 
 import com.kumela.socialnetwork.models.User
-import com.kumela.socialnetwork.network.api.response.AuthResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -15,6 +14,8 @@ import retrofit2.http.Path
 data class SignupBody(val name: String, val email: String, val password: String)
 data class SigninBody(val email: String, val password: String)
 
+data class AuthResponse(val userId: Int, val token: String)
+
 interface ApiService {
     @POST("/auth/signin")
     suspend fun signin(@Body body: SigninBody): Response<AuthResponse>
@@ -24,4 +25,10 @@ interface ApiService {
 
     @GET("/search/users/{query}")
     suspend fun searchUsers(@Path("query") query: String): Response<List<User>>
+
+    @GET("/users/{userId}/followStatus")
+    suspend fun getFollowStatus(@Path("userId") userId: Int): Response<Boolean>
+
+    @POST("/users/{userId}/switchFollowStatus")
+    suspend fun switchFollowStatus(@Path("userId") userId: Int): Response<Unit>
 }

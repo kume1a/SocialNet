@@ -71,6 +71,14 @@ fun NavController.navigateSafely(navDirections: NavDirections) {
     }
 }
 
+fun NavController.navigateSafely(id: Int) {
+    try {
+        navigate(id)
+    } catch (e: IllegalArgumentException) {
+        Log.w(javaClass.simpleName, "navigateSafely: ", e)
+    }
+}
+
 fun getUniqueId(id1: String, id2: String): String {
     return if (id1 > id2) {
         "${id1}_${id2}"

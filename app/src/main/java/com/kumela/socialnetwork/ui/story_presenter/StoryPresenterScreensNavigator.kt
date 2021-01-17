@@ -13,8 +13,8 @@ class StoryPresenterScreensNavigator @Inject constructor(private val navControll
     }
 
     fun toUserProfile(userId: String, userImageUri: String, userUsername: String) {
-        val action =
-            StoryPresenterFragmentDirections.actionGlobalUserProfileFragment(userId, userImageUri, userUsername)
-        navController.navigate(action)
+//        val action =
+//            StoryPresenterFragmentDirections.actionGlobalUserProfileFragment(userId, userImageUri, userUsername)
+//        navController.navigate(action)
     }
 }

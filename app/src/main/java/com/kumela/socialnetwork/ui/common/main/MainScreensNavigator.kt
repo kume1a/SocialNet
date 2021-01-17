@@ -3,6 +3,7 @@ package com.kumela.socialnetwork.ui.common.main
 import android.graphics.Bitmap
 import androidx.navigation.NavController
 import com.kumela.socialnetwork.R
+import com.kumela.socialnetwork.ui.common.utils.navigateSafely
 import com.kumela.socialnetwork.ui.post_image.PostImageFragmentDirections
 import javax.inject.Inject
 
@@ -33,7 +34,7 @@ class MainScreensNavigator @Inject constructor(private val navController: NavCon
             BottomNavDest.CHATS -> R.id.action_messagesFragment_to_profileFragment
             else -> throw RuntimeException()
         }
-        navController.navigate(id)
+        navController.navigateSafely(id)
     }
 
     fun toMessages() {
@@ -43,7 +44,7 @@ class MainScreensNavigator @Inject constructor(private val navController: NavCon
             BottomNavDest.PROFILE -> R.id.action_profileFragment_to_messagesFragment
             else -> throw RuntimeException()
         }
-        navController.navigate(id)
+        navController.navigateSafely(id)
     }
 
     fun toExplore() {
@@ -53,7 +54,7 @@ class MainScreensNavigator @Inject constructor(private val navController: NavCon
             BottomNavDest.PROFILE -> R.id.action_profileFragment_to_exploreFragment
             else -> throw RuntimeException()
         }
-        navController.navigate(id)
+        navController.navigateSafely(id)
     }
 
     fun toHome() {
@@ -63,7 +64,7 @@ class MainScreensNavigator @Inject constructor(private val navController: NavCon
             BottomNavDest.PROFILE -> R.id.action_profileFragment_to_homeFragment
             else -> throw RuntimeException()
         }
-        navController.navigate(id)
+        navController.navigateSafely(id)
     }
 
     fun toPostImage(imageUri: String) {

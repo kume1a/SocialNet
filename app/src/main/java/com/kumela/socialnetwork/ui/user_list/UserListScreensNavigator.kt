@@ -13,8 +13,8 @@ class UserListScreensNavigator @Inject constructor(private val navController: Na
     }
 
     fun toUserProfile(userId: String, userImageUri: String, userUsername: String) {
-        val action =
-            UserListFragmentDirections.actionGlobalUserProfileFragment(userId, userImageUri, userUsername)
-        navController.navigate(action)
+//        val action =
+//            UserListFragmentDirections.actionGlobalUserProfileFragment(userId, userImageUri, userUsername)
+//        navController.navigate(action)
     }
 }

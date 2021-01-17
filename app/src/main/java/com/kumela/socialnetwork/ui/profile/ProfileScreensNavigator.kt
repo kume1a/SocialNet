@@ -9,8 +9,8 @@ import javax.inject.Inject
  **/
 
 class ProfileScreensNavigator @Inject constructor(private val navController: NavController) {
-    fun toSignIn() {
-        val action = ProfileFragmentDirections.actionProfileFragmentToLoginFragment()
+    fun toAuth() {
+        val action = ProfileFragmentDirections.actionProfileFragmentToAuthFragment()
         navController.navigate(action)
     }
 

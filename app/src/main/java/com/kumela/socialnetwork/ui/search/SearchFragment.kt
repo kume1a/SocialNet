@@ -77,7 +77,6 @@ class SearchFragment : BaseFragment(), SearchViewMvc.Listener {
     }
 
     override fun onSearchItemClicked(user: User) {
-//        mScreensNavigator.toUserProfile(user.id, user.imageUrl, user.name)
-        Log.d(javaClass.simpleName, "onSearchItemClicked() called with: user = $user")
+        mScreensNavigator.toUserProfile(user.id, user.imageUrl, user.name, user.bio)
     }
 }

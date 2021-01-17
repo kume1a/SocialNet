@@ -24,7 +24,6 @@ import dagger.Subcomponent
 @Subcomponent(
     modules = [
         PresentationModule::class,
-        UseCaseModule::class,
         ViewModelModule::class,
         QueryPagerModule::class
     ]

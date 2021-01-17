@@ -21,7 +21,7 @@ class AuthViewMvcImpl(
     inflater: LayoutInflater,
     parent: ViewGroup?
 ) : BaseObservableViewMvc<AuthViewMvc.Listener>(
-    inflater, parent, R.layout.fragment_login
+    inflater, parent, R.layout.fragment_auth
 ), AuthViewMvc {
 
     private val backgroundInk: AuthBackgroundInk = findViewById(R.id.background_ink)

@@ -13,9 +13,9 @@ class CommentsScreensNavigator @Inject constructor(private val navController: Na
     }
 
     fun toUserProfile(userId: String, userImageUri: String, userUsername: String) {
-        val action =
-            CommentsFragmentDirections.actionGlobalUserProfileFragment(userId, userImageUri, userUsername)
-        navController.navigate(action)
+//        val action =
+//            CommentsFragmentDirections.actionGlobalUserProfileFragment(userId, userImageUri, userUsername)
+//        navController.navigate(action)
     }
 
 }
