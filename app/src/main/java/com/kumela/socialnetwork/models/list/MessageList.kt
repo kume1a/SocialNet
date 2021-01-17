@@ -4,7 +4,7 @@ package com.kumela.socialnetwork.models.list
  * Created by Toko on 02,November,2020
  **/
 
-data class MessageListModel(
+data class MessageList(
     val messageId: String,
     val senderId: String,
     val message: String,

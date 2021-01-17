@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.kumela.socialnetwork.R
-import com.kumela.socialnetwork.models.list.CommentListModel
+import com.kumela.socialnetwork.models.list.CommentList
 import com.kumela.socialnetwork.ui.adapters.comments.CommentsAdapter
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.mvc.BaseObservableViewMvc
@@ -53,11 +53,11 @@ class CommentsViewMvcImpl(
         buttonPost.setOnClickListener { listener?.onPostClicked() }
     }
 
-    override fun bindComments(comments: List<CommentListModel>) {
+    override fun bindComments(comments: List<CommentList>) {
         commentsAdapter.bindComments(comments)
     }
 
-    override fun addComment(comment: CommentListModel) {
+    override fun addComment(comment: CommentList) {
         commentsAdapter.addComment(comment)
     }
 

@@ -1,7 +1,7 @@
 package com.kumela.socialnetwork.ui.search
 
 import android.util.Log
-import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.models.User
 import com.kumela.socialnetwork.network.firebase.UserUseCase
 import com.kumela.socialnetwork.ui.common.viewmodels.ObservableViewModel
 
@@ -11,10 +11,10 @@ import com.kumela.socialnetwork.ui.common.viewmodels.ObservableViewModel
 
 class SearchViewModel : ObservableViewModel<SearchViewModel.Listener>() {
     interface Listener {
-        fun onUsersFetched(users: List<UserModel>)
+        fun onUsersFetched(users: List<User>)
     }
 
-    var users: List<UserModel>? = null
+    var users: List<User>? = null
 
     init {
         UserUseCase.registerListener(uuid)

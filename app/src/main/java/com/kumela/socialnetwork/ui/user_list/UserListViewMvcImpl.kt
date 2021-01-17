@@ -6,7 +6,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kumela.socialnetwork.R
-import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.models.User
 import com.kumela.socialnetwork.ui.adapters.users.UsersAdapter
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.mvc.BaseObservableViewMvc
@@ -53,11 +53,11 @@ class UserListViewMvcImpl(
         toolbarViewMvc.setTitle(text)
     }
 
-    override fun bindUsers(users: List<UserModel>) {
+    override fun bindUsers(users: List<User>) {
         userAdapter.bindUsers(users)
     }
 
-    override fun addUser(userModel: UserModel) {
-        userAdapter.addUser(userModel)
+    override fun addUser(user: User) {
+        userAdapter.addUser(user)
     }
 }

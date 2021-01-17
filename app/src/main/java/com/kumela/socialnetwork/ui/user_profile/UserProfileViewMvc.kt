@@ -1,7 +1,7 @@
 package com.kumela.socialnetwork.ui.user_profile
 
-import com.kumela.socialnetwork.models.list.PostModel
-import com.kumela.socialnetwork.models.firebase.StoryModel
+import com.kumela.socialnetwork.models.list.Post
+import com.kumela.socialnetwork.models.Story
 import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
 
 /**
@@ -13,8 +13,8 @@ interface UserProfileViewMvc : ObservableViewMvc<UserProfileViewMvc.Listener> {
         fun onNavigateUpClicked()
         fun onFollowClicked()
         fun onSendMessageClicked()
-        fun onStoryItemClicked(storyModel: StoryModel)
-        fun onPostItemClicked(postModel: PostModel)
+        fun onStoryItemClicked(story: Story)
+        fun onPostItemClicked(post: Post)
 
         fun onFollowerClicked()
         fun onFollowingClicked()
@@ -31,8 +31,8 @@ interface UserProfileViewMvc : ObservableViewMvc<UserProfileViewMvc.Listener> {
     fun showNoPostsAvailable()
     fun setFollowingButtonText(text: String)
 
-    fun bindPosts(posts: List<PostModel>)
+    fun bindPosts(posts: List<Post>)
 
-    fun bindStories(stories: List<StoryModel>)
-    fun addStories(storyModels: List<StoryModel>)
+    fun bindStories(stories: List<Story>)
+    fun addStories(stories: List<Story>)
 }

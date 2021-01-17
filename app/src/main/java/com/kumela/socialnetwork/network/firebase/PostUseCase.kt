@@ -7,9 +7,9 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
 import com.kumela.socialnetwork.common.UseCase
 import com.kumela.socialnetwork.models.PostFields
-import com.kumela.socialnetwork.models.firebase.CommentModel
-import com.kumela.socialnetwork.models.firebase.FeedModel
-import com.kumela.socialnetwork.models.list.PostModel
+import com.kumela.socialnetwork.models.Comment
+import com.kumela.socialnetwork.models.Feed
+import com.kumela.socialnetwork.models.list.Post
 import com.kumela.socialnetwork.network.firebase.helpers.DatabaseHelper
 import com.kumela.socialnetwork.network.firebase.helpers.FunctionsHelper
 import com.kumela.socialnetwork.network.firebase.helpers.FunctionsObjectsDeserializer
@@ -33,11 +33,11 @@ object PostUseCase : UseCase() {
 
     inline fun createPost(
         uuid: UUID,
-        postModel: PostModel,
+        post: Post,
         crossinline onSuccessListener: () -> Unit,
         crossinline onFailureListener: (Exception) -> Unit
     ) {
-        FunctionsHelper.createPost(postModel) { task ->
+        FunctionsHelper.createPost(post) { task ->
             if (isActive(uuid)) {
                 if (task.isSuccessful) {
                     onSuccessListener.invoke()
@@ -51,7 +51,7 @@ object PostUseCase : UseCase() {
     inline fun fetchUserPosts(
         uuid: UUID,
         uid: String = UserUseCase.uid,
-        crossinline onSuccessListener: (List<PostModel>) -> Unit,
+        crossinline onSuccessListener: (List<Post>) -> Unit,
         crossinline onFailureListener: (DatabaseError) -> Unit
     ) {
         DatabaseHelper
@@ -62,7 +62,7 @@ object PostUseCase : UseCase() {
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (isActive(uuid)) {
-                        val posts = snapshot.children.map { it.getValue<PostModel>()!! }
+                        val posts = snapshot.children.map { it.getValue<Post>()!! }
                         onSuccessListener.invoke(posts)
                     }
                 }
@@ -76,14 +76,14 @@ object PostUseCase : UseCase() {
     inline fun fetchFeedPost(
         uuid: UUID,
         postId: String,
-        crossinline onSuccessListener: (FeedModel) -> Unit,
+        crossinline onSuccessListener: (Feed) -> Unit,
         crossinline onFailureListener: (Exception) -> Unit
     ) {
         FunctionsHelper.getFeedPost(postId) { task ->
             if (isActive(uuid)) {
                 if (task.isSuccessful) {
                     val dataAsMap = task.result!!.data as HashMap<*, *>
-                    val feedModel = FunctionsObjectsDeserializer.get<FeedModel>(dataAsMap)
+                    val feedModel = FunctionsObjectsDeserializer.get<Feed>(dataAsMap)
 
                     onSuccessListener.invoke(feedModel)
                 } else {
@@ -96,7 +96,7 @@ object PostUseCase : UseCase() {
     inline fun createComment(
         uuid: UUID,
         postId: String,
-        commentModel: CommentModel,
+        comment: Comment,
         crossinline onSuccessListener: () -> Unit,
         crossinline onFailureListener: (Exception) -> Unit
     ) {
@@ -104,7 +104,7 @@ object PostUseCase : UseCase() {
             .getCommentsTableRef()
             .child(postId)
             .push()
-            .setValue(commentModel)
+            .setValue(comment)
             .addOnSuccessListener {
                 if (isActive(uuid)) onSuccessListener.invoke()
             }
@@ -116,7 +116,7 @@ object PostUseCase : UseCase() {
     inline fun fetchComments(
         uuid: UUID,
         postId: String,
-        crossinline onSuccessListener: (List<CommentModel>) -> Unit,
+        crossinline onSuccessListener: (List<Comment>) -> Unit,
         crossinline onFailureListener: (DatabaseError) -> Unit
     ) {
         DatabaseHelper
@@ -125,7 +125,7 @@ object PostUseCase : UseCase() {
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (isActive(uuid)) {
-                        val comments = snapshot.children.map { it.getValue<CommentModel>()!! }
+                        val comments = snapshot.children.map { it.getValue<Comment>()!! }
                         onSuccessListener.invoke(comments)
                     }
                 }

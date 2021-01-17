@@ -1,6 +1,6 @@
 package com.kumela.socialnetwork.ui.explore
 
-import com.kumela.socialnetwork.models.list.PostModel
+import com.kumela.socialnetwork.models.list.Post
 import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
 
 /**
@@ -13,6 +13,6 @@ interface ExploreViewMvc  : ObservableViewMvc<ExploreViewMvc.Listener> {
         fun onScrolledToBottom()
     }
 
-    fun bindPosts(postModels: List<PostModel>)
-    fun addPosts(postModels: List<PostModel>)
+    fun bindPosts(posts: List<Post>)
+    fun addPosts(posts: List<Post>)
 }

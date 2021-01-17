@@ -1,7 +1,7 @@
 package com.kumela.socialnetwork.ui.story_presenter
 
-import com.kumela.socialnetwork.models.firebase.FeedStoryModel
-import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.models.FeedStoryModel
+import com.kumela.socialnetwork.models.User
 import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
 
 /**
@@ -15,7 +15,7 @@ interface StoryPresenterViewMvc : ObservableViewMvc<StoryPresenterViewMvc.Listen
     }
 
     fun bindStories(feedStories: List<FeedStoryModel>)
-    fun bindStoryAuthor(userModel: UserModel)
+    fun bindStoryAuthor(user: User)
     fun bindImageCount(count: Int, initialIndex: Int)
     fun nextIndex()
     fun previousIndex()

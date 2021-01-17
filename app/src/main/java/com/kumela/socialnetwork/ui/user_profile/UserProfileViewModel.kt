@@ -1,9 +1,9 @@
 package com.kumela.socialnetwork.ui.user_profile
 
 import android.util.Log
-import com.kumela.socialnetwork.models.firebase.StoryModel
-import com.kumela.socialnetwork.models.firebase.UserExtraInfoModel
-import com.kumela.socialnetwork.models.list.PostModel
+import com.kumela.socialnetwork.models.Story
+import com.kumela.socialnetwork.models.UserExtraInfo
+import com.kumela.socialnetwork.models.list.Post
 import com.kumela.socialnetwork.network.firebase.FollowUseCase
 import com.kumela.socialnetwork.network.firebase.PostUseCase
 import com.kumela.socialnetwork.network.firebase.StoryUseCase
@@ -16,25 +16,25 @@ import com.kumela.socialnetwork.ui.common.viewmodels.ObservableViewModel
  **/
 
 class UserProfileViewModel(
-    private val storyQueryPager: QueryPager<StoryModel>
+    private val storyQueryPager: QueryPager<Story>
 ) : ObservableViewModel<UserProfileViewModel.Listener>() {
 
     interface Listener {
-        fun onUserExtraInfoFetched(userExtraInfoModel: UserExtraInfoModel)
-        fun onPostsFetched(posts: List<PostModel>)
+        fun onUserExtraInfoFetched(userExtraInfo: UserExtraInfo)
+        fun onPostsFetched(posts: List<Post>)
         fun onFollowResultReceived(following: Boolean)
         fun onFollowUnFollowCompleted()
-        fun onStoriesFetched(storyModels: List<StoryModel>)
+        fun onStoriesFetched(stories: List<Story>)
     }
 
     // cached data
-    private var userExtraInfo: UserExtraInfoModel? = null
-    private var userPosts: List<PostModel>? = null
-    private val storyList = ArrayList<StoryModel>()
+    private var userExtraInfo: UserExtraInfo? = null
+    private var userPosts: List<Post>? = null
+    private val storyList = ArrayList<Story>()
 
-    fun getUserExtraInfo(): UserExtraInfoModel? = userExtraInfo
-    fun getUserPosts(): List<PostModel>? = userPosts
-    fun getUserStories(): List<StoryModel> = storyList
+    fun getUserExtraInfo(): UserExtraInfo? = userExtraInfo
+    fun getUserPosts(): List<Post>? = userPosts
+    fun getUserStories(): List<Story> = storyList
 
     init {
         storyQueryPager.registerListener(uuid)

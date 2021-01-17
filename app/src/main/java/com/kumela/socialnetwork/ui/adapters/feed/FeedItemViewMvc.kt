@@ -1,6 +1,6 @@
 package com.kumela.socialnetwork.ui.adapters.feed
 
-import com.kumela.socialnetwork.models.firebase.FeedModel
+import com.kumela.socialnetwork.models.Feed
 import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
 
 /**
@@ -9,16 +9,16 @@ import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
 
 interface FeedItemViewMvc : ObservableViewMvc<FeedItemViewMvc.Listener> {
     interface Listener {
-        fun onProfileImageClicked(position: Int, feedModel: FeedModel)
-        fun onUsernameClicked(position: Int, feedModel: FeedModel)
-        fun onLikeClicked(position: Int, feedModel: FeedModel)
-        fun onPostDoubleClicked(position: Int, feedModel: FeedModel)
-        fun onLikeCountClicked(position: Int, feedModel: FeedModel)
-        fun onCommentsClicked(position: Int, feedModel: FeedModel)
-        fun onCommentCountClicked(position: Int, feedModel: FeedModel)
+        fun onProfileImageClicked(position: Int, feedModel: Feed)
+        fun onUsernameClicked(position: Int, feedModel: Feed)
+        fun onLikeClicked(position: Int, feedModel: Feed)
+        fun onPostDoubleClicked(position: Int, feedModel: Feed)
+        fun onLikeCountClicked(position: Int, feedModel: Feed)
+        fun onCommentsClicked(position: Int, feedModel: Feed)
+        fun onCommentCountClicked(position: Int, feedModel: Feed)
 
         fun onMenuClicked()
     }
 
-    fun bindPost(position: Int, feedModel: FeedModel)
+    fun bindPost(position: Int, feedModel: Feed)
 }

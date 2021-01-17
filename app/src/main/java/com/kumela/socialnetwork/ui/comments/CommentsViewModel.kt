@@ -1,8 +1,8 @@
 package com.kumela.socialnetwork.ui.comments
 
 import android.util.Log
-import com.kumela.socialnetwork.models.firebase.CommentModel
-import com.kumela.socialnetwork.models.list.CommentListModel
+import com.kumela.socialnetwork.models.Comment
+import com.kumela.socialnetwork.models.list.CommentList
 import com.kumela.socialnetwork.network.firebase.PostUseCase
 import com.kumela.socialnetwork.network.firebase.UserUseCase
 import com.kumela.socialnetwork.ui.common.viewmodels.ObservableViewModel
@@ -13,12 +13,12 @@ import com.kumela.socialnetwork.ui.common.viewmodels.ObservableViewModel
 
 class CommentsViewModel : ObservableViewModel<CommentsViewModel.Listener>() {
     interface Listener {
-        fun onCommentFetched(comment: CommentListModel)
+        fun onCommentFetched(comment: CommentList)
     }
 
-    private var comments = ArrayList<CommentListModel>()
+    private var comments = ArrayList<CommentList>()
 
-    fun getComments(): List<CommentListModel> = comments
+    fun getComments(): List<CommentList> = comments
 
     init {
         PostUseCase.registerListener(uuid)
@@ -32,8 +32,8 @@ class CommentsViewModel : ObservableViewModel<CommentsViewModel.Listener>() {
         UserUseCase.unregisterListener(uuid)
     }
 
-    fun createComment(postId: String, commentModel: CommentModel) {
-        PostUseCase.createComment(uuid, postId, commentModel,
+    fun createComment(postId: String, comment: Comment) {
+        PostUseCase.createComment(uuid, postId, comment,
             onSuccessListener = {
                 Log.d(javaClass.simpleName, "createComment: comment posted")
             },
@@ -55,10 +55,10 @@ class CommentsViewModel : ObservableViewModel<CommentsViewModel.Listener>() {
 
     }
 
-    private fun fetchCommentAuthorAndNotifyListeners(comment: CommentModel) {
+    private fun fetchCommentAuthorAndNotifyListeners(comment: Comment) {
         UserUseCase.fetchUserAndNotify(uuid, comment.userId,
             onSuccessListener = { userModel ->
-                val commentListModel = CommentListModel(
+                val commentListModel = CommentList(
                     userModel.id,
                     userModel.imageUri,
                     userModel.username,

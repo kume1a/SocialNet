@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.kumela.socialnetwork.models.firebase.StoryModel
-import com.kumela.socialnetwork.models.firebase.UserExtraInfoModel
-import com.kumela.socialnetwork.models.firebase.UserModel
-import com.kumela.socialnetwork.models.list.PostModel
+import com.kumela.socialnetwork.models.Story
+import com.kumela.socialnetwork.models.UserExtraInfo
+import com.kumela.socialnetwork.models.User
+import com.kumela.socialnetwork.models.list.Post
 import com.kumela.socialnetwork.network.firebase.UserUseCase
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper
@@ -93,12 +93,12 @@ class ProfileFragment : BaseFragment(), ProfileViewMvc.Listener,
         mViewModel.registerListener(this)
     }
 
-    override fun onStoryItemClicked(storyModel: StoryModel) {
-        Log.d(javaClass.simpleName, "onStoryItemClicked() called with: storyModel = $storyModel")
+    override fun onStoryItemClicked(story: Story) {
+        Log.d(javaClass.simpleName, "onStoryItemClicked() called with: storyModel = $story")
     }
 
-    override fun onPostItemClicked(postModel: PostModel) {
-        Log.d(javaClass.simpleName, "onPostItemClicked() called with: postModel = $postModel")
+    override fun onPostItemClicked(post: Post) {
+        Log.d(javaClass.simpleName, "onPostItemClicked() called with: postModel = $post")
     }
 
     override fun onSignOutClicked() {
@@ -120,19 +120,19 @@ class ProfileFragment : BaseFragment(), ProfileViewMvc.Listener,
     }
 
     // view model callbacks
-    override fun onUserFetched(userModel: UserModel) {
-        mViewMvc.bindProfileImage(userModel.imageUri)
-        mViewMvc.bindUsername(userModel.username)
+    override fun onUserFetched(user: User) {
+        mViewMvc.bindProfileImage(user.imageUri)
+        mViewMvc.bindUsername(user.username)
     }
 
-    override fun onUserExtraInfoFetched(userExtraInfoModel: UserExtraInfoModel) {
-        mViewMvc.bindBio(userExtraInfoModel.bio)
-        mViewMvc.bindPostCount(userExtraInfoModel.postCount)
-        mViewMvc.bindFollowerCount(userExtraInfoModel.followerCount)
-        mViewMvc.bindFollowingCount(userExtraInfoModel.followingCount)
+    override fun onUserExtraInfoFetched(userExtraInfo: UserExtraInfo) {
+        mViewMvc.bindBio(userExtraInfo.bio)
+        mViewMvc.bindPostCount(userExtraInfo.postCount)
+        mViewMvc.bindFollowerCount(userExtraInfo.followerCount)
+        mViewMvc.bindFollowingCount(userExtraInfo.followingCount)
     }
 
-    override fun onPostsFetched(posts: List<PostModel>) {
+    override fun onPostsFetched(posts: List<Post>) {
         if (posts.isNotEmpty()) {
             mViewMvc.bindPosts(posts)
         } else {
@@ -140,7 +140,7 @@ class ProfileFragment : BaseFragment(), ProfileViewMvc.Listener,
         }
     }
 
-    override fun onStoriesFetched(storyModels: List<StoryModel>) {
-        mViewMvc.addStories(storyModels)
+    override fun onStoriesFetched(stories: List<Story>) {
+        mViewMvc.addStories(stories)
     }
 }

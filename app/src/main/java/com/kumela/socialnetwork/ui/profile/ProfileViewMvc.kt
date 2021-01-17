@@ -1,7 +1,7 @@
 package com.kumela.socialnetwork.ui.profile
 
-import com.kumela.socialnetwork.models.list.PostModel
-import com.kumela.socialnetwork.models.firebase.StoryModel
+import com.kumela.socialnetwork.models.list.Post
+import com.kumela.socialnetwork.models.Story
 import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
 
 /**
@@ -10,8 +10,8 @@ import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
 
 interface ProfileViewMvc : ObservableViewMvc<ProfileViewMvc.Listener> {
     interface Listener {
-        fun onStoryItemClicked(storyModel: StoryModel)
-        fun onPostItemClicked(postModel: PostModel)
+        fun onStoryItemClicked(story: Story)
+        fun onPostItemClicked(post: Post)
         fun onSignOutClicked()
 
         fun onFollowerClicked()
@@ -28,8 +28,8 @@ interface ProfileViewMvc : ObservableViewMvc<ProfileViewMvc.Listener> {
     fun bindFollowingCount(followingCount: Int)
     fun showNoPostsAvailable()
 
-    fun bindPosts(posts: List<PostModel>)
+    fun bindPosts(posts: List<Post>)
 
-    fun addStories(storyModels: List<StoryModel>)
-    fun bindStories(stories: List<StoryModel>)
+    fun addStories(stories: List<Story>)
+    fun bindStories(stories: List<Story>)
 }

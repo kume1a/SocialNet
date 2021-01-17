@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.kumela.socialnetwork.models.firebase.CommentModel
-import com.kumela.socialnetwork.models.firebase.UserModel
-import com.kumela.socialnetwork.models.list.CommentListModel
+import com.kumela.socialnetwork.models.Comment
+import com.kumela.socialnetwork.models.User
+import com.kumela.socialnetwork.models.list.CommentList
 import com.kumela.socialnetwork.network.firebase.UserUseCase
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper
@@ -81,9 +81,9 @@ class CommentsFragment : BaseFragment(), CommentsViewMvc.Listener, CommentsViewM
         mScreensNavigator.navigateUp()
     }
 
-    override fun onUserClicked(userModel: UserModel) {
-        if (userModel.id != UserUseCase.uid) {
-            mScreensNavigator.toUserProfile(userModel.id, userModel.imageUri, userModel.username)
+    override fun onUserClicked(user: User) {
+        if (user.id != UserUseCase.uid) {
+            mScreensNavigator.toUserProfile(user.id, user.imageUri, user.username)
         }
     }
 
@@ -92,8 +92,8 @@ class CommentsFragment : BaseFragment(), CommentsViewMvc.Listener, CommentsViewM
 
         if (comment.isBlank()) return
 
-        val commentModel = CommentModel(UserUseCase.uid, System.currentTimeMillis(), comment)
-        val commentListModel =  CommentListModel(
+        val commentModel = Comment(UserUseCase.uid, System.currentTimeMillis(), comment)
+        val commentListModel =  CommentList(
             argCurrentUserId,
             argCurrentUserImageUri,
             argCurrentUserUsername,
@@ -107,7 +107,7 @@ class CommentsFragment : BaseFragment(), CommentsViewMvc.Listener, CommentsViewM
     }
 
     // view model callbacks
-    override fun onCommentFetched(comment: CommentListModel) {
+    override fun onCommentFetched(comment: CommentList) {
         mViewMvc.addComment(comment)
     }
 }

@@ -2,7 +2,7 @@ package com.kumela.socialnetwork.ui.adapters.story_profile
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.kumela.socialnetwork.models.firebase.StoryModel
+import com.kumela.socialnetwork.models.Story
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 
 /**
@@ -11,20 +11,20 @@ import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 
 class ProfileStoryAdapter(
     private val viewMvcFactory: ViewMvcFactory,
-    private val listener: (StoryModel) -> Unit,
+    private val listener: (Story) -> Unit,
     private val onLastItemBound: () -> Unit
 ) : RecyclerView.Adapter<ProfileStoryAdapter.ProfileStoryViewHolder>(),
     ProfileStoryItemViewMvc.Listener {
 
-    private val items = mutableListOf<StoryModel>()
+    private val items = mutableListOf<Story>()
 
-    fun bindStories(stories: List<StoryModel>) {
+    fun bindStories(stories: List<Story>) {
         items.clear()
         items.addAll(stories)
         notifyDataSetChanged()
     }
 
-    fun addStories(stories: List<StoryModel>) {
+    fun addStories(stories: List<Story>) {
         val startIndex = items.size
         items.addAll(stories)
         notifyItemRangeInserted(startIndex, stories.size)
@@ -47,7 +47,7 @@ class ProfileStoryAdapter(
     class ProfileStoryViewHolder(val viewMvc: ProfileStoryItemViewMvc) :
         RecyclerView.ViewHolder(viewMvc.rootView)
 
-    override fun onStoryClicked(storyModel: StoryModel) {
-        listener.invoke(storyModel)
+    override fun onStoryClicked(story: Story) {
+        listener.invoke(story)
     }
 }

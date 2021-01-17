@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.kumela.socialnetwork.ui.views.RoundedImageView
 import com.kumela.socialnetwork.R
-import com.kumela.socialnetwork.models.firebase.FeedStoryModel
-import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.models.FeedStoryModel
+import com.kumela.socialnetwork.models.User
 import com.kumela.socialnetwork.ui.adapters.story_images.ImagePagerAdapter
 import com.kumela.socialnetwork.ui.common.mvc.BaseObservableViewMvc
 import com.kumela.socialnetwork.ui.common.utils.OnRecyclerSnapListener
@@ -52,9 +52,9 @@ class StoryPresenterViewMvcImpl(
         }
     }
 
-    override fun bindStoryAuthor(userModel: UserModel) {
-        imageProfile.load(userModel.imageUri)
-        textUsername.text = userModel.username
+    override fun bindStoryAuthor(user: User) {
+        imageProfile.load(user.imageUri)
+        textUsername.text = user.username
     }
 
     override fun bindStories(feedStories: List<FeedStoryModel>) {

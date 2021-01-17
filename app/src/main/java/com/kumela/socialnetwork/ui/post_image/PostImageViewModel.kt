@@ -4,8 +4,8 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.viewModelScope
-import com.kumela.socialnetwork.models.firebase.UserModel
-import com.kumela.socialnetwork.models.list.PostModel
+import com.kumela.socialnetwork.models.User
+import com.kumela.socialnetwork.models.list.Post
 import com.kumela.socialnetwork.ui.common.viewmodels.ObservableViewModel
 import com.kumela.socialnetwork.network.firebase.*
 import kotlinx.coroutines.launch
@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 
 class PostImageViewModel : ObservableViewModel<PostImageViewModel.Listener>() {
     interface Listener {
-        fun onUserFetched(userModel: UserModel)
+        fun onUserFetched(user: User)
 
         fun onCreatePost()
         fun onCreatePostFailed(e: Exception)
@@ -25,7 +25,7 @@ class PostImageViewModel : ObservableViewModel<PostImageViewModel.Listener>() {
     }
 
     // cached data
-    private var userModel: UserModel? = null
+    private var user: User? = null
 
     init {
         UserUseCase.registerListener(uuid)
@@ -42,10 +42,10 @@ class PostImageViewModel : ObservableViewModel<PostImageViewModel.Listener>() {
     }
 
     fun fetchUserAndNotify() {
-        if (userModel == null) {
+        if (user == null) {
             UserUseCase.fetchUserAndNotify(uuid, UserUseCase.uid,
                 { user ->
-                    userModel = user
+                    this.user = user
                     for (listener in listeners) {
                         listener.onUserFetched(user)
                     }
@@ -55,7 +55,7 @@ class PostImageViewModel : ObservableViewModel<PostImageViewModel.Listener>() {
                 })
         } else {
             for (listener in listeners) {
-                listener.onUserFetched(userModel!!)
+                listener.onUserFetched(user!!)
             }
         }
     }
@@ -92,7 +92,7 @@ class PostImageViewModel : ObservableViewModel<PostImageViewModel.Listener>() {
         }
     }
 
-    fun createPostAndNotify(post: PostModel) {
+    fun createPostAndNotify(post: Post) {
         PostUseCase.createPost(uuid, post,
             {
                 for (listener in listeners) {

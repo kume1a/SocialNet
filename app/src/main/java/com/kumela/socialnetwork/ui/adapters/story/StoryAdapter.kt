@@ -2,7 +2,7 @@ package com.kumela.socialnetwork.ui.adapters.story
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.models.User
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 
 /**
@@ -11,17 +11,17 @@ import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 
 class StoryAdapter(
     private val viewMvcFactory: ViewMvcFactory,
-    private val listener: (Int, UserModel) -> Unit
+    private val listener: (Int, User) -> Unit
 ) : RecyclerView.Adapter<StoryAdapter.StoryViewHolder>(), StoryItemViewMvc.Listener {
 
-    private val items = arrayListOf<UserModel>()
+    private val items = arrayListOf<User>()
 
-    fun addStory(user: UserModel) {
+    fun addStory(user: User) {
         items.add(user)
         notifyItemInserted(items.size - 1)
     }
 
-    fun bindStories(users: List<UserModel>) {
+    fun bindStories(users: List<User>) {
         items.clear()
         items.addAll(users)
         notifyDataSetChanged()
@@ -47,7 +47,7 @@ class StoryAdapter(
 
     class StoryViewHolder(val viewMvc: StoryItemViewMvc) : RecyclerView.ViewHolder(viewMvc.rootView)
 
-    override fun onStoryClicked(userModel: UserModel) {
-        listener.invoke(items.indexOf(userModel), userModel)
+    override fun onStoryClicked(user: User) {
+        listener.invoke(items.indexOf(user), user)
     }
 }

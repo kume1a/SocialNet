@@ -2,7 +2,7 @@ package com.kumela.socialnetwork.ui.story_uploder
 
 import android.net.Uri
 import android.util.Log
-import com.kumela.socialnetwork.models.firebase.StoryModel
+import com.kumela.socialnetwork.models.Story
 import com.kumela.socialnetwork.network.firebase.ImageType
 import com.kumela.socialnetwork.network.firebase.ImageUseCase
 import com.kumela.socialnetwork.network.firebase.StoryUseCase
@@ -34,7 +34,7 @@ class StoryUploaderViewModel : ObservableViewModel<StoryUploaderViewModel.Listen
     fun uploadStoryAndNotify(imageUri: Uri) {
         ImageUseCase.uploadImageAndNotify(uuid, ImageType.STORY, imageUri,
             onSuccessListener = { downloadUri ->
-                StoryUseCase.createStory(uuid, StoryModel(System.currentTimeMillis(), downloadUri),
+                StoryUseCase.createStory(uuid, Story(System.currentTimeMillis(), downloadUri),
                     onSuccessListener = {
                         for (listener in listeners) {
                             listener.onStoryUploaded()

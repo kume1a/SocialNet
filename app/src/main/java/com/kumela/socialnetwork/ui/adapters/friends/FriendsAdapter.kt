@@ -2,7 +2,7 @@ package com.kumela.socialnetwork.ui.adapters.friends
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.models.User
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 
 /**
@@ -11,12 +11,12 @@ import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 
 class FriendsAdapter(
     private val viewMvcFactory: ViewMvcFactory,
-    private val listener: (UserModel) -> Unit
+    private val listener: (User) -> Unit
 ) : RecyclerView.Adapter<FriendsAdapter.FriendsViewHolder>(), FriendsItemViewMvc.Listener {
 
-    private val items = arrayListOf<UserModel>()
+    private val items = arrayListOf<User>()
 
-    fun bindUsers(users: List<UserModel>) {
+    fun bindUsers(users: List<User>) {
         items.clear()
         items.addAll(users)
         notifyDataSetChanged()
@@ -37,7 +37,7 @@ class FriendsAdapter(
     class FriendsViewHolder(val viewMvc: FriendsItemViewMvc) :
         RecyclerView.ViewHolder(viewMvc.rootView)
 
-    override fun onFriendItemClicked(userModel: UserModel) {
-        listener.invoke(userModel)
+    override fun onFriendItemClicked(user: User) {
+        listener.invoke(user)
     }
 }

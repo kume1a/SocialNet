@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import com.kumela.socialnetwork.R
-import com.kumela.socialnetwork.models.list.MessageListModel
+import com.kumela.socialnetwork.models.list.MessageList
 import com.kumela.socialnetwork.ui.common.mvc.BaseViewMvc
 import com.kumela.socialnetwork.ui.common.utils.setTime
 
@@ -24,11 +24,11 @@ class MessageRightItemViewMvc(
     private val textMessage: TextView = findViewById(R.id.text_message)
     private val cardBgr: CardView = findViewById(R.id.card_bgr_message)
 
-    fun bindMessageModel(messageModel: MessageListModel) {
-        textTime.setTime(messageModel.timestamp)
-        textMessage.text = messageModel.message
+    fun bindMessageModel(message: MessageList) {
+        textTime.setTime(message.timestamp)
+        textMessage.text = message.message
 
-        if (messageModel.sent) {
+        if (message.sent) {
             cardBgr.setCardBackgroundColor(getColor(R.color.primary_light50))
         }
     }

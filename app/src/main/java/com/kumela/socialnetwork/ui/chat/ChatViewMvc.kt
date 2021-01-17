@@ -1,6 +1,6 @@
 package com.kumela.socialnetwork.ui.chat
 
-import com.kumela.socialnetwork.models.list.MessageListModel
+import com.kumela.socialnetwork.models.list.MessageList
 import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
 
 /**
@@ -19,7 +19,7 @@ interface ChatViewMvc : ObservableViewMvc<ChatViewMvc.Listener> {
         fun onMessageBoxFocusLost()
 
         fun onScrolledToTop()
-        fun onHeartClicked(messageModel: MessageListModel)
+        fun onHeartClicked(message: MessageList)
     }
 
     fun bindToolbarText(text: String)
@@ -30,8 +30,8 @@ interface ChatViewMvc : ObservableViewMvc<ChatViewMvc.Listener> {
     fun getCurrentMessage(): String
     fun clearMessageField()
 
-    fun addMessage(messageModel: MessageListModel)
-    fun bindMessages(messages: List<MessageListModel>)
-    fun addMessages(messages: List<MessageListModel>)
-    fun updateMessage(messageModel: MessageListModel)
+    fun addMessage(message: MessageList)
+    fun bindMessages(messages: List<MessageList>)
+    fun addMessages(messages: List<MessageList>)
+    fun updateMessage(message: MessageList)
 }

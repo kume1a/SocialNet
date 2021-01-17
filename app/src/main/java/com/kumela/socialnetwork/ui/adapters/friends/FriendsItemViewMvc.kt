@@ -1,6 +1,6 @@
 package com.kumela.socialnetwork.ui.adapters.friends
 
-import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.models.User
 import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
 
 /**
@@ -9,8 +9,8 @@ import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
 
 interface FriendsItemViewMvc : ObservableViewMvc<FriendsItemViewMvc.Listener> {
     interface Listener {
-        fun onFriendItemClicked(userModel: UserModel)
+        fun onFriendItemClicked(user: User)
     }
 
-    fun bindUserModel(userModel: UserModel)
+    fun bindUserModel(user: User)
 }

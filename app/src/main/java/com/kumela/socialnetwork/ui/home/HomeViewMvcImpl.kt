@@ -6,8 +6,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kumela.socialnetwork.R
-import com.kumela.socialnetwork.models.firebase.FeedModel
-import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.models.Feed
+import com.kumela.socialnetwork.models.User
 import com.kumela.socialnetwork.ui.adapters.feed.FeedAdapter
 import com.kumela.socialnetwork.ui.adapters.story.StoryAdapter
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
@@ -63,36 +63,36 @@ class HomeViewMvcImpl(
         recyclerFeed.scrollToPosition(feedListOffset)
     }
 
-    override fun bindStories(users: List<UserModel>) {
+    override fun bindStories(users: List<User>) {
         storyAdapter.bindStories(users)
     }
 
-    override fun addStory(user: UserModel) {
+    override fun addStory(user: User) {
         storyAdapter.addStory(user)
     }
 
-    override fun addPost(post: FeedModel) {
+    override fun addPost(post: Feed) {
         feedAdapter.addPost(post)
     }
 
-    override fun bindPosts(posts: List<FeedModel>) {
+    override fun bindPosts(posts: List<Feed>) {
         feedAdapter.bindPosts(posts)
     }
 
-    override fun updatePost(position: Int, feedModel: FeedModel) {
+    override fun updatePost(position: Int, feedModel: Feed) {
         feedAdapter.updatePost(position, feedModel)
     }
 
     // feed adapter view callbacks
-    override fun onUserProfileOrUsernameClicked(userModel: UserModel) {
-        listener?.onUserProfileOrUsernameClicked(userModel)
+    override fun onUserProfileOrUsernameClicked(user: User) {
+        listener?.onUserProfileOrUsernameClicked(user)
     }
 
-    override fun onLikeClicked(position: Int, feedModel: FeedModel) {
+    override fun onLikeClicked(position: Int, feedModel: Feed) {
         listener?.onLikeClicked(position, feedModel)
     }
 
-    override fun onPostDoubleClicked(position: Int, feedModel: FeedModel) {
+    override fun onPostDoubleClicked(position: Int, feedModel: Feed) {
         listener?.onPostDoubleClick(position, feedModel)
     }
 

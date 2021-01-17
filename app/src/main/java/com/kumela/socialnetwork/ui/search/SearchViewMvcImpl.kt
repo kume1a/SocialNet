@@ -8,7 +8,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kumela.socialnetwork.R
-import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.models.User
 import com.kumela.socialnetwork.ui.adapters.users.UsersAdapter
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.mvc.BaseObservableViewMvc
@@ -50,7 +50,7 @@ class SearchViewMvcImpl(
         }
     }
 
-    override fun bindSearchItems(users: List<UserModel>) {
+    override fun bindSearchItems(users: List<User>) {
         searchAdapter.bindUsers(users)
     }
 }

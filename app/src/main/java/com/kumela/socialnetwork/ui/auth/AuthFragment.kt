@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.kumela.socialnetwork.common.Constants
 import com.kumela.socialnetwork.common.utils.CredentialChecker
-import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.models.User
 import com.kumela.socialnetwork.network.authentication.AuthUseCase
 import com.kumela.socialnetwork.network.firebase.fold
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
@@ -173,7 +173,7 @@ class AuthFragment : BaseFragment(), AuthViewMvc.Listener,
                 onSuccess = { userId ->
                     Log.d(javaClass.simpleName, "signup: success, userId = $userId")
                     mViewMvc.dismissProgressIndication()
-                    val user = UserModel(
+                    val user = User(
                         userId,
                         mViewMvc.getSignupName(),
                         Constants.DEFAULT_IMAGE_URI,

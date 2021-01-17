@@ -2,7 +2,7 @@ package com.kumela.socialnetwork.ui.adapters.messages
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.kumela.socialnetwork.models.list.MessageListModel
+import com.kumela.socialnetwork.models.list.MessageList
 import com.kumela.socialnetwork.network.firebase.UserUseCase
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 
@@ -17,32 +17,32 @@ class MessageAdapter(
 
     interface Listener {
         fun onScrolledToTop()
-        fun onHeartClicked(messageModel: MessageListModel)
+        fun onHeartClicked(message: MessageList)
     }
 
-    private val items = arrayListOf<MessageListModel>()
+    private val items = arrayListOf<MessageList>()
     private val uid = UserUseCase.uid
 
-    fun addMessage(messageModel: MessageListModel) {
-        items.add(0, messageModel)
+    fun addMessage(message: MessageList) {
+        items.add(0, message)
         notifyItemInserted(0)
     }
 
-    fun addMessages(messages: List<MessageListModel>) {
+    fun addMessages(messages: List<MessageList>) {
         val oldSize = items.size
         items.addAll(messages)
         notifyItemRangeInserted(oldSize, messages.size)
     }
 
-    fun bindMessages(messageModels: List<MessageListModel>) {
+    fun bindMessages(messages: List<MessageList>) {
         items.clear()
-        items.addAll(messageModels)
+        items.addAll(messages)
         notifyDataSetChanged()
     }
 
-    fun updateMessage(messageModel: MessageListModel) {
-        val index = items.indexOfFirst { it.timestamp == messageModel.timestamp }
-        items[index] = messageModel
+    fun updateMessage(message: MessageList) {
+        val index = items.indexOfFirst { it.timestamp == message.timestamp }
+        items[index] = message
 //        notifyItemChanged(index)
         notifyDataSetChanged()
     }
@@ -95,8 +95,8 @@ class MessageAdapter(
     class ChatViewHolderRight(val viewMvc: MessageRightItemViewMvc) :
         RecyclerView.ViewHolder(viewMvc.rootView)
 
-    override fun onHeartClicked(messageModel: MessageListModel) {
-        listener.onHeartClicked(messageModel)
+    override fun onHeartClicked(message: MessageList) {
+        listener.onHeartClicked(message)
     }
 
     companion object {

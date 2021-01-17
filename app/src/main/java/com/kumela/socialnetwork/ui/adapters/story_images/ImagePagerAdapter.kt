@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.kumela.socialnetwork.R
-import com.kumela.socialnetwork.models.firebase.FeedStoryModel
+import com.kumela.socialnetwork.models.FeedStoryModel
 import com.kumela.socialnetwork.ui.common.utils.load
 
 /**

@@ -6,9 +6,9 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
 import com.kumela.socialnetwork.common.UseCase
-import com.kumela.socialnetwork.models.firebase.FeedStoriesModel
-import com.kumela.socialnetwork.models.firebase.FeedStoryModel
-import com.kumela.socialnetwork.models.firebase.StoryModel
+import com.kumela.socialnetwork.models.FeedStoriesModel
+import com.kumela.socialnetwork.models.FeedStoryModel
+import com.kumela.socialnetwork.models.Story
 import com.kumela.socialnetwork.network.firebase.helpers.DatabaseHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -25,7 +25,7 @@ object StoryUseCase : UseCase() {
 
     inline fun createStory(
         uuid: UUID,
-        storyModel: StoryModel,
+        story: Story,
         crossinline onSuccessListener: () -> Unit,
         crossinline onFailureListener: (Exception) -> Unit
     ) {
@@ -33,7 +33,7 @@ object StoryUseCase : UseCase() {
             .getStoriesTableRef()
             .child(UserUseCase.uid)
             .push()
-            .setValue(storyModel)
+            .setValue(story)
             .addOnSuccessListener {
                 if (isActive(uuid)) {
                     onSuccessListener.invoke()

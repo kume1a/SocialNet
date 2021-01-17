@@ -2,7 +2,7 @@ package com.kumela.socialnetwork.ui.adapters.explore
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.kumela.socialnetwork.models.list.PostModel
+import com.kumela.socialnetwork.models.list.Post
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import kotlin.math.ceil
 
@@ -15,18 +15,18 @@ class ExploreAdapter(
     private val onScrolledToBottomListener: () -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val items = ArrayList<PostModel>()
+    private val items = ArrayList<Post>()
 
-    fun bindPosts(postModels: List<PostModel>) {
+    fun bindPosts(posts: List<Post>) {
         items.clear()
-        items.addAll(postModels)
+        items.addAll(posts)
         notifyDataSetChanged()
     }
 
-    fun addPosts(postModels: List<PostModel>) {
+    fun addPosts(posts: List<Post>) {
         val oldItemsSize = items.size
-        items.addAll(postModels)
-        notifyItemRangeInserted(oldItemsSize, ceil(postModels.size.toFloat() / 3).toInt())
+        items.addAll(posts)
+        notifyItemRangeInserted(oldItemsSize, ceil(posts.size.toFloat() / 3).toInt())
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -54,7 +54,7 @@ class ExploreAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val getSublist: () -> List<PostModel> = {
+        val getSublist: () -> List<Post> = {
             try {
                 items.subList(position * 3, (position + 1) * 3)
             } catch (e: IndexOutOfBoundsException) {

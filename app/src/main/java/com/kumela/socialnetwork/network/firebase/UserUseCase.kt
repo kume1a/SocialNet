@@ -13,8 +13,8 @@ import com.kumela.socialnetwork.common.UseCase
 import com.kumela.socialnetwork.common.listeners.OnFailureListener
 import com.kumela.socialnetwork.common.listeners.OnSuccessListener
 import com.kumela.socialnetwork.models.UserFields
-import com.kumela.socialnetwork.models.firebase.UserExtraInfoModel
-import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.models.UserExtraInfo
+import com.kumela.socialnetwork.models.User
 import com.kumela.socialnetwork.network.firebase.helpers.DatabaseHelper
 import com.kumela.socialnetwork.network.firebase.helpers.FunctionsHelper
 import com.kumela.socialnetwork.network.firebase.helpers.FunctionsObjectsDeserializer
@@ -63,7 +63,7 @@ object UserUseCase : UseCase() {
 
     inline fun createUserAndNotify(
         uuid: UUID,
-        user: UserModel,
+        user: User,
         crossinline onSuccessListener: () -> Unit,
         crossinline onFailureListener: (Exception) -> Unit
     ) {
@@ -78,7 +78,7 @@ object UserUseCase : UseCase() {
 
         val childUpdates = hashMapOf(
             "${DatabaseHelper.DB_KEY_USERS}/$userRefKey" to user,
-            "${DatabaseHelper.DB_KEY_USER_EXTRA_INFO}/$userExtraInfoRefKey" to UserExtraInfoModel()
+            "${DatabaseHelper.DB_KEY_USER_EXTRA_INFO}/$userExtraInfoRefKey" to UserExtraInfo()
         )
 
         DatabaseHelper.databaseRef
@@ -98,7 +98,7 @@ object UserUseCase : UseCase() {
     fun fetchUserAndNotify(
         uuid: UUID,
         uid: String?,
-        onSuccessListener: OnSuccessListener<UserModel>,
+        onSuccessListener: OnSuccessListener<User>,
         onFailureListener: OnFailureListener<DatabaseError>
     ) {
         val userRef = DatabaseHelper.getUserTableRef()
@@ -107,7 +107,7 @@ object UserUseCase : UseCase() {
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (isActive(uuid)) {
-                        onSuccessListener.onSuccess(snapshot.getValue<UserModel>()!!)
+                        onSuccessListener.onSuccess(snapshot.getValue<User>()!!)
                     }
                 }
 
@@ -143,7 +143,7 @@ object UserUseCase : UseCase() {
     fun fetchUserExtraInfoAndNotify(
         uuid: UUID,
         uid: String?,
-        onSuccessListener: OnSuccessListener<UserExtraInfoModel>,
+        onSuccessListener: OnSuccessListener<UserExtraInfo>,
         onFailureListener: OnFailureListener<DatabaseError>
     ) {
         val userExtraInfoRef = DatabaseHelper.getUserExtraInfoTableRef()
@@ -152,7 +152,7 @@ object UserUseCase : UseCase() {
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (isActive(uuid)) {
-                        val userExtraInfo = snapshot.getValue<UserExtraInfoModel>()!!
+                        val userExtraInfo = snapshot.getValue<UserExtraInfo>()!!
                         onSuccessListener.onSuccess(userExtraInfo)
                     }
                 }
@@ -168,7 +168,7 @@ object UserUseCase : UseCase() {
     fun fetchUsersByNameAndNotify(
         uuid: UUID,
         name: String,
-        onSuccessListener: OnSuccessListener<List<UserModel>>,
+        onSuccessListener: OnSuccessListener<List<User>>,
         onFailureListener: OnFailureListener<DatabaseError>
     ) {
         val ref = DatabaseHelper.getUserTableRef()
@@ -181,7 +181,7 @@ object UserUseCase : UseCase() {
                     if (!isActive(uuid)) return
 
                     val users = snapshot.children
-                        .map { it.getValue<UserModel>()!! }
+                        .map { it.getValue<User>()!! }
                         .filter { it.id != uid }
 
                     onSuccessListener.onSuccess(users)
@@ -198,14 +198,14 @@ object UserUseCase : UseCase() {
     fun getFollowingUsers(
         uuid: UUID,
         uid: String,
-        onSuccessListener: OnSuccessListener<List<UserModel>>,
+        onSuccessListener: OnSuccessListener<List<User>>,
         onFailureListener: OnFailureListener<Exception>,
     ) {
         FunctionsHelper.getFollowingUsers(uid) { task ->
             if (isActive(uuid)) {
                 if (task.isSuccessful) {
                     val listOfUsers = (task.result!!.data as List<*>).map { item ->
-                        FunctionsObjectsDeserializer.get<UserModel>(item as HashMap<*, *>)
+                        FunctionsObjectsDeserializer.get<User>(item as HashMap<*, *>)
                     }
                     onSuccessListener.onSuccess(listOfUsers)
                 } else {

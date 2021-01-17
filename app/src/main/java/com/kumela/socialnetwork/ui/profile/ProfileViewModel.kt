@@ -1,10 +1,10 @@
 package com.kumela.socialnetwork.ui.profile
 
 import android.util.Log
-import com.kumela.socialnetwork.models.firebase.StoryModel
-import com.kumela.socialnetwork.models.firebase.UserExtraInfoModel
-import com.kumela.socialnetwork.models.firebase.UserModel
-import com.kumela.socialnetwork.models.list.PostModel
+import com.kumela.socialnetwork.models.Story
+import com.kumela.socialnetwork.models.UserExtraInfo
+import com.kumela.socialnetwork.models.User
+import com.kumela.socialnetwork.models.list.Post
 import com.kumela.socialnetwork.network.firebase.PostUseCase
 import com.kumela.socialnetwork.network.firebase.StoryUseCase
 import com.kumela.socialnetwork.network.firebase.UserUseCase
@@ -16,26 +16,26 @@ import com.kumela.socialnetwork.ui.common.viewmodels.ObservableViewModel
  **/
 
 class ProfileViewModel(
-    private val storyQueryPager: QueryPager<StoryModel>
+    private val storyQueryPager: QueryPager<Story>
 ) : ObservableViewModel<ProfileViewModel.Listener>() {
 
     interface Listener {
-        fun onUserFetched(userModel: UserModel)
-        fun onUserExtraInfoFetched(userExtraInfoModel: UserExtraInfoModel)
-        fun onPostsFetched(posts: List<PostModel>)
-        fun onStoriesFetched(storyModels: List<StoryModel>)
+        fun onUserFetched(user: User)
+        fun onUserExtraInfoFetched(userExtraInfo: UserExtraInfo)
+        fun onPostsFetched(posts: List<Post>)
+        fun onStoriesFetched(stories: List<Story>)
     }
 
     // cached data
-    private var userModel: UserModel? = null
-    private var userExtraInfoModel: UserExtraInfoModel? = null
-    private var postList: List<PostModel>? = null
-    private val storyList = ArrayList<StoryModel>()
+    private var user: User? = null
+    private var userExtraInfo: UserExtraInfo? = null
+    private var postList: List<Post>? = null
+    private val storyList = ArrayList<Story>()
 
-    fun getUser(): UserModel? = userModel
-    fun getUserExtraInfo(): UserExtraInfoModel? = userExtraInfoModel
-    fun getUserPosts(): List<PostModel>? = postList
-    fun getUserStories(): List<StoryModel> = storyList
+    fun getUser(): User? = user
+    fun getUserExtraInfo(): UserExtraInfo? = userExtraInfo
+    fun getUserPosts(): List<Post>? = postList
+    fun getUserStories(): List<Story> = storyList
 
     init {
         storyQueryPager.registerListener(uuid)
@@ -54,7 +54,7 @@ class ProfileViewModel(
     fun fetchUserAndNotify() {
         UserUseCase.fetchUserAndNotify(uuid, null,
             { userModel ->
-                this.userModel = userModel
+                this.user = userModel
                 for (listener in listeners) {
                     listener.onUserFetched(userModel)
                 }
@@ -67,7 +67,7 @@ class ProfileViewModel(
     fun fetchUserExtraInfoAndNotify() {
         UserUseCase.fetchUserExtraInfoAndNotify(uuid, null,
             { userExtraInfoModel ->
-                this.userExtraInfoModel = userExtraInfoModel
+                this.userExtraInfo = userExtraInfoModel
                 for (listener in listeners) {
                     listener.onUserExtraInfoFetched(userExtraInfoModel)
                 }

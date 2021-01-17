@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kumela.socialnetwork.ui.views.RoundedImageView
 import com.kumela.socialnetwork.R
-import com.kumela.socialnetwork.models.firebase.StoryModel
-import com.kumela.socialnetwork.models.list.PostModel
+import com.kumela.socialnetwork.models.Story
+import com.kumela.socialnetwork.models.list.Post
 import com.kumela.socialnetwork.ui.adapters.posts.PostsAdapter
 import com.kumela.socialnetwork.ui.adapters.story_profile.ProfileStoryAdapter
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
@@ -123,19 +123,19 @@ class ProfileViewMvcImpl(
         textFollowingCount.text = followingCount.toString()
     }
 
-    override fun bindPosts(posts: List<PostModel>) {
+    override fun bindPosts(posts: List<Post>) {
         showPosts()
         postsAdapter.bindPosts(posts)
     }
 
-    override fun bindStories(stories: List<StoryModel>) {
+    override fun bindStories(stories: List<Story>) {
         showStories()
         storyAdapter.bindStories(stories)
     }
 
-    override fun addStories(storyModels: List<StoryModel>) {
+    override fun addStories(stories: List<Story>) {
         showStories()
-        storyAdapter.addStories(storyModels)
+        storyAdapter.addStories(stories)
     }
 
     override fun showNoPostsAvailable() {

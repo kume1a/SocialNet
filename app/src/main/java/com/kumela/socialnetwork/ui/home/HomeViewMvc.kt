@@ -1,7 +1,7 @@
 package com.kumela.socialnetwork.ui.home
 
-import com.kumela.socialnetwork.models.firebase.FeedModel
-import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.models.Feed
+import com.kumela.socialnetwork.models.User
 import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
 
 /**
@@ -10,22 +10,22 @@ import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
 
 interface HomeViewMvc : ObservableViewMvc<HomeViewMvc.Listener> {
     interface Listener {
-        fun onStoryClicked(position: Int, user: UserModel)
+        fun onStoryClicked(position: Int, user: User)
         fun onScrolledToBottom()
 
-        fun onUserProfileOrUsernameClicked(user: UserModel)
+        fun onUserProfileOrUsernameClicked(user: User)
         fun onLikeCountClicked(postId: String)
         fun onCommentClicked(postId: String)
-        fun onLikeClicked(position: Int, feedModel: FeedModel)
-        fun onPostDoubleClick(position: Int, feedModel: FeedModel)
+        fun onLikeClicked(position: Int, feedModel: Feed)
+        fun onPostDoubleClick(position: Int, feedModel: Feed)
     }
 
-    fun bindStories(users: List<UserModel>)
-    fun addStory(user: UserModel)
+    fun bindStories(users: List<User>)
+    fun addStory(user: User)
 
-    fun addPost(post: FeedModel)
-    fun bindPosts(posts: List<FeedModel>)
-    fun updatePost(position: Int, feedModel: FeedModel)
+    fun addPost(post: Feed)
+    fun bindPosts(posts: List<Feed>)
+    fun updatePost(position: Int, feedModel: Feed)
 
     fun getCurrentFeedListOffset(): Int
     fun scrollFeedListTo(feedListOffset: Int)

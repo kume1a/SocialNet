@@ -7,7 +7,7 @@ import com.kumela.socialnetwork.models.PostFields
  * Created by Toko on 01,October,2020
  **/
 
-data class PostModel(
+data class Post(
     val id: String = "",
     val posterUid: String = "",
     val timestamp: Long = 0L,

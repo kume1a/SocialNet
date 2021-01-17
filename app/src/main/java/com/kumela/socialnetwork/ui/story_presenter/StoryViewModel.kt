@@ -2,8 +2,8 @@ package com.kumela.socialnetwork.ui.story_presenter
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
-import com.kumela.socialnetwork.models.firebase.FeedStoriesModel
-import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.models.FeedStoriesModel
+import com.kumela.socialnetwork.models.User
 import com.kumela.socialnetwork.network.firebase.StoryUseCase
 import com.kumela.socialnetwork.network.firebase.UserUseCase
 import com.kumela.socialnetwork.ui.common.utils.isOutdated
@@ -16,14 +16,14 @@ import kotlinx.coroutines.launch
 
 class StoryViewModel : ObservableViewModel<StoryViewModel.Listener>() {
     interface Listener {
-        fun onStoryPosterFetched(user: UserModel)
+        fun onStoryPosterFetched(user: User)
     }
 
     private var feedStories: List<FeedStoriesModel>? = null
-    private val feedStoryPosters = ArrayList<UserModel>()
+    private val feedStoryPosters = ArrayList<User>()
 
     fun getFeedStories(): List<FeedStoriesModel>? = feedStories
-    fun getStoryPosters(): List<UserModel> = feedStoryPosters
+    fun getStoryPosters(): List<User> = feedStoryPosters
 
     init {
         StoryUseCase.registerListener(uuid)

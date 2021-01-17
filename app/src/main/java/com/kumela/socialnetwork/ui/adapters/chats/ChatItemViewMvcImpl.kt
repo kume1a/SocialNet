@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.kumela.socialnetwork.ui.views.RoundedImageView
 import com.kumela.socialnetwork.R
-import com.kumela.socialnetwork.models.list.ChatListModel
+import com.kumela.socialnetwork.models.list.ChatList
 import com.kumela.socialnetwork.ui.common.mvc.BaseObservableViewMvc
 import com.kumela.socialnetwork.ui.common.utils.load
 import com.kumela.socialnetwork.ui.common.utils.setTime
@@ -24,7 +24,7 @@ class ChatItemViewMvcImpl(
     R.layout.item_chat
 ), ChatItemViewMvc {
 
-    private var chatListModel: ChatListModel? = null
+    private var chatList: ChatList? = null
 
     private val textSuggestions: TextView = findViewById(R.id.text_suggestions)
     private val imageProfile: RoundedImageView = findViewById(R.id.image)
@@ -34,20 +34,20 @@ class ChatItemViewMvcImpl(
     private val textTime: TextView = findViewById(R.id.text_time)
 
     init {
-        rootView.setOnClickListener { listener?.onChatClicked(chatListModel!!) }
+        rootView.setOnClickListener { listener?.onChatClicked(chatList!!) }
     }
 
-    override fun bindChatListModel(chatListModel: ChatListModel) {
-        this.chatListModel = chatListModel
+    override fun bindChatListModel(chatList: ChatList) {
+        this.chatList = chatList
 
-        imageProfile.load(chatListModel.targetImageUri)
-        textHeader.text = chatListModel.targetUsername
-        imageIsOnline.visibility = if (chatListModel.targetIsOnline) View.VISIBLE else View.GONE
+        imageProfile.load(chatList.targetImageUri)
+        textHeader.text = chatList.targetUsername
+        imageIsOnline.visibility = if (chatList.targetIsOnline) View.VISIBLE else View.GONE
 
-        chatListModel.lastUpdated?.let { textTime.setTime(it) }
+        chatList.lastUpdated?.let { textTime.setTime(it) }
 
-        if (chatListModel.lastMessage != null) {
-            textLastMessage.text = chatListModel.lastMessage
+        if (chatList.lastMessage != null) {
+            textLastMessage.text = chatList.lastMessage
         } else {
             textLastMessage.visibility = View.GONE
         }

@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.kumela.socialnetwork.models.list.PostModel
+import com.kumela.socialnetwork.models.list.Post
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper
 import com.kumela.socialnetwork.ui.common.controllers.BaseFragment
@@ -48,12 +48,12 @@ class ExploreFragment : BaseFragment(), ExploreViewMvc.Listener,
         mViewMvc.registerListener(this)
         mViewModel.registerListener(this)
 
-        val postModels = mViewModel.getPostModels()
-        if (postModels.isNotEmpty()) {
-            mViewMvc.bindPosts(postModels)
-        } else {
-            mViewModel.fetchNextPostPageAndNotify()
-        }
+//        val postModels = mViewModel.getPostModels()
+//        if (postModels.isNotEmpty()) {
+//            mViewMvc.bindPosts(postModels)
+//        } else {
+//            mViewModel.fetchNextPostPageAndNotify()
+//        }
     }
 
     override fun onDestroyView() {
@@ -72,7 +72,7 @@ class ExploreFragment : BaseFragment(), ExploreViewMvc.Listener,
     }
 
     // view model callbacks
-    override fun onPostsFetched(postModels: List<PostModel>) {
-        mViewMvc.addPosts(postModels)
+    override fun onPostsFetched(posts: List<Post>) {
+        mViewMvc.addPosts(posts)
     }
 }

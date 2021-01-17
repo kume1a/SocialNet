@@ -1,10 +1,10 @@
-package com.kumela.socialnetwork.models.firebase
+package com.kumela.socialnetwork.models
 
 /**
  * Created by Toko on 05,October,2020
  **/
 
-data class UserModel(
+data class User(
     val id: String = "",
     val username: String = "",
     val imageUri: String = "",

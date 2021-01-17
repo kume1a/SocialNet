@@ -2,7 +2,7 @@ package com.kumela.socialnetwork.ui.adapters.posts
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.kumela.socialnetwork.models.list.PostModel
+import com.kumela.socialnetwork.models.list.Post
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 
 /**
@@ -11,14 +11,14 @@ import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 
 class PostsAdapter(
     private val viewMvcFactory: ViewMvcFactory,
-    private val listener: (PostModel) -> Unit
+    private val listener: (Post) -> Unit
 ) : RecyclerView.Adapter<PostsAdapter.PostViewHolder>(), PostItemViewMvc.Listener {
 
-    private val items = arrayListOf<PostModel>()
+    private val items = arrayListOf<Post>()
 
-    fun bindPosts(postModels: List<PostModel>) {
+    fun bindPosts(posts: List<Post>) {
         items.clear()
-        items.addAll(postModels)
+        items.addAll(posts)
         notifyDataSetChanged()
     }
 
@@ -36,7 +36,7 @@ class PostsAdapter(
 
     class PostViewHolder(val viewMvc: PostItemViewMvc) : RecyclerView.ViewHolder(viewMvc.rootView)
 
-    override fun onPostClicked(postModel: PostModel) {
-        listener.invoke(postModel)
+    override fun onPostClicked(post: Post) {
+        listener.invoke(post)
     }
 }

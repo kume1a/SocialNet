@@ -2,9 +2,9 @@ package com.kumela.socialnetwork.ui.messages
 
 import android.util.Log
 import com.kumela.socialnetwork.common.Constants
-import com.kumela.socialnetwork.models.firebase.UserChatModel
-import com.kumela.socialnetwork.models.firebase.UserModel
-import com.kumela.socialnetwork.models.list.ChatListModel
+import com.kumela.socialnetwork.models.UserChat
+import com.kumela.socialnetwork.models.User
+import com.kumela.socialnetwork.models.list.ChatList
 import com.kumela.socialnetwork.network.firebase.ChatUseCase
 import com.kumela.socialnetwork.network.firebase.UserUseCase
 import com.kumela.socialnetwork.network.firebase.helpers.QueryPager
@@ -17,16 +17,16 @@ import com.kumela.socialnetwork.ui.common.viewmodels.ObservableViewModel
 
 class MessagesViewModel(
     private val followingUserIdsQueryPager: QueryPager<String>,
-    private val userChatsQueryPagerModel: QueryPager<UserChatModel>
+    private val userChatsQueryPager: QueryPager<UserChat>
 ) : ObservableViewModel<MessagesViewModel.Listener>() {
 
     interface Listener {
-        fun onFollowingUsersFetched(users: List<UserModel>)
-        fun onChatFetched(chatListModel: ChatListModel?)
+        fun onFollowingUsersFetched(users: List<User>)
+        fun onChatFetched(chatList: ChatList?)
     }
 
-    private var mUserModels: List<UserModel>? = null
-    private var mChats = ArrayList<ChatListModel>()
+    private var mUsers: List<User>? = null
+    private var mChats = ArrayList<ChatList>()
 
     private var fetchingChats = false
     private var fetchingUsers = false
@@ -35,7 +35,7 @@ class MessagesViewModel(
         ChatUseCase.registerListener(uuid)
         UserUseCase.registerListener(uuid)
         followingUserIdsQueryPager.registerListener(uuid)
-        userChatsQueryPagerModel.registerListener(uuid)
+        userChatsQueryPager.registerListener(uuid)
     }
 
     override fun onCleared() {
@@ -44,7 +44,7 @@ class MessagesViewModel(
         ChatUseCase.unregisterListener(uuid)
         UserUseCase.unregisterListener(uuid)
         followingUserIdsQueryPager.unregisterListener(uuid)
-        userChatsQueryPagerModel.unregisterListener(uuid)
+        userChatsQueryPager.unregisterListener(uuid)
         for (chatListModel in mChats) {
             chatListModel.id?.let {
                 ChatUseCase.unregisterChatUpdateListener(it)
@@ -52,13 +52,13 @@ class MessagesViewModel(
         }
     }
 
-    fun getChats(): List<ChatListModel> = mChats
-    fun getFollowingUsers(): List<UserModel>? = mUserModels
+    fun getChats(): List<ChatList> = mChats
+    fun getFollowingUsers(): List<User>? = mUsers
 
     fun fetchFollowingUsersAndNotify() {
         UserUseCase.getFollowingUsers(uuid, UserUseCase.uid,
             { userModels ->
-                mUserModels = userModels
+                mUsers = userModels
                 for (listener in listeners) {
                     listener.onFollowingUsersFetched(userModels)
                 }
@@ -73,7 +73,7 @@ class MessagesViewModel(
     fun fetchNextChatsPageAndNotify() {
         if (fetchingChats) return
 
-        userChatsQueryPagerModel.fetchNextPageAndNotify(uuid, ChatUseCase.getUserChatsRef(),
+        userChatsQueryPager.fetchNextPageAndNotify(uuid, ChatUseCase.getUserChatsRef(),
             { userChats ->
                 if (userChats != null && userChats.isNotEmpty()) {
                     fetchingChats = true
@@ -102,7 +102,7 @@ class MessagesViewModel(
                     for (uid in followingUserIds) {
                         UserUseCase.fetchUserAndNotify(uuid, uid,
                             { userModel ->
-                                val chatListModel = ChatListModel(
+                                val chatListModel = ChatList(
                                     targetUid = userModel.id,
                                     targetUsername = userModel.username,
                                     targetImageUri = userModel.imageUri,
@@ -140,7 +140,7 @@ class MessagesViewModel(
             })
     }
 
-    private fun registerChatUpdateListener(index: Int, userChat: UserChatModel) {
+    private fun registerChatUpdateListener(index: Int, userChat: UserChat) {
         ChatUseCase.registerChatUpdateListener(uuid, userChat.chatId,
             { chatModel ->
                 val oldChatModelIndex = mChats.indexOfFirst { it.id == chatModel.id }
@@ -148,7 +148,7 @@ class MessagesViewModel(
                 if (oldChatModelIndex == -1) {
                     UserUseCase.fetchUserAndNotify(uuid, userChat.targetId,
                         { userModel ->
-                            val chatListModel = ChatListModel(
+                            val chatListModel = ChatList(
                                 chatModel.id,
                                 chatModel.lastMessage,
                                 chatModel.lastUpdated,
@@ -180,9 +180,9 @@ class MessagesViewModel(
             })
     }
 
-    private fun notifyListenerAndCheckIfLastChatFetched(index: Int, chatListModel: ChatListModel) {
+    private fun notifyListenerAndCheckIfLastChatFetched(index: Int, chatList: ChatList) {
         for (listener in listeners) {
-            listener.onChatFetched(chatListModel)
+            listener.onChatFetched(chatList)
         }
         if (index == Constants.PAGE_SIZE_USER_CHATS - 1) {
             fetchingChats = false

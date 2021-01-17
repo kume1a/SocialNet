@@ -1,6 +1,6 @@
 package com.kumela.socialnetwork.ui.search
 
-import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.models.User
 import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
 
 /**
@@ -11,8 +11,8 @@ interface SearchViewMvc : ObservableViewMvc<SearchViewMvc.Listener> {
     interface Listener {
         fun onBackPressed()
         fun onQueryTextChanged(query: String)
-        fun onSearchItemClicked(user: UserModel)
+        fun onSearchItemClicked(user: User)
     }
 
-    fun bindSearchItems(users: List<UserModel>)
+    fun bindSearchItems(users: List<User>)
 }

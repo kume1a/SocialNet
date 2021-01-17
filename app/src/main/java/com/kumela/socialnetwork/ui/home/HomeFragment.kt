@@ -8,8 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.kumela.socialnetwork.models.firebase.FeedModel
-import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.models.Feed
+import com.kumela.socialnetwork.models.User
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper
 import com.kumela.socialnetwork.ui.common.controllers.ActivityResultListener
@@ -62,29 +62,29 @@ class HomeFragment : BaseFragment(), HomeViewMvc.Listener,
         mStoryViewModel.registerListener(this)
         mRequestResultDispatcher.registerRequestResultListener(this)
 
-        val posts = mViewModel.getPosts()
-        val userModel = mViewModel.getUser()
-
-        if (posts.isNotEmpty()) {
-            mViewMvc.bindPosts(posts)
-        } else {
-            mViewModel.fetchNextPostAndNotify()
-        }
-
-        if (userModel != null) {
-            val storyPosterUsers = mStoryViewModel.getStoryPosters()
-            if (storyPosterUsers.isNotEmpty()) {
-                val stories = ArrayList<UserModel>()
-                stories.add(userModel)
-                stories.addAll(storyPosterUsers)
-                mViewMvc.bindStories(stories)
-            } else {
-                mViewMvc.addStory(userModel)
-                mStoryViewModel.fetchStoryPostersAndNotify()
-            }
-        } else {
-            mViewModel.fetchUserAndNotify()
-        }
+//        val posts = mViewModel.getPosts()
+//        val userModel = mViewModel.getUser()
+//
+//        if (posts.isNotEmpty()) {
+//            mViewMvc.bindPosts(posts)
+//        } else {
+//            mViewModel.fetchNextPostAndNotify()
+//        }
+//
+//        if (userModel != null) {
+//            val storyPosterUsers = mStoryViewModel.getStoryPosters()
+//            if (storyPosterUsers.isNotEmpty()) {
+//                val stories = ArrayList<UserModel>()
+//                stories.add(userModel)
+//                stories.addAll(storyPosterUsers)
+//                mViewMvc.bindStories(stories)
+//            } else {
+//                mViewMvc.addStory(userModel)
+//                mStoryViewModel.fetchStoryPostersAndNotify()
+//            }
+//        } else {
+//            mViewModel.fetchUserAndNotify()
+//        }
     }
 
     override fun onDestroyView() {
@@ -96,7 +96,7 @@ class HomeFragment : BaseFragment(), HomeViewMvc.Listener,
         mRequestResultDispatcher.unregisterRequestResultListener(this)
     }
 
-    override fun onStoryClicked(position: Int, user: UserModel) {
+    override fun onStoryClicked(position: Int, user: User) {
         if (position == 0) {
             mIntentDispatcher.dispatchImagePickerIntent(REQUEST_PICK_STORY_IMAGE)
         } else {
@@ -108,29 +108,29 @@ class HomeFragment : BaseFragment(), HomeViewMvc.Listener,
         mViewModel.fetchNextPostAndNotify()
     }
 
-    override fun onUserFetched(userModel: UserModel) {
-        mViewMvc.addStory(userModel)
+    override fun onUserFetched(user: User) {
+        mViewMvc.addStory(user)
         mStoryViewModel.fetchStoryPostersAndNotify()
     }
 
-    override fun onPostFetched(feedModel: FeedModel) {
+    override fun onPostFetched(feedModel: Feed) {
         mViewMvc.addPost(feedModel)
     }
 
-    override fun onPostUpdated(position: Int, feedModel: FeedModel) {
+    override fun onPostUpdated(position: Int, feedModel: Feed) {
         mViewMvc.updatePost(position, feedModel)
     }
 
     // feed item view callbacks
-    override fun onUserProfileOrUsernameClicked(user: UserModel) {
+    override fun onUserProfileOrUsernameClicked(user: User) {
         mScreensNavigator.toUserProfile(user.id, user.imageUri, user.username)
     }
 
-    override fun onLikeClicked(position: Int, feedModel: FeedModel) {
+    override fun onLikeClicked(position: Int, feedModel: Feed) {
         mViewModel.likeOrDislikePostAndNotify(position, feedModel)
     }
 
-    override fun onPostDoubleClick(position: Int, feedModel: FeedModel) {
+    override fun onPostDoubleClick(position: Int, feedModel: Feed) {
         mViewModel.likeOrDislikePostAndNotify(position, feedModel)
     }
 
@@ -146,7 +146,7 @@ class HomeFragment : BaseFragment(), HomeViewMvc.Listener,
     }
 
     // story model callbacks
-    override fun onStoryPosterFetched(user: UserModel) {
+    override fun onStoryPosterFetched(user: User) {
         mViewMvc.addStory(user)
     }
 

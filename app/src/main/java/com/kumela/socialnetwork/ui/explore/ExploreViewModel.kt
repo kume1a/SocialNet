@@ -1,7 +1,7 @@
 package com.kumela.socialnetwork.ui.explore
 
 import android.util.Log
-import com.kumela.socialnetwork.models.list.PostModel
+import com.kumela.socialnetwork.models.list.Post
 import com.kumela.socialnetwork.network.firebase.PostUseCase
 import com.kumela.socialnetwork.network.firebase.helpers.QueryPager
 import com.kumela.socialnetwork.ui.common.viewmodels.ObservableViewModel
@@ -10,17 +10,17 @@ import com.kumela.socialnetwork.ui.common.viewmodels.ObservableViewModel
  * Created by Toko on 05,November,2020
  **/
 
-class ExploreViewModel(private val postsQueryPager: QueryPager<PostModel>) :
+class ExploreViewModel(private val postsQueryPager: QueryPager<Post>) :
     ObservableViewModel<ExploreViewModel.Listener>() {
 
     interface Listener {
-        fun onPostsFetched(postModels: List<PostModel>)
+        fun onPostsFetched(posts: List<Post>)
     }
 
     // cached data
-    private val postModels = ArrayList<PostModel>()
+    private val postModels = ArrayList<Post>()
 
-    fun getPostModels(): List<PostModel> = postModels
+    fun getPostModels(): List<Post> = postModels
 
     init {
         postsQueryPager.registerListener(uuid)

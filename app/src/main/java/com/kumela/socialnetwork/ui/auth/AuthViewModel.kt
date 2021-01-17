@@ -1,7 +1,7 @@
 package com.kumela.socialnetwork.ui.auth
 
 import android.util.Log
-import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.models.User
 import com.kumela.socialnetwork.network.firebase.UserUseCase
 import com.kumela.socialnetwork.ui.common.viewmodels.ObservableViewModel
 
@@ -25,7 +25,7 @@ class AuthViewModel : ObservableViewModel<AuthViewModel.Listener>() {
         UserUseCase.unregisterListener(uuid)
     }
 
-    fun createUserAndNotify(user: UserModel) {
+    fun createUserAndNotify(user: User) {
         UserUseCase.createUserAndNotify(uuid, user,
             onSuccessListener = {
                 for (listener in listeners) {

@@ -1,11 +1,11 @@
 package com.kumela.socialnetwork.common.di.presentation
 
 import com.kumela.socialnetwork.common.Constants
-import com.kumela.socialnetwork.models.firebase.FeedStoriesModel
-import com.kumela.socialnetwork.models.firebase.MessageModel
-import com.kumela.socialnetwork.models.firebase.StoryModel
-import com.kumela.socialnetwork.models.firebase.UserChatModel
-import com.kumela.socialnetwork.models.list.PostModel
+import com.kumela.socialnetwork.models.FeedStoriesModel
+import com.kumela.socialnetwork.models.Message
+import com.kumela.socialnetwork.models.Story
+import com.kumela.socialnetwork.models.UserChat
+import com.kumela.socialnetwork.models.list.Post
 import com.kumela.socialnetwork.network.firebase.helpers.QueryPager
 import dagger.Module
 import dagger.Provides
@@ -35,24 +35,24 @@ class QueryPagerModule {
         )
 
     @Provides
-    fun providesUserChatsQueryPager(): QueryPager<UserChatModel> =
+    fun providesUserChatsQueryPager(): QueryPager<UserChat> =
         QueryPager(
             Constants.PAGE_SIZE_USER_CHATS,
-            UserChatModel::class.java
+            UserChat::class.java
         )
 
     @Provides
-    fun providesMessageQueryPager(): QueryPager<MessageModel> =
+    fun providesMessageQueryPager(): QueryPager<Message> =
         QueryPager(
             Constants.PAGE_SIZE_MESSAGES,
-            MessageModel::class.java
+            Message::class.java
         )
 
     @Provides
-    fun providesPostsQueryPager(): QueryPager<PostModel> =
+    fun providesPostsQueryPager(): QueryPager<Post> =
         QueryPager(
             Constants.PAGE_SIZE_POST,
-            PostModel::class.java
+            Post::class.java
         )
 
     @Provides
@@ -63,10 +63,10 @@ class QueryPagerModule {
         )
 
     @Provides
-    fun providesStoryQueryPager(): QueryPager<StoryModel> =
+    fun providesStoryQueryPager(): QueryPager<Story> =
         QueryPager(
             Constants.PAGE_SIZE_STORIES,
-            StoryModel::class.java
+            Story::class.java
         )
 
     @Provides

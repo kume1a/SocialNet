@@ -1,8 +1,8 @@
 package com.kumela.socialnetwork.ui.home
 
 import android.util.Log
-import com.kumela.socialnetwork.models.firebase.FeedModel
-import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.models.Feed
+import com.kumela.socialnetwork.models.User
 import com.kumela.socialnetwork.network.firebase.PostUseCase
 import com.kumela.socialnetwork.network.firebase.UserUseCase
 import com.kumela.socialnetwork.network.firebase.helpers.QueryPager
@@ -18,15 +18,15 @@ class HomeViewModel(
     ObservableViewModel<HomeViewModel.Listener>() {
 
     interface Listener {
-        fun onUserFetched(userModel: UserModel)
-        fun onPostFetched(feedModel: FeedModel)
-        fun onPostUpdated(position: Int, feedModel: FeedModel)
+        fun onUserFetched(user: User)
+        fun onPostFetched(feedModel: Feed)
+        fun onPostUpdated(position: Int, feedModel: Feed)
     }
 
     // cached data
-    private var userModel: UserModel? = null
+    private var user: User? = null
     private val postIds = ArrayList<String>()
-    private val posts = ArrayList<FeedModel>()
+    private val posts = ArrayList<Feed>()
 
     // variable for pagination
     private var postOffset = 0
@@ -46,13 +46,13 @@ class HomeViewModel(
         PostUseCase.unregisterListener(uuid)
     }
 
-    fun getPosts(): List<FeedModel> = posts
-    fun getUser(): UserModel? = userModel
+    fun getPosts(): List<Feed> = posts
+    fun getUser(): User? = user
 
     fun fetchUserAndNotify(uid: String? = null) {
         UserUseCase.fetchUserAndNotify(uuid, uid,
             { user ->
-                this.userModel = user
+                this.user = user
                 for (listener in listeners) {
                     listener.onUserFetched(user)
                 }
@@ -79,7 +79,7 @@ class HomeViewModel(
         }
     }
 
-    fun likeOrDislikePostAndNotify(position: Int, feedModel: FeedModel) {
+    fun likeOrDislikePostAndNotify(position: Int, feedModel: Feed) {
         if (pendingLikeResults.contains(feedModel.postId)) return
         pendingLikeResults.add(feedModel.postId)
 

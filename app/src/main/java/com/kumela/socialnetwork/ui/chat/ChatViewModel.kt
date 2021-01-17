@@ -1,7 +1,7 @@
 package com.kumela.socialnetwork.ui.chat
 
 import android.util.Log
-import com.kumela.socialnetwork.models.firebase.MessageModel
+import com.kumela.socialnetwork.models.Message
 import com.kumela.socialnetwork.network.firebase.ChatUseCase
 import com.kumela.socialnetwork.network.firebase.UserUseCase
 import com.kumela.socialnetwork.network.firebase.helpers.DatabaseHelper
@@ -13,15 +13,15 @@ import com.kumela.socialnetwork.ui.common.viewmodels.ObservableViewModel
  **/
 
 class ChatViewModel(
-    private val messageQueryPager: QueryPager<MessageModel>
+    private val messageQueryPager: QueryPager<Message>
 ) : ObservableViewModel<ChatViewModel.Listener>() {
 
     interface Listener {
-        fun onMessagesFetched(messages: List<MessageModel>)
-        fun onMessageReceived(messageModel: MessageModel)
+        fun onMessagesFetched(messages: List<Message>)
+        fun onMessageReceived(message: Message)
     }
 
-    private val messages = arrayListOf<MessageModel>()
+    private val messages = arrayListOf<Message>()
 
     // necessary var for child update listener
     private var firstMessageReceived = false
@@ -40,7 +40,7 @@ class ChatViewModel(
         messageQueryPager.unregisterListener(uuid)
     }
 
-    fun getMessages(): List<MessageModel> = messages
+    fun getMessages(): List<Message> = messages
 
     fun fetchNextMessagesPageAndNotify(chatId: String) {
         messageQueryPager.fetchNextPageAndNotify(
@@ -63,8 +63,8 @@ class ChatViewModel(
         )
     }
 
-    fun sendMessage(chatId: String, messageModel: MessageModel) {
-        ChatUseCase.sendMessage(chatId, messageModel)
+    fun sendMessage(chatId: String, message: Message) {
+        ChatUseCase.sendMessage(chatId, message)
     }
 
     fun registerMessageListener(chatId: String) {

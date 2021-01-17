@@ -2,7 +2,7 @@ package com.kumela.socialnetwork.ui.user_list
 
 import android.util.Log
 import com.google.firebase.database.DatabaseReference
-import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.models.User
 import com.kumela.socialnetwork.network.firebase.FollowUseCase
 import com.kumela.socialnetwork.network.firebase.PostUseCase
 import com.kumela.socialnetwork.network.firebase.UserUseCase
@@ -18,11 +18,11 @@ class UserListViewModel(
 ) : ObservableViewModel<UserListViewModel.Listener>() {
 
     interface Listener {
-        fun onUserFetched(userModel: UserModel)
+        fun onUserFetched(user: User)
     }
 
     // cached data
-    private val userModels = ArrayList<UserModel>()
+    private val userModels = ArrayList<User>()
     private val userIds = ArrayList<String>()
 
     private var userIdOffset = 0

@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.kumela.socialnetwork.models.firebase.UserModel
-import com.kumela.socialnetwork.models.list.ChatListModel
+import com.kumela.socialnetwork.models.User
+import com.kumela.socialnetwork.models.list.ChatList
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper
 import com.kumela.socialnetwork.ui.common.controllers.BaseFragment
@@ -73,12 +73,12 @@ class MessagesFragment : BaseFragment(), MessagesViewMvc.Listener, MessagesViewM
         mViewModel.unregisterListener(this)
     }
 
-    override fun onChatClicked(chatListModel: ChatListModel) {
-        mScreensNavigator.toChat(chatListModel.targetUid, chatListModel.targetImageUri, chatListModel.targetUsername)
+    override fun onChatClicked(chatList: ChatList) {
+        mScreensNavigator.toChat(chatList.targetUid, chatList.targetImageUri, chatList.targetUsername)
     }
 
-    override fun onFriendClicked(userModel: UserModel) {
-        mScreensNavigator.toChat(userModel.id, userModel.imageUri, userModel.username)
+    override fun onFriendClicked(user: User) {
+        mScreensNavigator.toChat(user.id, user.imageUri, user.username)
     }
 
     override fun onSearchClicked() {
@@ -86,13 +86,13 @@ class MessagesFragment : BaseFragment(), MessagesViewMvc.Listener, MessagesViewM
     }
 
     // view model callbacks
-    override fun onFollowingUsersFetched(users: List<UserModel>) {
+    override fun onFollowingUsersFetched(users: List<User>) {
         mViewMvc.bindFriends(users)
     }
 
-    override fun onChatFetched(chatListModel: ChatListModel?) {
-        if (chatListModel != null) {
-            mViewMvc.addOrUpdateChat(chatListModel)
+    override fun onChatFetched(chatList: ChatList?) {
+        if (chatList != null) {
+            mViewMvc.addOrUpdateChat(chatList)
         } else {
             mViewModel.fetchNextFollowingUsersPageAndNotify()
         }

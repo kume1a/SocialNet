@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.kumela.socialnetwork.ui.views.RoundedImageView
 import com.kumela.socialnetwork.R
-import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.models.User
 import com.kumela.socialnetwork.ui.common.utils.load
 import com.kumela.socialnetwork.ui.common.mvc.BaseObservableViewMvc
 
@@ -21,22 +21,22 @@ class UserItemViewMvc(
 ) {
 
     interface Listener {
-        fun onItemClicked(userModel: UserModel)
+        fun onItemClicked(user: User)
     }
 
-    private var userModel: UserModel? = null
+    private var user: User? = null
 
     private val imageProfile: RoundedImageView = findViewById(R.id.image_profile)
     private val textUsername: TextView = findViewById(R.id.text_username)
 
     init {
-        rootView.setOnClickListener { listener?.onItemClicked(userModel!!) }
+        rootView.setOnClickListener { listener?.onItemClicked(user!!) }
     }
 
-    fun bindUser(userModel: UserModel) {
-        this.userModel = userModel
+    fun bindUser(user: User) {
+        this.user = user
 
-        imageProfile.load(userModel.imageUri)
-        textUsername.text = userModel.username
+        imageProfile.load(user.imageUri)
+        textUsername.text = user.username
     }
 }

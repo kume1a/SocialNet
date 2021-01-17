@@ -1,6 +1,6 @@
 package com.kumela.socialnetwork.ui.adapters.chats
 
-import com.kumela.socialnetwork.models.list.ChatListModel
+import com.kumela.socialnetwork.models.list.ChatList
 import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
 
 /**
@@ -9,9 +9,9 @@ import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
 
 interface ChatItemViewMvc : ObservableViewMvc<ChatItemViewMvc.Listener> {
     interface Listener {
-        fun onChatClicked(chatListModel: ChatListModel)
+        fun onChatClicked(chatList: ChatList)
     }
 
-    fun bindChatListModel(chatListModel: ChatListModel)
+    fun bindChatListModel(chatList: ChatList)
     fun showSuggestionsHeader(visible: Boolean)
 }

@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.kumela.socialnetwork.ui.views.RoundedImageView
 import com.kumela.socialnetwork.R
-import com.kumela.socialnetwork.models.firebase.FeedModel
+import com.kumela.socialnetwork.models.Feed
 import com.kumela.socialnetwork.ui.common.mvc.BaseObservableViewMvc
 import com.kumela.socialnetwork.ui.common.utils.load
 import com.kumela.socialnetwork.ui.common.utils.setOnDoubleClickListener
@@ -29,7 +29,7 @@ class FeedItemViewMvcImpl(
     R.layout.item_feed
 ), FeedItemViewMvc {
 
-    private var feedModel: FeedModel? = null
+    private var feedModel: Feed? = null
     private var position: Int? = null
 
     private val imageProfile: RoundedImageView = findViewById(R.id.image_profile)
@@ -82,7 +82,7 @@ class FeedItemViewMvcImpl(
         }
     }
 
-    override fun bindPost(position: Int, feedModel: FeedModel) {
+    override fun bindPost(position: Int, feedModel: Feed) {
         this.position = position
         this.feedModel = feedModel
 

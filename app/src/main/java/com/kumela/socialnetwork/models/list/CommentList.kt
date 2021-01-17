@@ -4,7 +4,7 @@ package com.kumela.socialnetwork.models.list
  * Created by Toko on 08,November,2020
  **/
 
-data class CommentListModel(
+data class CommentList(
     val posterId: String,
     val posterImageUri: String,
     val posterUsername: String,

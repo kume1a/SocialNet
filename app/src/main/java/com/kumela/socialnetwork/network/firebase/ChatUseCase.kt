@@ -3,9 +3,9 @@ package com.kumela.socialnetwork.network.firebase
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.getValue
 import com.kumela.socialnetwork.common.UseCase
-import com.kumela.socialnetwork.models.firebase.ChatModel
+import com.kumela.socialnetwork.models.Chat
 import com.kumela.socialnetwork.models.MessageFields
-import com.kumela.socialnetwork.models.firebase.MessageModel
+import com.kumela.socialnetwork.models.Message
 import com.kumela.socialnetwork.network.firebase.helpers.DatabaseHelper
 import com.kumela.socialnetwork.network.firebase.helpers.FunctionsHelper
 import java.util.*
@@ -21,20 +21,20 @@ object ChatUseCase : UseCase() {
     fun getUserChatsRef(): DatabaseReference =
         DatabaseHelper.getUserChatsTableRef().child(UserUseCase.uid)
 
-    fun sendMessage(chatId: String, messageModel: MessageModel) {
-        FunctionsHelper.sendMessage(chatId, messageModel)
+    fun sendMessage(chatId: String, message: Message) {
+        FunctionsHelper.sendMessage(chatId, message)
     }
 
     fun registerMessageListener(
         uuid: UUID,
         chatId: String,
-        onMessageReceived: (MessageModel) -> Unit,
+        onMessageReceived: (Message) -> Unit,
         onCanceled: (DatabaseError) -> Unit
     ) {
         messagesChildEventListener = object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 if (isActive(uuid)) {
-                    onMessageReceived.invoke(snapshot.getValue<MessageModel>()!!)
+                    onMessageReceived.invoke(snapshot.getValue<Message>()!!)
                 }
             }
 
@@ -71,13 +71,13 @@ object ChatUseCase : UseCase() {
     fun registerChatUpdateListener(
         uuid: UUID,
         chatId: String,
-        onChatUpdated: (ChatModel) -> Unit,
+        onChatUpdated: (Chat) -> Unit,
         onCanceled: (DatabaseError) -> Unit
     ) {
         chatChildEventListener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (isActive(uuid)) {
-                    val chatModel = snapshot.children.first().getValue<ChatModel>()!!
+                    val chatModel = snapshot.children.first().getValue<Chat>()!!
                     onChatUpdated.invoke(chatModel)
                 }
             }

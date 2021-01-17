@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.models.User
 import com.kumela.socialnetwork.network.firebase.UserUseCase
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper
@@ -91,9 +91,9 @@ class UserListFragment : BaseFragment(), UserListViewMvc.Listener,
         mScreensNavigator.navigateUp()
     }
 
-    override fun onUserClicked(userModel: UserModel) {
-        if (userModel.id != UserUseCase.uid) {
-            mScreensNavigator.toUserProfile(userModel.id, userModel.imageUri, userModel.username)
+    override fun onUserClicked(user: User) {
+        if (user.id != UserUseCase.uid) {
+            mScreensNavigator.toUserProfile(user.id, user.imageUri, user.username)
         }
     }
 
@@ -102,7 +102,7 @@ class UserListFragment : BaseFragment(), UserListViewMvc.Listener,
     }
 
     // view model callbacks
-    override fun onUserFetched(userModel: UserModel) {
-        mViewMvc.addUser(userModel)
+    override fun onUserFetched(user: User) {
+        mViewMvc.addUser(user)
     }
 }

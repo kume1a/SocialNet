@@ -3,8 +3,8 @@ package com.kumela.socialnetwork.ui.adapters.feed
 import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.kumela.socialnetwork.models.firebase.FeedModel
-import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.models.Feed
+import com.kumela.socialnetwork.models.User
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 
 /**
@@ -18,26 +18,26 @@ class FeedAdapter(
 ) : RecyclerView.Adapter<FeedAdapter.FeedViewHolder>(), FeedItemViewMvc.Listener {
 
     interface Listener {
-        fun onUserProfileOrUsernameClicked(userModel: UserModel)
-        fun onLikeClicked(position: Int, feedModel: FeedModel)
-        fun onPostDoubleClicked(position: Int, feedModel: FeedModel)
+        fun onUserProfileOrUsernameClicked(user: User)
+        fun onLikeClicked(position: Int, feedModel: Feed)
+        fun onPostDoubleClicked(position: Int, feedModel: Feed)
         fun onLikeCountClicked(postId: String)
         fun onCommentClicked(postId: String)
     }
 
-    private val items = arrayListOf<FeedModel>()
+    private val items = arrayListOf<Feed>()
 
-    fun addPost(post: FeedModel) {
+    fun addPost(post: Feed) {
         items.add(post)
         notifyItemInserted(items.size - 1)
     }
 
-    fun bindPosts(posts: List<FeedModel>) {
+    fun bindPosts(posts: List<Feed>) {
         items.addAll(posts)
         notifyDataSetChanged()
     }
 
-    fun updatePost(position: Int, post: FeedModel) {
+    fun updatePost(position: Int, post: Feed) {
         items[position] = post
         notifyItemChanged(position)
     }
@@ -61,35 +61,35 @@ class FeedAdapter(
     class FeedViewHolder(val viewMvc: FeedItemViewMvc) : RecyclerView.ViewHolder(viewMvc.rootView)
 
     // view callbacks
-    override fun onProfileImageClicked(position: Int, feedModel: FeedModel) {
+    override fun onProfileImageClicked(position: Int, feedModel: Feed) {
         val user =
-            UserModel(feedModel.posterUid, feedModel.posterUsername, feedModel.posterImageUri)
+            User(feedModel.posterUid, feedModel.posterUsername, feedModel.posterImageUri)
         listener.onUserProfileOrUsernameClicked(user)
     }
 
-    override fun onUsernameClicked(position: Int, feedModel: FeedModel) {
+    override fun onUsernameClicked(position: Int, feedModel: Feed) {
         val user =
-            UserModel(feedModel.posterUid, feedModel.posterUsername, feedModel.posterImageUri)
+            User(feedModel.posterUid, feedModel.posterUsername, feedModel.posterImageUri)
         listener.onUserProfileOrUsernameClicked(user)
     }
 
-    override fun onLikeClicked(position: Int, feedModel: FeedModel) {
+    override fun onLikeClicked(position: Int, feedModel: Feed) {
         listener.onLikeClicked(position, feedModel)
     }
 
-    override fun onPostDoubleClicked(position: Int, feedModel: FeedModel) {
+    override fun onPostDoubleClicked(position: Int, feedModel: Feed) {
         listener.onPostDoubleClicked(position, feedModel)
     }
 
-    override fun onLikeCountClicked(position: Int, feedModel: FeedModel) {
+    override fun onLikeCountClicked(position: Int, feedModel: Feed) {
         listener.onLikeCountClicked(feedModel.postId)
     }
 
-    override fun onCommentsClicked(position: Int, feedModel: FeedModel) {
+    override fun onCommentsClicked(position: Int, feedModel: Feed) {
         listener.onCommentClicked(feedModel.postId)
     }
 
-    override fun onCommentCountClicked(position: Int, feedModel: FeedModel) {
+    override fun onCommentCountClicked(position: Int, feedModel: Feed) {
         listener.onCommentClicked(feedModel.postId)
     }
 

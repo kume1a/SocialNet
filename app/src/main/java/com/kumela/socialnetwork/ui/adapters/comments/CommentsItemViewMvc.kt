@@ -6,7 +6,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import com.kumela.socialnetwork.ui.views.RoundedImageView
 import com.kumela.socialnetwork.R
-import com.kumela.socialnetwork.models.list.CommentListModel
+import com.kumela.socialnetwork.models.list.CommentList
 import com.kumela.socialnetwork.ui.common.mvc.BaseObservableViewMvc
 import com.kumela.socialnetwork.ui.common.utils.load
 import com.kumela.socialnetwork.ui.common.utils.setTimePassed
@@ -23,12 +23,12 @@ class CommentsItemViewMvc(
 ){
 
     interface Listener {
-        fun onUserProfileImageClicked(data: CommentListModel)
-        fun onUserUsernameClicked(data: CommentListModel)
-        fun onMenuClicked(data: CommentListModel)
+        fun onUserProfileImageClicked(data: CommentList)
+        fun onUserUsernameClicked(data: CommentList)
+        fun onMenuClicked(data: CommentList)
     }
 
-    private var commentListModel: CommentListModel? = null
+    private var commentList: CommentList? = null
 
     private val imageProfile: RoundedImageView = findViewById(R.id.image_profile)
     private val textUsername: TextView = findViewById(R.id.text_username)
@@ -37,17 +37,17 @@ class CommentsItemViewMvc(
     private val buttonMenu: ImageButton = findViewById(R.id.button_menu)
 
     init {
-        imageProfile.setOnClickListener { listener?.onUserProfileImageClicked(commentListModel!!) }
-        textUsername.setOnClickListener { listener?.onUserUsernameClicked(commentListModel!!) }
-        buttonMenu.setOnClickListener { listener?.onMenuClicked(commentListModel!!) }
+        imageProfile.setOnClickListener { listener?.onUserProfileImageClicked(commentList!!) }
+        textUsername.setOnClickListener { listener?.onUserUsernameClicked(commentList!!) }
+        buttonMenu.setOnClickListener { listener?.onMenuClicked(commentList!!) }
     }
 
-    fun bindComment(commentListModel: CommentListModel) {
-        this.commentListModel = commentListModel
+    fun bindComment(commentList: CommentList) {
+        this.commentList = commentList
 
-        imageProfile.load(commentListModel.posterImageUri)
-        textUsername.text = commentListModel.posterUsername
-        textComment.text = commentListModel.comment
-        textTime.setTimePassed(commentListModel.timestamp, shorten = true)
+        imageProfile.load(commentList.posterImageUri)
+        textUsername.text = commentList.posterUsername
+        textComment.text = commentList.comment
+        textTime.setTimePassed(commentList.timestamp, shorten = true)
     }
 }

@@ -2,10 +2,10 @@ package com.kumela.socialnetwork.common.di.presentation
 
 import androidx.lifecycle.ViewModel
 import com.kumela.socialnetwork.common.di.annotations.ViewModelKey
-import com.kumela.socialnetwork.models.firebase.MessageModel
-import com.kumela.socialnetwork.models.firebase.StoryModel
-import com.kumela.socialnetwork.models.firebase.UserChatModel
-import com.kumela.socialnetwork.models.list.PostModel
+import com.kumela.socialnetwork.models.Message
+import com.kumela.socialnetwork.models.Story
+import com.kumela.socialnetwork.models.UserChat
+import com.kumela.socialnetwork.models.list.Post
 import com.kumela.socialnetwork.network.firebase.helpers.QueryPager
 import com.kumela.socialnetwork.ui.chat.ChatViewModel
 import com.kumela.socialnetwork.ui.common.viewmodels.ViewModelFactory
@@ -41,13 +41,13 @@ class ViewModelModule {
     @ViewModelKey(MessagesViewModel::class)
     fun providesMessagesViewModel(
         @Named("userIdsQueryPager") followingUserIdsQueryPager: QueryPager<String>,
-        userChatsQueryPagerModel: QueryPager<UserChatModel>
-    ): ViewModel = MessagesViewModel(followingUserIdsQueryPager, userChatsQueryPagerModel)
+        userChatsQueryPager: QueryPager<UserChat>
+    ): ViewModel = MessagesViewModel(followingUserIdsQueryPager, userChatsQueryPager)
 
     @Provides
     @IntoMap
     @ViewModelKey(ChatViewModel::class)
-    fun providesChatViewModel(messageQueryPager: QueryPager<MessageModel>): ViewModel =
+    fun providesChatViewModel(messageQueryPager: QueryPager<Message>): ViewModel =
         ChatViewModel(messageQueryPager)
 
     @Provides
@@ -61,20 +61,20 @@ class ViewModelModule {
     @IntoMap
     @ViewModelKey(ExploreViewModel::class)
     fun providesExploreViewModel(
-        postsQueryPager: QueryPager<PostModel>
+        postsQueryPager: QueryPager<Post>
     ): ViewModel = ExploreViewModel(postsQueryPager)
 
     @Provides
     @IntoMap
     @ViewModelKey(ProfileViewModel::class)
     fun providesProfileViewModel(
-        storyQueryPager: QueryPager<StoryModel>
+        storyQueryPager: QueryPager<Story>
     ): ViewModel = ProfileViewModel(storyQueryPager)
 
     @Provides
     @IntoMap
     @ViewModelKey(UserProfileViewModel::class)
     fun providesUserProfileViewModel(
-        storyQueryPager: QueryPager<StoryModel>
+        storyQueryPager: QueryPager<Story>
     ): ViewModel = UserProfileViewModel(storyQueryPager)
 }

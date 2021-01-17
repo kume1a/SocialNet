@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.kumela.socialnetwork.models.firebase.MessageModel
-import com.kumela.socialnetwork.models.list.MessageListModel
+import com.kumela.socialnetwork.models.Message
+import com.kumela.socialnetwork.models.list.MessageList
 import com.kumela.socialnetwork.network.firebase.UserUseCase
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper
@@ -71,7 +71,7 @@ class ChatFragment : BaseFragment(), ChatViewMvc.Listener, ChatViewModel.Listene
         val messages = mViewModel.getMessages()
         if (messages.isNotEmpty()) {
             mViewMvc.bindMessages(messages.map {
-                MessageListModel(it.id, it.senderId, it.message, it.timestamp, it.liked, true)
+                MessageList(it.id, it.senderId, it.message, it.timestamp, it.liked, true)
             })
         } else {
             mViewModel.fetchNextMessagesPageAndNotify(currentChatId)
@@ -102,13 +102,13 @@ class ChatFragment : BaseFragment(), ChatViewMvc.Listener, ChatViewModel.Listene
 
         if (message.isBlank()) return
 
-        val messageModel = MessageModel("", UserUseCase.uid, message, System.currentTimeMillis(), false)
+        val messageModel = Message("", UserUseCase.uid, message, System.currentTimeMillis(), false)
         pendingMessageQueue.add(messageModel.timestamp)
 
         mViewMvc.clearMessageField()
         messageModel.apply {
             Log.d(javaClass.simpleName, "onSendClicked: messagesWereEmpty = $messagesWereEmpty")
-            mViewMvc.addMessage(MessageListModel(id, senderId, message, timestamp, liked, messagesWereEmpty))
+            mViewMvc.addMessage(MessageList(id, senderId, message, timestamp, liked, messagesWereEmpty))
             messagesWereEmpty = false
         }
         mViewModel.sendMessage(currentChatId, messageModel)
@@ -126,33 +126,33 @@ class ChatFragment : BaseFragment(), ChatViewMvc.Listener, ChatViewModel.Listene
         mViewModel.fetchNextMessagesPageAndNotify(currentChatId)
     }
 
-    override fun onHeartClicked(messageModel: MessageListModel) {
-        mViewModel.likeMessage(currentChatId, messageModel.messageId, messageModel.liked)
+    override fun onHeartClicked(message: MessageList) {
+        mViewModel.likeMessage(currentChatId, message.messageId, message.liked)
     }
 
     // view model callbacks
-    override fun onMessagesFetched(messages: List<MessageModel>) {
+    override fun onMessagesFetched(messages: List<Message>) {
         messagesWereEmpty = messages.isEmpty()
         if (!messagesWereEmpty) {
             mViewMvc.addMessages(messages.map {
-                MessageListModel(it.id, it.senderId, it.message, it.timestamp, it.liked, true)
+                MessageList(it.id, it.senderId, it.message, it.timestamp, it.liked, true)
             })
         }
     }
 
-    override fun onMessageReceived(messageModel: MessageModel) {
-        Log.d(javaClass.simpleName, "onMessageReceived() called with: messageModel = $messageModel")
-        val messageListModel = MessageListModel(
-            messageModel.id,
-            messageModel.senderId,
-            messageModel.message,
-            messageModel.timestamp,
-            messageModel.liked,
+    override fun onMessageReceived(message: Message) {
+        Log.d(javaClass.simpleName, "onMessageReceived() called with: messageModel = $message")
+        val messageListModel = MessageList(
+            message.id,
+            message.senderId,
+            message.message,
+            message.timestamp,
+            message.liked,
             true
         )
 
-        if (pendingMessageQueue.contains(messageModel.timestamp)) {
-            pendingMessageQueue.remove(messageModel.timestamp)
+        if (pendingMessageQueue.contains(message.timestamp)) {
+            pendingMessageQueue.remove(message.timestamp)
             mViewMvc.updateMessage(messageListModel)
         } else {
             mViewMvc.addMessage(messageListModel)

@@ -2,7 +2,7 @@ package com.kumela.socialnetwork.ui.adapters.users
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.models.User
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 
 /**
@@ -11,20 +11,20 @@ import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 
 class UsersAdapter(
     private val viewMvcFactory: ViewMvcFactory,
-    private val listener: (UserModel) -> Unit,
+    private val listener: (User) -> Unit,
     private val onLastItemBound: (() -> Unit)? = null
 ) : RecyclerView.Adapter<UsersAdapter.UserViewHolder>(), UserItemViewMvc.Listener {
 
-    private val items = ArrayList<UserModel>()
+    private val items = ArrayList<User>()
 
-    fun bindUsers(userModels: List<UserModel>) {
+    fun bindUsers(users: List<User>) {
         items.clear()
-        items.addAll(userModels)
+        items.addAll(users)
         notifyDataSetChanged()
     }
 
-    fun addUser(userModel: UserModel) {
-        items.add(userModel)
+    fun addUser(user: User) {
+        items.add(user)
         notifyItemInserted(items.size - 1)
     }
 
@@ -46,7 +46,7 @@ class UsersAdapter(
 
     class UserViewHolder(val viewMvc: UserItemViewMvc) : RecyclerView.ViewHolder(viewMvc.rootView)
 
-    override fun onItemClicked(userModel: UserModel) {
-        listener.invoke(userModel)
+    override fun onItemClicked(user: User) {
+        listener.invoke(user)
     }
 }

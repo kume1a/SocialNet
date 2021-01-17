@@ -1,7 +1,7 @@
 package com.kumela.socialnetwork.ui.messages
 
-import com.kumela.socialnetwork.models.firebase.UserModel
-import com.kumela.socialnetwork.models.list.ChatListModel
+import com.kumela.socialnetwork.models.User
+import com.kumela.socialnetwork.models.list.ChatList
 import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
 
 /**
@@ -10,13 +10,13 @@ import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
 
 interface MessagesViewMvc : ObservableViewMvc<MessagesViewMvc.Listener> {
     interface Listener {
-        fun onChatClicked(chatListModel: ChatListModel)
-        fun onFriendClicked(userModel: UserModel)
+        fun onChatClicked(chatList: ChatList)
+        fun onFriendClicked(user: User)
         fun onSearchClicked()
     }
 
-    fun bindFriends(users: List<UserModel>)
+    fun bindFriends(users: List<User>)
 
-    fun bindChats(chats: List<ChatListModel>)
-    fun addOrUpdateChat(chat: ChatListModel)
+    fun bindChats(chats: List<ChatList>)
+    fun addOrUpdateChat(chat: ChatList)
 }

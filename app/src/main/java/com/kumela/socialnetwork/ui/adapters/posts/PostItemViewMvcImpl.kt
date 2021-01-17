@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.kumela.socialnetwork.ui.views.RoundedImageView
 import com.kumela.socialnetwork.R
-import com.kumela.socialnetwork.models.list.PostModel
+import com.kumela.socialnetwork.models.list.Post
 import com.kumela.socialnetwork.ui.common.utils.load
 import com.kumela.socialnetwork.ui.common.mvc.BaseObservableViewMvc
 
@@ -21,17 +21,17 @@ class PostItemViewMvcImpl(
     R.layout.item_post
 ), PostItemViewMvc {
 
-    private var postModel: PostModel? = null
+    private var post: Post? = null
 
     private val image: RoundedImageView = findViewById(R.id.image)
 
     init {
-        rootView.setOnClickListener { listener?.onPostClicked(postModel!!) }
+        rootView.setOnClickListener { listener?.onPostClicked(post!!) }
     }
 
-    override fun bindPostModel(postModel: PostModel) {
-        this.postModel = postModel
+    override fun bindPostModel(post: Post) {
+        this.post = post
 
-        image.load(postModel.postImageUri)
+        image.load(post.postImageUri)
     }
 }

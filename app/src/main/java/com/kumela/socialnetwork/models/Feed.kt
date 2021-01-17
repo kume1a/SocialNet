@@ -1,11 +1,11 @@
-package com.kumela.socialnetwork.models.firebase
+package com.kumela.socialnetwork.models
 
 
 /**
  * Created by Toko on 24,October,2020
  **/
 
-data class FeedModel(
+data class Feed(
     val postId: String,
     val posterUid: String,
     val posterUsername: String,

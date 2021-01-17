@@ -1,10 +1,10 @@
-package com.kumela.socialnetwork.models.firebase
+package com.kumela.socialnetwork.models
 
 /**
  * Created by Toko on 02,October,2020
  **/
 
-data class StoryModel(
+data class Story(
     val timestamp: Long = 0,
     val imageUri: String = ""
 )

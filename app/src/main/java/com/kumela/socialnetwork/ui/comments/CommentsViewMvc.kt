@@ -1,7 +1,7 @@
 package com.kumela.socialnetwork.ui.comments
 
-import com.kumela.socialnetwork.models.firebase.UserModel
-import com.kumela.socialnetwork.models.list.CommentListModel
+import com.kumela.socialnetwork.models.User
+import com.kumela.socialnetwork.models.list.CommentList
 import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
 
 /**
@@ -12,13 +12,13 @@ interface CommentsViewMvc : ObservableViewMvc<CommentsViewMvc.Listener> {
     interface Listener {
         fun onNavigateUpClicked()
 
-        fun onUserClicked(userModel: UserModel)
+        fun onUserClicked(user: User)
         fun onPostClicked()
     }
 
-    fun bindComments(comments: List<CommentListModel>)
+    fun bindComments(comments: List<CommentList>)
     fun getComment(): String
     fun clearInputField()
 
-    fun addComment(comment: CommentListModel)
+    fun addComment(comment: CommentList)
 }

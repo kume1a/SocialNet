@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kumela.socialnetwork.ui.views.RoundedImageView
 import com.kumela.socialnetwork.R
 import com.kumela.socialnetwork.common.Constants.images
-import com.kumela.socialnetwork.models.list.PostModel
+import com.kumela.socialnetwork.models.list.Post
 import com.kumela.socialnetwork.ui.adapters.explore.ExploreAdapter
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.mvc.BaseObservableViewMvc
@@ -48,11 +48,11 @@ class ExploreViewMvcImpl(
         }
     }
 
-    override fun bindPosts(postModels: List<PostModel>) {
-        exploreAdapter.bindPosts(postModels)
+    override fun bindPosts(posts: List<Post>) {
+        exploreAdapter.bindPosts(posts)
     }
 
-    override fun addPosts(postModels: List<PostModel>) {
-        exploreAdapter.addPosts(postModels)
+    override fun addPosts(posts: List<Post>) {
+        exploreAdapter.addPosts(posts)
     }
 }

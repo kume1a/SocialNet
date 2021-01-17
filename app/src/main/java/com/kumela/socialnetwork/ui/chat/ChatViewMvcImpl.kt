@@ -11,7 +11,7 @@ import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kumela.socialnetwork.R
-import com.kumela.socialnetwork.models.list.MessageListModel
+import com.kumela.socialnetwork.models.list.MessageList
 import com.kumela.socialnetwork.ui.adapters.messages.MessageAdapter
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.mvc.BaseObservableViewMvc
@@ -87,21 +87,21 @@ class ChatViewMvcImpl(
         motionLayout.transitionToStart()
     }
 
-    override fun addMessage(messageModel: MessageListModel) {
-        chatAdapter.addMessage(messageModel)
+    override fun addMessage(message: MessageList) {
+        chatAdapter.addMessage(message)
         recyclerMessages.scrollToPosition(0)
     }
 
-    override fun addMessages(messages: List<MessageListModel>) {
+    override fun addMessages(messages: List<MessageList>) {
         chatAdapter.addMessages(messages)
     }
 
-    override fun bindMessages(messages: List<MessageListModel>) {
+    override fun bindMessages(messages: List<MessageList>) {
         chatAdapter.bindMessages(messages)
     }
 
-    override fun updateMessage(messageModel: MessageListModel) {
-        chatAdapter.updateMessage(messageModel)
+    override fun updateMessage(message: MessageList) {
+        chatAdapter.updateMessage(message)
     }
 
     override fun getCurrentMessage(): String = etMessage.text.toString()
@@ -115,7 +115,7 @@ class ChatViewMvcImpl(
         listener?.onScrolledToTop()
     }
 
-    override fun onHeartClicked(messageModel: MessageListModel) {
-        listener?.onHeartClicked(messageModel)
+    override fun onHeartClicked(message: MessageList) {
+        listener?.onHeartClicked(message)
     }
 }

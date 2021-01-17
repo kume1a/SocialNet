@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import com.kumela.socialnetwork.R
-import com.kumela.socialnetwork.models.list.MessageListModel
+import com.kumela.socialnetwork.models.list.MessageList
 import com.kumela.socialnetwork.ui.common.mvc.BaseObservableViewMvc
 import com.kumela.socialnetwork.ui.common.utils.setTime
 
@@ -22,10 +22,10 @@ class MessageLeftItemViewMvc(
 ) {
 
     interface Listener {
-        fun onHeartClicked(messageModel: MessageListModel)
+        fun onHeartClicked(message: MessageList)
     }
 
-    private var model: MessageListModel? = null
+    private var model: MessageList? = null
 
     private val textTime: TextView = findViewById(R.id.text_time)
     private val textMessage: TextView = findViewById(R.id.text_message)
@@ -43,13 +43,13 @@ class MessageLeftItemViewMvc(
         }
     }
 
-    fun bindMessageModel(messageModel: MessageListModel) {
-        textTime.setTime(messageModel.timestamp)
-        textMessage.text = messageModel.message
-        if (messageModel.liked) {
+    fun bindMessageModel(message: MessageList) {
+        textTime.setTime(message.timestamp)
+        textMessage.text = message.message
+        if (message.liked) {
             imageViewHeart.setImageDrawable(getDrawable(R.drawable.ic_heart_filled))
         }
 
-        model = messageModel
+        model = message
     }
 }

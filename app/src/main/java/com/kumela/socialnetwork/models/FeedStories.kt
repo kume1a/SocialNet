@@ -1,4 +1,4 @@
-package com.kumela.socialnetwork.models.firebase
+package com.kumela.socialnetwork.models
 
 /**
  * Created by Toko on 07,November,2020

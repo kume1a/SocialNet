@@ -2,7 +2,7 @@ package com.kumela.socialnetwork.ui.adapters.chats
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.kumela.socialnetwork.models.list.ChatListModel
+import com.kumela.socialnetwork.models.list.ChatList
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 
 /**
@@ -11,24 +11,24 @@ import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 
 class ChatsAdapter(
     private val viewMvcFactory: ViewMvcFactory,
-    private val listener: (ChatListModel) -> Unit
+    private val listener: (ChatList) -> Unit
 ) : RecyclerView.Adapter<ChatsAdapter.ChatViewHolder>(), ChatItemViewMvc.Listener {
 
-    private val items = arrayListOf<ChatListModel>()
+    private val items = arrayListOf<ChatList>()
 
-    fun bindChats(chatModels: List<ChatListModel>) {
+    fun bindChats(chats: List<ChatList>) {
         items.clear()
-        items.addAll(chatModels)
+        items.addAll(chats)
         notifyDataSetChanged()
     }
 
-    fun addOrUpdateChat(chatModel: ChatListModel) {
-        val index = items.indexOfFirst { chatModel.id == it.id }
+    fun addOrUpdateChat(chat: ChatList) {
+        val index = items.indexOfFirst { chat.id == it.id }
         if (index == -1) {
-            items.add(chatModel)
+            items.add(chat)
             notifyItemInserted(items.size - 1)
         } else {
-            items[index] = chatModel
+            items[index] = chat
             notifyItemChanged(index)
         }
 
@@ -55,7 +55,7 @@ class ChatsAdapter(
     class ChatViewHolder(val viewMvc: ChatItemViewMvc) :
         RecyclerView.ViewHolder(viewMvc.rootView)
 
-    override fun onChatClicked(chatListModel: ChatListModel) {
-        listener.invoke(chatListModel)
+    override fun onChatClicked(chatList: ChatList) {
+        listener.invoke(chatList)
     }
 }

@@ -1,6 +1,6 @@
 package com.kumela.socialnetwork.ui.adapters.posts
 
-import com.kumela.socialnetwork.models.list.PostModel
+import com.kumela.socialnetwork.models.list.Post
 import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
 
 /**
@@ -9,8 +9,8 @@ import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
 
 interface PostItemViewMvc : ObservableViewMvc<PostItemViewMvc.Listener> {
     interface Listener {
-        fun onPostClicked(postModel: PostModel)
+        fun onPostClicked(post: Post)
     }
 
-    fun bindPostModel(postModel: PostModel)
+    fun bindPostModel(post: Post)
 }

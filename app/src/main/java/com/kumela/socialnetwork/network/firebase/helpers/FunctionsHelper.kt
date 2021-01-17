@@ -5,11 +5,11 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.functions.HttpsCallableResult
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
-import com.kumela.socialnetwork.models.firebase.FeedModel
-import com.kumela.socialnetwork.models.firebase.MessageModel
+import com.kumela.socialnetwork.models.Feed
+import com.kumela.socialnetwork.models.Message
 import com.kumela.socialnetwork.models.UserFields
-import com.kumela.socialnetwork.models.firebase.UserModel
-import com.kumela.socialnetwork.models.list.PostModel
+import com.kumela.socialnetwork.models.User
+import com.kumela.socialnetwork.models.list.Post
 import com.kumela.socialnetwork.network.firebase.UserUseCase
 
 /**
@@ -64,10 +64,10 @@ object FunctionsHelper {
     }
 
     fun createPost(
-        postModel: PostModel,
+        post: Post,
         onCompleteListener: (Task<HttpsCallableResult?>) -> Unit
     ) {
-        val data = postModel.toMap()
+        val data = post.toMap()
 
         firebaseFunctions
             .getHttpsCallable(FUNCTION_CREATE_POST)
@@ -128,11 +128,11 @@ object FunctionsHelper {
             }
     }
 
-    fun sendMessage(chatId: String, messageModel: MessageModel) {
+    fun sendMessage(chatId: String, message: Message) {
         val data: HashMap<String, Any> = hashMapOf(
             "chatId" to chatId
         )
-        data.putAll(messageModel.toMap())
+        data.putAll(message.toMap())
 
         firebaseFunctions
             .getHttpsCallable(FUNCTION_SEND_MESSAGE)
@@ -146,7 +146,7 @@ object FunctionsObjectsDeserializer {
     inline fun <reified T> get(map: HashMap<*, *>): T {
         // TODO: 11/1/2020 refactor from strings to constant fields
         return when (T::class) {
-            FeedModel::class -> FeedModel(
+            Feed::class -> Feed(
                 map["postId"] as String,
                 map["posterUid"] as String,
                 map["posterUsername"] as String,
@@ -159,7 +159,7 @@ object FunctionsObjectsDeserializer {
                 map["header"] as String,
                 map["description"] as String,
             ) as T
-            UserModel::class -> UserModel(
+            User::class -> User(
                 map[UserFields.id] as String,
                 map[UserFields.username] as String,
                 map[UserFields.imageUri] as String,

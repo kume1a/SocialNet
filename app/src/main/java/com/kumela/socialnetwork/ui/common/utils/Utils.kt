@@ -9,7 +9,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import com.bumptech.glide.Glide
 import com.kumela.socialnetwork.common.Constants
-import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.models.User
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -79,7 +79,7 @@ fun getUniqueId(id1: String, id2: String): String {
     }
 }
 
-fun UserModel.isOnline(): Boolean {
+fun User.isOnline(): Boolean {
     return System.currentTimeMillis() - lastOnline <= Constants.INTERVAL_ONLINE_UPDATE
 }
 

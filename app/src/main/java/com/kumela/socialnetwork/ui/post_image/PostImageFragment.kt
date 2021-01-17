@@ -8,8 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.kumela.socialnetwork.models.firebase.UserModel
-import com.kumela.socialnetwork.models.list.PostModel
+import com.kumela.socialnetwork.models.User
+import com.kumela.socialnetwork.models.list.Post
 import com.kumela.socialnetwork.network.firebase.ImageType
 import com.kumela.socialnetwork.network.firebase.UserUseCase
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
@@ -97,9 +97,9 @@ class PostImageFragment : BaseFragment(), PostImageViewMvc.Listener,
         }
     }
 
-    override fun onUserFetched(userModel: UserModel) {
-        mViewMvc.bindProfileImage(userModel.imageUri)
-        mViewMvc.bindUsername(userModel.username)
+    override fun onUserFetched(user: User) {
+        mViewMvc.bindProfileImage(user.imageUri)
+        mViewMvc.bindUsername(user.username)
     }
 
     // image use case
@@ -109,7 +109,7 @@ class PostImageFragment : BaseFragment(), PostImageViewMvc.Listener,
         val header = mViewMvc.getHeader().trim()
         val description = mViewMvc.getDescription().trim()
 
-        val post = PostModel("", uid, timeStamp, uri, 0, 0, header, description)
+        val post = Post("", uid, timeStamp, uri, 0, 0, header, description)
 
         mViewModel.createPostAndNotify(post)
     }

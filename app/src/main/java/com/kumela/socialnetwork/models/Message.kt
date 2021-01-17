@@ -1,12 +1,10 @@
-package com.kumela.socialnetwork.models.firebase
-
-import com.kumela.socialnetwork.models.MessageFields
+package com.kumela.socialnetwork.models
 
 /**
  * Created by Toko on 30,October,2020
  **/
 
-data class MessageModel(
+data class Message(
     val id: String = "",
     val senderId: String = "",
     val message: String = "",

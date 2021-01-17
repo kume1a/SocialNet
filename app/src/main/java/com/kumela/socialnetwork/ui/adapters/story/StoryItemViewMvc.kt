@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import com.kumela.socialnetwork.ui.views.RoundedImageView
 import com.kumela.socialnetwork.R
-import com.kumela.socialnetwork.models.firebase.UserModel
+import com.kumela.socialnetwork.models.User
 import com.kumela.socialnetwork.ui.common.mvc.BaseObservableViewMvc
 import com.kumela.socialnetwork.ui.common.utils.load
 
@@ -22,22 +22,22 @@ class StoryItemViewMvc(
 ) {
 
     interface Listener {
-        fun onStoryClicked(userModel: UserModel)
+        fun onStoryClicked(user: User)
     }
 
-    private var userModel: UserModel? = null
+    private var user: User? = null
 
     private val imageStory: RoundedImageView = findViewById(R.id.image)
     private val imageAdd: ImageView = findViewById(R.id.image_add)
 
     init {
-        rootView.setOnClickListener { listener?.onStoryClicked(userModel!!) }
+        rootView.setOnClickListener { listener?.onStoryClicked(user!!) }
     }
 
-    fun bindStoryModel(userModel: UserModel) {
-        this.userModel = userModel
+    fun bindStoryModel(user: User) {
+        this.user = user
 
-        imageStory.load(userModel.imageUri)
+        imageStory.load(user.imageUri)
     }
 
 //    override fun startAnimation() {
