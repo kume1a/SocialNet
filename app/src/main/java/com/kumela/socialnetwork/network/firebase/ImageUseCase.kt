@@ -5,6 +5,7 @@ import android.net.Uri
 import com.google.firebase.storage.ktx.storageMetadata
 import com.kumela.socialnetwork.common.UseCase
 import com.kumela.socialnetwork.network.firebase.helpers.StorageHelper
+import com.kumela.socialnetwork.network.common.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext

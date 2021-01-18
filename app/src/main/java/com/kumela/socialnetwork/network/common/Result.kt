@@ -1,4 +1,4 @@
-package com.kumela.socialnetwork.network.firebase
+package com.kumela.socialnetwork.network.common
 
 /**
  * Created by Toko on 05,November,2020

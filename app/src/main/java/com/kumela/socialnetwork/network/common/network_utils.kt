@@ -3,7 +3,6 @@ package com.kumela.socialnetwork.network.common
 import android.util.Log
 import com.kumela.socialnetwork.network.NetworkError
 import com.kumela.socialnetwork.network.NetworkResult
-import com.kumela.socialnetwork.network.firebase.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException

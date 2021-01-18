@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import com.kumela.socialnetwork.models.User
-import com.kumela.socialnetwork.network.firebase.fold
+import com.kumela.socialnetwork.network.common.fold
 import com.kumela.socialnetwork.network.repositories.SearchRepository
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper

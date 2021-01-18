@@ -32,6 +32,6 @@ class PostItemViewMvcImpl(
     override fun bindPostModel(post: Post) {
         this.post = post
 
-        image.load(post.postImageUri)
+        image.load(post.imageUrl)
     }
 }

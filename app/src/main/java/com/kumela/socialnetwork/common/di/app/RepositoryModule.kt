@@ -2,8 +2,8 @@ package com.kumela.socialnetwork.common.di.app
 
 import com.kumela.socialnetwork.common.di.annotations.AppScope
 import com.kumela.socialnetwork.network.api.ApiService
-import com.kumela.socialnetwork.network.repositories.FollowRepository
-import com.kumela.socialnetwork.network.repositories.SearchRepository
+import com.kumela.socialnetwork.network.authentication.KeyStore
+import com.kumela.socialnetwork.network.repositories.*
 import dagger.Module
 import dagger.Provides
 
@@ -22,4 +22,18 @@ class RepositoryModule {
     @Provides
     fun providesFollowRepository(apiService: ApiService): FollowRepository =
         FollowRepository(apiService)
+
+    @AppScope
+    @Provides
+    fun providesPostRepository(apiService: ApiService): PostRepository =
+        PostRepository(apiService)
+
+    @AppScope
+    @Provides
+    fun providesImageRepository(): ImageRepository = ImageRepository()
+
+    @AppScope
+    @Provides
+    fun providesUserRepository(apiService: ApiService, keyStore: KeyStore): UserRepository =
+        UserRepository(apiService, keyStore)
 }

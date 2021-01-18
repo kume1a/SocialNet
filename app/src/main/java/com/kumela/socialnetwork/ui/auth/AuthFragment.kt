@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.kumela.socialnetwork.common.utils.CredentialChecker
 import com.kumela.socialnetwork.network.authentication.AuthUseCase
-import com.kumela.socialnetwork.network.firebase.fold
+import com.kumela.socialnetwork.network.common.fold
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper
 import com.kumela.socialnetwork.ui.common.controllers.BaseFragment
@@ -85,8 +85,6 @@ class AuthFragment : BaseFragment(), AuthViewMvc.Listener {
     override fun onAuthClicked() {
         when (authPage) {
             AuthPage.SIGN_IN -> {
-                if (shouldShowInternetDialog()) return
-
                 val email = mViewMvc.getSigninEmail()
                 val password = mViewMvc.getSigninPassword()
 
@@ -108,8 +106,6 @@ class AuthFragment : BaseFragment(), AuthViewMvc.Listener {
                 } else return
             }
             AuthPage.SIGN_UP -> {
-                if (shouldShowInternetDialog()) return
-
                 val name = mViewMvc.getSignupName()
                 val email = mViewMvc.getSignupEmail()
                 val password = mViewMvc.getSignupPassword()
@@ -194,14 +190,6 @@ class AuthFragment : BaseFragment(), AuthViewMvc.Listener {
                 }
             }
         }
-    }
-
-    private fun shouldShowInternetDialog(): Boolean {
-        if (!isInternetAvailable()) {
-            mDialogManager.showNetworkUnavailableDialog()
-            return true
-        }
-        return false
     }
 
     companion object {

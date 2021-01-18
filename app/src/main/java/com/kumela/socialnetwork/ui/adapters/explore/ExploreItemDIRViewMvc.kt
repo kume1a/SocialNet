@@ -28,9 +28,9 @@ class ExploreItemDIRViewMvc(
     private val image3: RoundedImageView = findViewById(R.id.image3)
 
     fun bindExploreModels(posts: List<Post>) {
-        posts.getOrNull(0)?.let { image1.load(it.postImageUri) }
-        posts.getOrNull(1)?.let { image2.load(it.postImageUri) }
-        posts.getOrNull(2)?.let { image3.load(it.postImageUri) }
+        posts.getOrNull(0)?.let { image1.load(it.imageUrl) }
+        posts.getOrNull(1)?.let { image2.load(it.imageUrl) }
+        posts.getOrNull(2)?.let { image3.load(it.imageUrl) }
 
         this.posts = posts
     }

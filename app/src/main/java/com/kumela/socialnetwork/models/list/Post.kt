@@ -8,22 +8,22 @@ import com.kumela.socialnetwork.models.PostFields
  **/
 
 data class Post(
-    val id: String = "",
-    val posterUid: String = "",
-    val timestamp: Long = 0L,
-    val postImageUri: String = "",
-    val likeCount: Int = 0,
-    val commentCount: Int = 0,
-    val header: String = "",
-    val description: String = ""
+    val id: String,
+    val userId: Int,
+    val createdAt: Long,
+    val imageUrl: String,
+    val likeCount: Int,
+    val commentCount: Int,
+    val header: String,
+    val description: String
 ) {
     @Exclude
     fun toMap(): Map<out String, Any> {
         return hashMapOf(
             PostFields.id to id,
-            PostFields.posterUid to posterUid,
-            PostFields.timestamp to timestamp,
-            PostFields.postImageUri to postImageUri,
+            PostFields.posterUid to userId,
+            PostFields.timestamp to createdAt,
+            PostFields.postImageUri to imageUrl,
             PostFields.likeCount to likeCount,
             PostFields.commentCount to commentCount,
             PostFields.header to header,

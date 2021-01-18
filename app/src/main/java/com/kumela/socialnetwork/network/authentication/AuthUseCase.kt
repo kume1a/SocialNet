@@ -4,7 +4,7 @@ import com.kumela.socialnetwork.network.NetworkError
 import com.kumela.socialnetwork.network.api.ApiService
 import com.kumela.socialnetwork.network.api.SigninBody
 import com.kumela.socialnetwork.network.api.SignupBody
-import com.kumela.socialnetwork.network.firebase.Result
+import com.kumela.socialnetwork.network.common.Result
 import com.kumela.socialnetwork.network.common.mapToResult
 import com.kumela.socialnetwork.network.common.safeCall
 import kotlinx.coroutines.Dispatchers
