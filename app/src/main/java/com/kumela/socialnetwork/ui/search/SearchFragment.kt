@@ -5,13 +5,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.kumela.socialnetwork.models.User
 import com.kumela.socialnetwork.network.common.fold
-import com.kumela.socialnetwork.network.repositories.SearchRepository
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper
 import com.kumela.socialnetwork.ui.common.controllers.BaseFragment
+import com.kumela.socialnetwork.ui.common.viewmodels.ViewModelFactory
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,10 +23,10 @@ import javax.inject.Inject
 class SearchFragment : BaseFragment(), SearchViewMvc.Listener {
 
     private lateinit var mViewMvc: SearchViewMvc
-
-    @Inject lateinit var mSearchRepository: SearchRepository
+    private lateinit var mViewModel: SearchViewModel
 
     @Inject lateinit var mViewMvcFactory: ViewMvcFactory
+    @Inject lateinit var mViewModelFactory: ViewModelFactory
     @Inject lateinit var mBottomNavHelper: BottomNavHelper
     @Inject lateinit var mScreensNavigator: SearchScreensNavigator
 
@@ -40,6 +41,16 @@ class SearchFragment : BaseFragment(), SearchViewMvc.Listener {
 
         mViewMvc = mViewMvcFactory.newInstance(SearchViewMvc::class, container)
         return mViewMvc.rootView
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        mViewModel = ViewModelProvider(this, mViewModelFactory).get(SearchViewModel::class.java)
+        val users = mViewModel.getCachedUsers()
+        if (users != null) {
+            mViewMvc.bindSearchItems(users)
+        }
     }
 
     override fun onStart() {
@@ -63,8 +74,8 @@ class SearchFragment : BaseFragment(), SearchViewMvc.Listener {
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            val result = mSearchRepository.searchUsers(query)
-            
+            val result = mViewModel.searchUsers(query)
+
             result.fold(
                 onSuccess = { users ->
                     mViewMvc.bindSearchItems(users)

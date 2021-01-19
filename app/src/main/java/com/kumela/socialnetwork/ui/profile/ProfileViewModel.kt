@@ -6,6 +6,7 @@ import com.kumela.socialnetwork.network.api.PaginatedPostResponse
 import com.kumela.socialnetwork.network.common.Result
 import com.kumela.socialnetwork.network.repositories.PostRepository
 import com.kumela.socialnetwork.network.repositories.UserRepository
+import com.kumela.socialnetwork.ui.common.CachedViewModel
 
 /**
  * Created by Toko on 27,October,2020
@@ -17,14 +18,14 @@ class ProfileViewModel(
 ) : CachedViewModel() {
 
     suspend fun fetchUser(): Result<User, NetworkError> {
-        return getOrFetch { userRepository.fetchUser() }
+        return fetchAndCache { userRepository.fetchUser() }
     }
 
     suspend fun fetchPosts(userId: Int): Result<PaginatedPostResponse?, NetworkError> {
-        return getOrFetchPage { page -> postRepository.getPosts(userId, page, 3) }
+        return fetchAndCachePage { page -> postRepository.getPosts(userId, page, 3) }
     }
 
     fun getPosts(): PaginatedPostResponse? {
-        return getCachedPages()
+        return getFromCache()
     }
 }

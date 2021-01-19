@@ -5,15 +5,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.kumela.socialnetwork.R
 import com.kumela.socialnetwork.models.Story
 import com.kumela.socialnetwork.models.list.Post
 import com.kumela.socialnetwork.network.common.fold
-import com.kumela.socialnetwork.network.repositories.FollowRepository
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper
 import com.kumela.socialnetwork.ui.common.controllers.BaseFragment
+import com.kumela.socialnetwork.ui.common.viewmodels.ViewModelFactory
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,6 +25,7 @@ import javax.inject.Inject
 class UserProfileFragment : BaseFragment(), UserProfileViewMvc.Listener {
 
     private lateinit var mViewMvc: UserProfileViewMvc
+    private lateinit var mViewModel: UserProfileViewModel
 
     private var argId: Int = -1
     private lateinit var argImageUri: String
@@ -31,9 +33,9 @@ class UserProfileFragment : BaseFragment(), UserProfileViewMvc.Listener {
     private lateinit var argBio: String
 
     @Inject lateinit var mViewMvcFactory: ViewMvcFactory
+    @Inject lateinit var mViewModelFactory: ViewModelFactory
     @Inject lateinit var mScreensNavigator: UserProfileScreensNavigator
     @Inject lateinit var mBottomNavHelper: BottomNavHelper
-    @Inject lateinit var mFollowRepository: FollowRepository
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,9 +64,11 @@ class UserProfileFragment : BaseFragment(), UserProfileViewMvc.Listener {
         mViewMvc.bindUsername(argName)
 
         mViewMvc.registerListener(this)
+        mViewModel =
+            ViewModelProvider(this, mViewModelFactory).get(UserProfileViewModel::class.java)
 
         lifecycleScope.launch {
-            val followStatusResult = mFollowRepository.fetchFollowStatus(argId)
+            val followStatusResult = mViewModel.fetchFollowStatus(argId)
             followStatusResult.fold(
                 onSuccess = { follows ->
                     mViewMvc.setFollowingButtonText(
@@ -78,6 +82,13 @@ class UserProfileFragment : BaseFragment(), UserProfileViewMvc.Listener {
                     Log.e(javaClass.simpleName, "onViewCreated: $error")
                 },
             )
+
+            val posts = mViewModel.getPosts()
+            if (posts != null) {
+                mViewMvc.addPosts(posts.data)
+            } else {
+                fetchPosts()
+            }
         }
 //        val userPosts = mViewModel.getUserPosts()
 //        val userExtraInfo = mViewModel.getUserExtraInfo()
@@ -114,7 +125,7 @@ class UserProfileFragment : BaseFragment(), UserProfileViewMvc.Listener {
 
     override fun onFollowClicked() {
         lifecycleScope.launchWhenStarted {
-            mFollowRepository.switchFollowStatus(argId)
+            mViewModel.switchFollowStatus(argId)
 
             val following = mViewMvc.getFollowingButtonText() == getString(R.string.following)
             mViewMvc.setFollowingButtonText(
@@ -146,27 +157,34 @@ class UserProfileFragment : BaseFragment(), UserProfileViewMvc.Listener {
 //        mScreensNavigator.toDataPresenter(DataType.FOLLOWING, argId)
     }
 
+    override fun onLastPostBound() {
+        lifecycleScope.launchWhenStarted {
+            fetchPosts()
+        }
+    }
+
     override fun onLastStoryBound() {
 //        mViewModel.fetchNextStoriesPageAndNotify(argId)
     }
 
-    // view model callbacks
-//    override fun onPostsFetched(posts: List<Post>) {
-//        if (posts.isNotEmpty()) {
-//            mViewMvc.bindPosts(posts)
-//        } else {
-//            mViewMvc.showNoPostsAvailable()
-//        }
-//    }
-//
-//    override fun onUserExtraInfoFetched(userExtraInfo: UserExtraInfo) {
-//        mViewMvc.bindBio(userExtraInfo.bio)
-//        mViewMvc.bindPostCount(userExtraInfo.postCount)
-//        mViewMvc.bindFollowerCount(userExtraInfo.followerCount)
-//        mViewMvc.bindFollowingCount(userExtraInfo.followingCount)
-//    }
-//
-//    override fun onStoriesFetched(stories: List<Story>) {
-//        mViewMvc.addStories(stories)
-//    }
+    private suspend fun fetchPosts() {
+        val result = mViewModel.fetchPosts(argId)
+        Log.d(javaClass.simpleName, "fetchPosts: $result")
+        result.fold(
+            onSuccess = { response ->
+                if (response == null) return@fold
+
+                if (response.data.isNotEmpty()) {
+                    mViewMvc.addPosts(response.data)
+                } else {
+                    if (response.page == 1) {
+                        mViewMvc.showNoPostsAvailable()
+                    }
+                }
+            },
+            onFailure = { error ->
+                Log.e(javaClass.simpleName, "fetchPosts: $error")
+            }
+        )
+    }
 }

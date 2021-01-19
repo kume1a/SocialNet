@@ -64,7 +64,9 @@ class UserProfileViewMvcImpl(
         listener = { postModel ->
             listener?.onPostItemClicked(postModel)
         },
-        onLastItemBound = {}
+        onLastItemBound = {
+            listener?.onLastPostBound()
+        }
     )
 
     init {
@@ -117,9 +119,11 @@ class UserProfileViewMvcImpl(
         textFollowingCount.text = followingCount.toString()
     }
 
-    override fun bindPosts(posts: List<Post>) {
+    override fun addPosts(posts: List<Post>) {
         showPosts()
-        postsAdapter.addPosts(posts)
+        recyclerPosts.post {
+            postsAdapter.addPosts(posts)
+        }
     }
 
     override fun bindStories(stories: List<Story>) {

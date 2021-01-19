@@ -1,4 +1,4 @@
-package com.kumela.socialnetwork.ui.profile
+package com.kumela.socialnetwork.ui.common
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,34 +14,31 @@ import kotlin.reflect.KClass
  **/
 
 abstract class CachedViewModel : ViewModel() {
-    protected val cache: ConcurrentHashMap<KClass<*>, Any> = ConcurrentHashMap()
-    protected val dataPages: ConcurrentHashMap<KClass<*>, Int> = ConcurrentHashMap()
+    val cache: ConcurrentHashMap<KClass<*>, Any> = ConcurrentHashMap()
+    val dataPages: ConcurrentHashMap<KClass<*>, Int> = ConcurrentHashMap()
 
-    protected suspend inline fun <reified T : Any, F> getOrFetch(
+    suspend inline fun <reified T : Any, F> fetchAndCache(
         crossinline call: suspend () -> Result<T, F>
     ): Result<T, F> {
         val k = T::class
         var res: Result<T, F>? = null
-        if (!cache.containsKey(k)) {
-            withContext(viewModelScope.coroutineContext) {
-                val result = call.invoke()
-                result.fold(
-                    onSuccess = { t ->
-                        cache[k] = t
-                        res = Result.Success(t)
-                    },
-                    onFailure = { f ->
-                        res = Result.Failure(f)
-                    }
-                )
-            }
-        } else {
-            res = Result.Success(cache[k] as T)
+        withContext(viewModelScope.coroutineContext) {
+            val result = call.invoke()
+            result.fold(
+                onSuccess = { t ->
+                    cache[k] = t
+                    res = Result.Success(t)
+                },
+                onFailure = { f ->
+                    res = Result.Failure(f)
+                }
+            )
         }
+
         return res!!
     }
 
-    protected suspend inline fun <reified T : PaginatedResponse<*>, F> getOrFetchPage(
+    suspend inline fun <reified T : PaginatedResponse<*>, F> fetchAndCachePage(
         crossinline call: suspend (page: Int) -> Result<T, F>
     ): Result<T?, F> {
         val k = T::class
@@ -77,12 +74,8 @@ abstract class CachedViewModel : ViewModel() {
                         }
                     }
 
-                    if (t.data.isNotEmpty()) {
-                        res = Result.Success(t)
-                        dataPages[k] = page + 1
-                    } else {
-                        res = Result.Success(null)
-                    }
+                    res = Result.Success(t)
+                    dataPages[k] = page + 1
                 },
                 onFailure = { f ->
                     res = Result.Failure(f)
@@ -92,7 +85,7 @@ abstract class CachedViewModel : ViewModel() {
         return res!!
     }
 
-    protected inline fun <reified T : PaginatedResponse<*>> getCachedPages(): T? {
+    inline fun <reified T> getFromCache(): T? {
         return cache[T::class] as? T
     }
 }

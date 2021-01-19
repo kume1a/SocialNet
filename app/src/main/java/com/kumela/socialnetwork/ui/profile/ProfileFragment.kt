@@ -129,7 +129,9 @@ class ProfileFragment : BaseFragment(), ProfileViewMvc.Listener {
                 if (response.data.isNotEmpty()) {
                     mViewMvc.addPosts(response.data)
                 } else {
-                    mViewMvc.showNoPostsAvailable()
+                    if (response.page == 1) {
+                        mViewMvc.showNoPostsAvailable()
+                    }
                 }
             },
             onFailure = { error ->
@@ -137,23 +139,4 @@ class ProfileFragment : BaseFragment(), ProfileViewMvc.Listener {
             }
         )
     }
-//
-//    override fun onUserExtraInfoFetched(userExtraInfo: UserExtraInfo) {
-//        mViewMvc.bindBio(userExtraInfo.bio)
-//        mViewMvc.bindPostCount(userExtraInfo.postCount)
-//        mViewMvc.bindFollowerCount(userExtraInfo.followerCount)
-//        mViewMvc.bindFollowingCount(userExtraInfo.followingCount)
-//    }
-//
-//    override fun onPostsFetched(posts: List<Post>) {
-//        if (posts.isNotEmpty()) {
-//            mViewMvc.bindPosts(posts)
-//        } else {
-//            mViewMvc.showNoPostsAvailable()
-//        }
-//    }
-//
-//    override fun onStoriesFetched(stories: List<Story>) {
-//        mViewMvc.addStories(stories)
-//    }
 }

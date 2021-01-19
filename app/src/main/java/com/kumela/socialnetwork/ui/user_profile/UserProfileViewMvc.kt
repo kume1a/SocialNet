@@ -19,6 +19,7 @@ interface UserProfileViewMvc : ObservableViewMvc<UserProfileViewMvc.Listener> {
         fun onFollowerClicked()
         fun onFollowingClicked()
 
+        fun onLastPostBound()
         fun onLastStoryBound()
     }
 
@@ -32,7 +33,7 @@ interface UserProfileViewMvc : ObservableViewMvc<UserProfileViewMvc.Listener> {
     fun setFollowingButtonText(text: String)
     fun getFollowingButtonText(): String
 
-    fun bindPosts(posts: List<Post>)
+    fun addPosts(posts: List<Post>)
 
     fun bindStories(stories: List<Story>)
     fun addStories(stories: List<Story>)
