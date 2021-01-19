@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
-import com.kumela.socialnetwork.ui.views.RoundedImageView
 import com.kumela.socialnetwork.R
 import com.kumela.socialnetwork.models.Story
 import com.kumela.socialnetwork.models.list.Post
@@ -22,6 +21,7 @@ import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.mvc.BaseObservableViewMvc
 import com.kumela.socialnetwork.ui.common.toolbar.ToolbarViewMvc
 import com.kumela.socialnetwork.ui.common.utils.load
+import com.kumela.socialnetwork.ui.views.RoundedImageView
 
 /**
  * Created by Toko on 17,October,2020
@@ -59,9 +59,13 @@ class UserProfileViewMvcImpl(
         listener = { listener?.onStoryItemClicked(it) },
         onLastItemBound = { listener?.onLastStoryBound() }
     )
-    private val postsAdapter = PostsAdapter(viewMvcFactory) { postModel ->
-        listener?.onPostItemClicked(postModel)
-    }
+    private val postsAdapter = PostsAdapter(
+        viewMvcFactory = viewMvcFactory,
+        listener = { postModel ->
+            listener?.onPostItemClicked(postModel)
+        },
+        onLastItemBound = {}
+    )
 
     init {
         toolbarViewMvc.enableUpButtonAndListen { listener?.onNavigateUpClicked() }
@@ -115,7 +119,7 @@ class UserProfileViewMvcImpl(
 
     override fun bindPosts(posts: List<Post>) {
         showPosts()
-        postsAdapter.bindPosts(posts)
+        postsAdapter.addPosts(posts)
     }
 
     override fun bindStories(stories: List<Story>) {

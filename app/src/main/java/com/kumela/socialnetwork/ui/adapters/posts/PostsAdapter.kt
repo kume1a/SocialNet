@@ -11,15 +11,16 @@ import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 
 class PostsAdapter(
     private val viewMvcFactory: ViewMvcFactory,
-    private val listener: (Post) -> Unit
+    private val listener: (Post) -> Unit,
+    private val onLastItemBound: () -> Unit
 ) : RecyclerView.Adapter<PostsAdapter.PostViewHolder>(), PostItemViewMvc.Listener {
 
     private val items = arrayListOf<Post>()
 
-    fun bindPosts(posts: List<Post>) {
-        items.clear()
+    fun addPosts(posts: List<Post>) {
+        val size = itemCount
         items.addAll(posts)
-        notifyDataSetChanged()
+        notifyItemRangeInserted(size, posts.size)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
@@ -29,6 +30,8 @@ class PostsAdapter(
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
+        if (position == items.size - 1) onLastItemBound.invoke()
+
         holder.viewMvc.bindPostModel(items[position])
     }
 

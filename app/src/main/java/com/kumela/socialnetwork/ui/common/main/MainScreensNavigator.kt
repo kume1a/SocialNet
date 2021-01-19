@@ -34,7 +34,7 @@ class MainScreensNavigator @Inject constructor(private val navController: NavCon
             BottomNavDest.CHATS -> R.id.action_messagesFragment_to_profileFragment
             else -> throw RuntimeException()
         }
-        navController.navigateSafely(id)
+        navController.navigate(id)
     }
 
     fun toMessages() {
@@ -44,7 +44,7 @@ class MainScreensNavigator @Inject constructor(private val navController: NavCon
             BottomNavDest.PROFILE -> R.id.action_profileFragment_to_messagesFragment
             else -> throw RuntimeException()
         }
-        navController.navigateSafely(id)
+        navController.navigate(id)
     }
 
     fun toExplore() {
@@ -54,7 +54,7 @@ class MainScreensNavigator @Inject constructor(private val navController: NavCon
             BottomNavDest.PROFILE -> R.id.action_profileFragment_to_exploreFragment
             else -> throw RuntimeException()
         }
-        navController.navigateSafely(id)
+        navController.navigate(id)
     }
 
     fun toHome() {
@@ -64,7 +64,7 @@ class MainScreensNavigator @Inject constructor(private val navController: NavCon
             BottomNavDest.PROFILE -> R.id.action_profileFragment_to_homeFragment
             else -> throw RuntimeException()
         }
-        navController.navigateSafely(id)
+        navController.navigate(id)
     }
 
     fun toPostImage(imageUri: String) {

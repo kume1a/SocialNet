@@ -8,6 +8,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
+import android.os.Parcelable
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
@@ -18,6 +19,7 @@ import androidx.annotation.XmlRes
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import com.kumela.socialnetwork.R
+import kotlinx.android.parcel.Parcelize
 import kotlin.math.abs
 import kotlin.math.roundToInt
 
@@ -267,6 +269,24 @@ class BottomNav @JvmOverloads constructor(
         } finally {
             typedArray.recycle()
         }
+    }
+
+    @Parcelize
+    private class BottomNavState(
+        val superSaveState: Parcelable?,
+        val itemActiveIndex: Int
+    ) : View.BaseSavedState(superSaveState), Parcelable
+
+    override fun onSaveInstanceState(): Parcelable {
+        val superState = super.onSaveInstanceState()
+        return BottomNavState(superState, itemActiveIndex)
+    }
+
+    override fun onRestoreInstanceState(state: Parcelable?) {
+        val bottomNavState = state as? BottomNavState
+        super.onRestoreInstanceState(bottomNavState?.superSaveState)
+
+        itemActiveIndex = bottomNavState?.itemActiveIndex ?: _itemActiveIndex
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {

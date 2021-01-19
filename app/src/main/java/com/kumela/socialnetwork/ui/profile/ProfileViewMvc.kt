@@ -17,6 +17,7 @@ interface ProfileViewMvc : ObservableViewMvc<ProfileViewMvc.Listener> {
         fun onFollowerClicked()
         fun onFollowingClicked()
 
+        fun onLastPostBound()
         fun onLastStoryBound()
     }
 
@@ -28,7 +29,7 @@ interface ProfileViewMvc : ObservableViewMvc<ProfileViewMvc.Listener> {
     fun bindFollowingCount(followingCount: Int)
     fun showNoPostsAvailable()
 
-    fun bindPosts(posts: List<Post>)
+    fun addPosts(posts: List<Post>)
 
     fun addStories(stories: List<Story>)
     fun bindStories(stories: List<Story>)

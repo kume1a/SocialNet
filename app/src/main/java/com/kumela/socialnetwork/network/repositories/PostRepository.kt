@@ -2,10 +2,11 @@ package com.kumela.socialnetwork.network.repositories
 
 import com.kumela.socialnetwork.network.NetworkError
 import com.kumela.socialnetwork.network.api.ApiService
+import com.kumela.socialnetwork.network.api.PaginatedPostResponse
 import com.kumela.socialnetwork.network.api.PostBody
+import com.kumela.socialnetwork.network.common.Result
 import com.kumela.socialnetwork.network.common.mapToResult
 import com.kumela.socialnetwork.network.common.safeCall
-import com.kumela.socialnetwork.network.common.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -19,5 +20,13 @@ class PostRepository(private val apiService: ApiService) {
     ): Result<Unit, NetworkError> = withContext(Dispatchers.IO) {
         val body = PostBody(imageUrl, header, description)
         return@withContext safeCall { apiService.createPost(body) }.mapToResult()
+    }
+
+    suspend fun getPosts(
+        userId: Int,
+        page: Int,
+        limit: Int,
+    ): Result<PaginatedPostResponse, NetworkError> = withContext(Dispatchers.IO) {
+        return@withContext safeCall { apiService.getPosts(userId, page, limit) }.mapToResult()
     }
 }

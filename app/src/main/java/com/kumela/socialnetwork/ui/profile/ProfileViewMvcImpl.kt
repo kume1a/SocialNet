@@ -11,7 +11,6 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.kumela.socialnetwork.ui.views.RoundedImageView
 import com.kumela.socialnetwork.R
 import com.kumela.socialnetwork.models.Story
 import com.kumela.socialnetwork.models.list.Post
@@ -21,6 +20,7 @@ import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.mvc.BaseObservableViewMvc
 import com.kumela.socialnetwork.ui.common.toolbar.ToolbarViewMvc
 import com.kumela.socialnetwork.ui.common.utils.load
+import com.kumela.socialnetwork.ui.views.RoundedImageView
 
 /**
  * Created by Toko on 24,September,2020
@@ -58,9 +58,15 @@ class ProfileViewMvcImpl(
         onLastItemBound = { listener?.onLastStoryBound() }
     )
 
-    private val postsAdapter = PostsAdapter(viewMvcFactory) { postModel ->
-        listener?.onPostItemClicked(postModel)
-    }
+    private val postsAdapter = PostsAdapter(
+        viewMvcFactory = viewMvcFactory,
+        listener = { post ->
+            listener?.onPostItemClicked(post)
+        },
+        onLastItemBound = {
+            listener?.onLastPostBound()
+        }
+    )
 
     init {
         toolbarViewMvc.enableMenuButtonAndListen(R.menu.menu_profile) menu@{ menuItem ->
@@ -123,9 +129,9 @@ class ProfileViewMvcImpl(
         textFollowingCount.text = followingCount.toString()
     }
 
-    override fun bindPosts(posts: List<Post>) {
+    override fun addPosts(posts: List<Post>) {
         showPosts()
-        postsAdapter.bindPosts(posts)
+        recyclerPosts.post { postsAdapter.addPosts(posts) }
     }
 
     override fun bindStories(stories: List<Story>) {

@@ -7,6 +7,8 @@ import com.kumela.socialnetwork.models.Story
 import com.kumela.socialnetwork.models.UserChat
 import com.kumela.socialnetwork.models.list.Post
 import com.kumela.socialnetwork.network.firebase.helpers.QueryPager
+import com.kumela.socialnetwork.network.repositories.PostRepository
+import com.kumela.socialnetwork.network.repositories.UserRepository
 import com.kumela.socialnetwork.ui.chat.ChatViewModel
 import com.kumela.socialnetwork.ui.common.viewmodels.ViewModelFactory
 import com.kumela.socialnetwork.ui.explore.ExploreViewModel
@@ -68,8 +70,9 @@ class ViewModelModule {
     @IntoMap
     @ViewModelKey(ProfileViewModel::class)
     fun providesProfileViewModel(
-        storyQueryPager: QueryPager<Story>
-    ): ViewModel = ProfileViewModel(storyQueryPager)
+        userRepository: UserRepository,
+        postRepository: PostRepository
+    ): ViewModel = ProfileViewModel(userRepository, postRepository)
 
     @Provides
     @IntoMap

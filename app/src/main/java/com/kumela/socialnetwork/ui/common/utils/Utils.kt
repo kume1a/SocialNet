@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import com.bumptech.glide.Glide
-import com.kumela.socialnetwork.common.Constants
 import com.kumela.socialnetwork.models.User
 import java.text.SimpleDateFormat
 import java.util.*
@@ -29,7 +28,8 @@ fun ImageView.load(uri: String) {
 
 fun TextView.setTimePassed(timestamp: Long, shorten: Boolean = false) {
     val now = System.currentTimeMillis()
-    val ago = DateUtils.getRelativeTimeSpanString(timestamp, now, DateUtils.MINUTE_IN_MILLIS).toString()
+    val ago =
+        DateUtils.getRelativeTimeSpanString(timestamp, now, DateUtils.MINUTE_IN_MILLIS).toString()
     if (shorten) {
         this.text = ago.replace(" minutes ago", "m")
             .replace(" hours ago", "hrs")
@@ -71,14 +71,6 @@ fun NavController.navigateSafely(navDirections: NavDirections) {
     }
 }
 
-fun NavController.navigateSafely(id: Int) {
-    try {
-        navigate(id)
-    } catch (e: IllegalArgumentException) {
-        Log.w(javaClass.simpleName, "navigateSafely: ", e)
-    }
-}
-
 fun getUniqueId(id1: String, id2: String): String {
     return if (id1 > id2) {
         "${id1}_${id2}"
@@ -92,7 +84,7 @@ fun User.isOnline(): Boolean {
 //    return System.currentTimeMillis() - lastOnline <= Constants.INTERVAL_ONLINE_UPDATE
 }
 
-fun Long.isOutdated() : Boolean {
+fun Long.isOutdated(): Boolean {
     calendar.time = Date(this)
     val day = calendar.get(Calendar.DAY_OF_MONTH)
 

@@ -8,9 +8,9 @@ import com.kumela.socialnetwork.models.PostFields
  **/
 
 data class Post(
-    val id: String,
+    val id: Int,
     val userId: Int,
-    val createdAt: Long,
+    val createdAt: String,
     val imageUrl: String,
     val likeCount: Int,
     val commentCount: Int,

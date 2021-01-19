@@ -6,11 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.kumela.socialnetwork.models.Story
-import com.kumela.socialnetwork.models.UserExtraInfo
-import com.kumela.socialnetwork.models.User
 import com.kumela.socialnetwork.models.list.Post
 import com.kumela.socialnetwork.network.authentication.AuthUseCase
+import com.kumela.socialnetwork.network.authentication.KeyStore
+import com.kumela.socialnetwork.network.common.fold
 import com.kumela.socialnetwork.network.firebase.UserUseCase
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper
@@ -23,8 +24,7 @@ import javax.inject.Inject
  * Created by Toko on 24,September,2020
  **/
 
-class ProfileFragment : BaseFragment(), ProfileViewMvc.Listener,
-    ProfileViewModel.Listener {
+class ProfileFragment : BaseFragment(), ProfileViewMvc.Listener {
 
     private lateinit var mViewMvc: ProfileViewMvc
     private lateinit var mViewModel: ProfileViewModel
@@ -34,6 +34,7 @@ class ProfileFragment : BaseFragment(), ProfileViewMvc.Listener,
     @Inject lateinit var mScreensNavigator: ProfileScreensNavigator
     @Inject lateinit var mBottomNavHelper: BottomNavHelper
     @Inject lateinit var mAuthUseCase: AuthUseCase
+    @Inject lateinit var keyStore: KeyStore
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,47 +53,26 @@ class ProfileFragment : BaseFragment(), ProfileViewMvc.Listener,
         super.onViewCreated(view, savedInstanceState)
 
         mViewModel = ViewModelProvider(this, mViewModelFactory).get(ProfileViewModel::class.java)
+        lifecycleScope.launchWhenStarted {
+            fetchUser()
 
-//        val user = mViewModel.getUser()
-//        val userExtraInfo = mViewModel.getUserExtraInfo()
-//        val userPosts = mViewModel.getUserPosts()
-//        val userStories = mViewModel.getUserStories()
-//
-//        if (user != null) {
-//            onUserFetched(user)
-//        } else {
-//            mViewModel.fetchUserAndNotify()
-//        }
-//
-//        if (userExtraInfo != null) {
-//            onUserExtraInfoFetched(userExtraInfo)
-//        } else {
-//            mViewModel.fetchUserExtraInfoAndNotify()
-//        }
-//
-//        if (userPosts != null) {
-//            onPostsFetched(userPosts)
-//        } else {
-//            mViewModel.fetchUserPostsAndNotify()
-//        }
-//
-//        if (userStories.isNotEmpty()) {
-//            onStoriesFetched(userStories)
-//        } else {
-//            mViewModel.fetchNextStoriesPageAndNotify()
-//        }
+            val posts = mViewModel.getPosts()
+            if (posts != null) {
+                mViewMvc.addPosts(posts.data)
+            } else {
+                fetchPosts()
+            }
+        }
     }
 
     override fun onStart() {
         super.onStart()
         mViewMvc.registerListener(this)
-        mViewModel.registerListener(this)
     }
 
     override fun onStop() {
         super.onStop()
         mViewMvc.unregisterListener()
-        mViewModel.registerListener(this)
     }
 
     override fun onStoryItemClicked(story: Story) {
@@ -117,32 +97,63 @@ class ProfileFragment : BaseFragment(), ProfileViewMvc.Listener,
         mScreensNavigator.toUsersList(DataType.FOLLOWING, UserUseCase.uid)
     }
 
-    override fun onLastStoryBound() {
-        mViewModel.fetchNextStoriesPageAndNotify()
-    }
-
-    // view model callbacks
-    override fun onUserFetched(user: User) {
-        mViewMvc.bindProfileImage(user.imageUrl)
-        mViewMvc.bindUsername(user.name)
-    }
-
-    override fun onUserExtraInfoFetched(userExtraInfo: UserExtraInfo) {
-        mViewMvc.bindBio(userExtraInfo.bio)
-        mViewMvc.bindPostCount(userExtraInfo.postCount)
-        mViewMvc.bindFollowerCount(userExtraInfo.followerCount)
-        mViewMvc.bindFollowingCount(userExtraInfo.followingCount)
-    }
-
-    override fun onPostsFetched(posts: List<Post>) {
-        if (posts.isNotEmpty()) {
-            mViewMvc.bindPosts(posts)
-        } else {
-            mViewMvc.showNoPostsAvailable()
+    override fun onLastPostBound() {
+        lifecycleScope.launchWhenStarted {
+            fetchPosts()
         }
     }
 
-    override fun onStoriesFetched(stories: List<Story>) {
-        mViewMvc.addStories(stories)
+    override fun onLastStoryBound() {
+//        mViewModel.fetchNextStoriesPageAndNotify()
     }
+
+    private suspend fun fetchUser() {
+        val userResult = mViewModel.fetchUser()
+        userResult.fold(
+            onSuccess = { user ->
+                mViewMvc.bindProfileImage(user.imageUrl)
+                mViewMvc.bindUsername(user.name)
+            },
+            onFailure = { error ->
+                Log.e(javaClass.simpleName, "fetchUser: $error")
+            }
+        )
+    }
+
+    private suspend fun fetchPosts() {
+        val result = mViewModel.fetchPosts(keyStore.getUserId())
+        result.fold(
+            onSuccess = { response ->
+                if (response == null) return@fold
+
+                if (response.data.isNotEmpty()) {
+                    mViewMvc.addPosts(response.data)
+                } else {
+                    mViewMvc.showNoPostsAvailable()
+                }
+            },
+            onFailure = { error ->
+                Log.e(javaClass.simpleName, "fetchPosts: $error")
+            }
+        )
+    }
+//
+//    override fun onUserExtraInfoFetched(userExtraInfo: UserExtraInfo) {
+//        mViewMvc.bindBio(userExtraInfo.bio)
+//        mViewMvc.bindPostCount(userExtraInfo.postCount)
+//        mViewMvc.bindFollowerCount(userExtraInfo.followerCount)
+//        mViewMvc.bindFollowingCount(userExtraInfo.followingCount)
+//    }
+//
+//    override fun onPostsFetched(posts: List<Post>) {
+//        if (posts.isNotEmpty()) {
+//            mViewMvc.bindPosts(posts)
+//        } else {
+//            mViewMvc.showNoPostsAvailable()
+//        }
+//    }
+//
+//    override fun onStoriesFetched(stories: List<Story>) {
+//        mViewMvc.addStories(stories)
+//    }
 }
