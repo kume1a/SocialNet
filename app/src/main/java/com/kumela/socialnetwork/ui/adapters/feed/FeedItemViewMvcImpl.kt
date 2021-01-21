@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import com.kumela.socialnetwork.ui.views.RoundedImageView
 import com.kumela.socialnetwork.R
 import com.kumela.socialnetwork.models.Feed
 import com.kumela.socialnetwork.ui.common.mvc.BaseObservableViewMvc
 import com.kumela.socialnetwork.ui.common.utils.load
 import com.kumela.socialnetwork.ui.common.utils.setOnDoubleClickListener
 import com.kumela.socialnetwork.ui.common.utils.setTimePassed
+import com.kumela.socialnetwork.ui.views.RoundedImageView
 
 
 /**
@@ -29,7 +29,7 @@ class FeedItemViewMvcImpl(
     R.layout.item_feed
 ), FeedItemViewMvc {
 
-    private var feedModel: Feed? = null
+    private var feed: Feed? = null
     private var position: Int? = null
 
     private val imageProfile: RoundedImageView = findViewById(R.id.image_profile)
@@ -48,28 +48,34 @@ class FeedItemViewMvcImpl(
 
     init {
         imageProfile.setOnClickListener {
-            listener?.onProfileImageClicked(position!!, feedModel!!)
+            listener?.onProfileImageClicked(position!!, feed!!)
         }
         textUsername.setOnClickListener {
-            listener?.onUsernameClicked(position!!, feedModel!!)
+            listener?.onUsernameClicked(position!!, feed!!)
         }
         imageHeart.setOnClickListener {
-            listener?.onLikeClicked(position!!, feedModel!!)
+            listener?.onLikeClicked(position!!, feed!!)
         }
         textLikesCount.setOnClickListener {
-            listener?.onLikeCountClicked(position!!, feedModel!!)
+            listener?.onLikeCountClicked(position!!, feed!!)
         }
         imageComments.setOnClickListener {
-            listener?.onCommentsClicked(position!!, feedModel!!)
+            listener?.onCommentsClicked(position!!, feed!!)
         }
         textCommentsCount.setOnClickListener {
-            listener?.onCommentCountClicked(position!!, feedModel!!)
+            listener?.onCommentCountClicked(position!!, feed!!)
         }
         imageButtonMenu.setOnClickListener {
             listener?.onMenuClicked()
         }
         imagePost.setOnDoubleClickListener {
-            val drawable = if (feedModel!!.isLiked) {
+            listener?.onPostDoubleClicked(position!!, feed!!)
+        }
+    }
+
+    override fun bindPost(position: Int, feed: Feed) {
+        if (this.feed != null && this.feed!!.isLiked != feed.isLiked) {
+            val drawable = if (!feed.isLiked) {
                 avdDislike.visibility = View.VISIBLE
                 avdDislike.drawable
             } else {
@@ -78,13 +84,10 @@ class FeedItemViewMvcImpl(
             }
 
             (drawable as Animatable).start()
-            listener?.onPostDoubleClicked(position!!, feedModel!!)
         }
-    }
 
-    override fun bindPost(position: Int, feed: Feed) {
         this.position = position
-        this.feedModel = feed
+        this.feed = feed
 
         imageProfile.load(feed.userImageUrl)
         imagePost.load(feed.imageUrl)

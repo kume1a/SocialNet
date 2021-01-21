@@ -13,6 +13,7 @@ import retrofit2.http.*
 data class SignupBody(val name: String, val email: String, val password: String)
 data class SigninBody(val email: String, val password: String)
 data class PostBody(val imageUrl: String, val header: String, val description: String)
+data class LikeDislikeBody(val postId: Int)
 
 interface PaginatedResponse<T: Any> {
     val data: ArrayList<T>
@@ -77,4 +78,10 @@ interface ApiService {
         @Query("page") page: Int,
         @Query("limit") limit: Int,
     ): Response<PaginatedPostResponse>
+
+    @POST("/posts/like")
+    suspend fun likePost(@Body body: LikeDislikeBody): Response<Unit>
+
+    @POST("/posts/dislike")
+    suspend fun dislikePost(@Body body: LikeDislikeBody): Response<Unit>
 }

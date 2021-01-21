@@ -81,11 +81,11 @@ class HomeFragment : BaseFragment(), HomeViewMvc.Listener,
     }
 
     override fun onStoryClicked(position: Int, user: User) {
-        if (position == 0) {
-            mIntentDispatcher.dispatchImagePickerIntent(REQUEST_PICK_STORY_IMAGE)
-        } else {
+//        if (position == 0) {
+//            mIntentDispatcher.dispatchImagePickerIntent(REQUEST_PICK_STORY_IMAGE)
+//        } else {
 //            mScreensNavigator.toStoryPresenter(user.id)
-        }
+//        }
     }
 
     override fun onScrolledToBottom() {
@@ -100,22 +100,19 @@ class HomeFragment : BaseFragment(), HomeViewMvc.Listener,
     }
 
     override fun onLikeClicked(position: Int, feed: Feed) {
-//        mViewModel.likeOrDislikePostAndNotify(position, feedModel)
+        lifecycleScope.launchWhenStarted { likeOrDislikePost(position, feed) }
     }
 
     override fun onPostDoubleClick(position: Int, feed: Feed) {
-//        mViewModel.likeOrDislikePostAndNotify(position, feedModel)
+        lifecycleScope.launchWhenStarted { likeOrDislikePost(position, feed) }
     }
 
     override fun onLikeCountClicked(postId: Int) {
-//        mScreensNavigator.toUsersList(DataType.LIKES, postId)
+        Log.d(javaClass.simpleName, "onLikeCountClicked() called with: postId = $postId")
     }
 
     override fun onCommentClicked(postId: Int) {
-//        val user = mViewModel.getUser()
-//        if (user != null) {
-//            mScreensNavigator.toComments(postId, user.id, user.imageUrl, user.name)
-//        }
+        Log.d(javaClass.simpleName, "onCommentClicked() called with: postId = $postId")
     }
 
     // story model callbacks
@@ -147,6 +144,24 @@ class HomeFragment : BaseFragment(), HomeViewMvc.Listener,
                 Log.e(javaClass.simpleName, "fetchFeedPosts: $error")
             }
         )
+    }
+
+    private suspend fun likeOrDislikePost(position: Int, feed: Feed) {
+        val newFeed = if (feed.isLiked) {
+            feed.copy(isLiked = false, likeCount = feed.likeCount - 1)
+        } else {
+            feed.copy(isLiked = true, likeCount = feed.likeCount + 1)
+        }
+
+        mViewMvc.updatePost(position, newFeed)
+
+        if (feed.isLiked) {
+            mViewModel.dislikePost(feed.id)
+        } else {
+            mViewModel.likePost(feed.id)
+        }
+
+        mViewModel.getCachedFeedPosts()?.data?.set(position, newFeed)
     }
 
     companion object {

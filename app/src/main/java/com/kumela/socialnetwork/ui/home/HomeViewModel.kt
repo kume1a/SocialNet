@@ -21,5 +21,8 @@ class HomeViewModel(
         }
     }
 
+    suspend fun likePost(postId: Int) = postRepository.likePost(postId)
+    suspend fun dislikePost(postId: Int) = postRepository.dislikePost(postId)
+
     fun getCachedFeedPosts(): PaginatedFeedResponse? = getFromCache()
 }

@@ -62,14 +62,6 @@ class HomeViewMvcImpl(
         }
     }
 
-    override fun getCurrentFeedListOffset(): Int {
-        return recyclerFeed.computeVerticalScrollOffset()
-    }
-
-    override fun scrollFeedListTo(feedListOffset: Int) {
-        recyclerFeed.scrollToPosition(feedListOffset)
-    }
-
     override fun bindStories(users: List<User>) {
         storyAdapter.bindStories(users)
     }

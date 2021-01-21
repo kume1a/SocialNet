@@ -1,10 +1,7 @@
 package com.kumela.socialnetwork.network.repositories
 
 import com.kumela.socialnetwork.network.NetworkError
-import com.kumela.socialnetwork.network.api.ApiService
-import com.kumela.socialnetwork.network.api.PaginatedFeedResponse
-import com.kumela.socialnetwork.network.api.PaginatedPostResponse
-import com.kumela.socialnetwork.network.api.PostBody
+import com.kumela.socialnetwork.network.api.*
 import com.kumela.socialnetwork.network.common.Result
 import com.kumela.socialnetwork.network.common.mapToResult
 import com.kumela.socialnetwork.network.common.safeCall
@@ -46,5 +43,19 @@ class PostRepository(private val apiService: ApiService) {
         return@withContext safeCall {
             apiService.getExplorePosts(page, limit)
         }.mapToResult()
+    }
+
+    suspend fun likePost(
+        postId: Int
+    ): Result<Unit, NetworkError> = withContext(Dispatchers.IO) {
+        val body = LikeDislikeBody(postId)
+        return@withContext safeCall { apiService.likePost(body) }.mapToResult()
+    }
+
+    suspend fun dislikePost(
+        postId: Int
+    ): Result<Unit, NetworkError> = withContext(Dispatchers.IO) {
+        val body = LikeDislikeBody(postId)
+        return@withContext safeCall { apiService.dislikePost(body) }.mapToResult()
     }
 }

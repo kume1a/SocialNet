@@ -25,7 +25,4 @@ interface HomeViewMvc : ObservableViewMvc<HomeViewMvc.Listener> {
 
     fun addPosts(posts: List<Feed>)
     fun updatePost(position: Int, feed: Feed)
-
-    fun getCurrentFeedListOffset(): Int
-    fun scrollFeedListTo(feedListOffset: Int)
 }
