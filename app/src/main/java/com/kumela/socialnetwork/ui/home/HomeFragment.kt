@@ -4,12 +4,15 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.kumela.socialnetwork.models.Feed
 import com.kumela.socialnetwork.models.User
+import com.kumela.socialnetwork.network.common.fold
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper
 import com.kumela.socialnetwork.ui.common.controllers.ActivityResultListener
@@ -18,7 +21,7 @@ import com.kumela.socialnetwork.ui.common.controllers.IntentDispatcher
 import com.kumela.socialnetwork.ui.common.controllers.RequestResultDispatcher
 import com.kumela.socialnetwork.ui.common.viewmodels.ViewModelFactory
 import com.kumela.socialnetwork.ui.story_presenter.StoryViewModel
-import com.kumela.socialnetwork.ui.user_list.DataType
+import java.time.ZonedDateTime
 import javax.inject.Inject
 
 /**
@@ -26,15 +29,14 @@ import javax.inject.Inject
  **/
 
 class HomeFragment : BaseFragment(), HomeViewMvc.Listener,
-    HomeViewModel.Listener, ActivityResultListener, StoryViewModel.Listener {
+    ActivityResultListener, StoryViewModel.Listener {
 
     private lateinit var mViewMvc: HomeViewMvc
     private lateinit var mViewModel: HomeViewModel
-    private lateinit var mStoryViewModel: StoryViewModel
 
     @Inject lateinit var mViewMvcFactory: ViewMvcFactory
-    @Inject lateinit var mScreensNavigator: HomeScreensNavigator
     @Inject lateinit var mViewModelFactory: ViewModelFactory
+    @Inject lateinit var mScreensNavigator: HomeScreensNavigator
     @Inject lateinit var mBottomNavHelper: BottomNavHelper
     @Inject lateinit var mIntentDispatcher: IntentDispatcher
     @Inject lateinit var mRequestResultDispatcher: RequestResultDispatcher
@@ -46,6 +48,8 @@ class HomeFragment : BaseFragment(), HomeViewMvc.Listener,
     ): View {
         injector.inject(this)
 
+        mBottomNavHelper.showBottomNav()
+
         mViewMvc = mViewMvcFactory.newInstance(HomeViewMvc::class, container)
         return mViewMvc.rootView
     }
@@ -53,46 +57,27 @@ class HomeFragment : BaseFragment(), HomeViewMvc.Listener,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mBottomNavHelper.showBottomNav()
-        mViewModel = ViewModelProvider(requireActivity(), mViewModelFactory).get(HomeViewModel::class.java)
-        mStoryViewModel = ViewModelProvider(requireActivity()).get(StoryViewModel::class.java)
-
         mViewMvc.registerListener(this)
-        mViewModel.registerListener(this)
-        mStoryViewModel.registerListener(this)
         mRequestResultDispatcher.registerRequestResultListener(this)
 
-//        val posts = mViewModel.getPosts()
-//        val userModel = mViewModel.getUser()
-//
-//        if (posts.isNotEmpty()) {
-//            mViewMvc.bindPosts(posts)
-//        } else {
-//            mViewModel.fetchNextPostAndNotify()
-//        }
-//
-//        if (userModel != null) {
-//            val storyPosterUsers = mStoryViewModel.getStoryPosters()
-//            if (storyPosterUsers.isNotEmpty()) {
-//                val stories = ArrayList<UserModel>()
-//                stories.add(userModel)
-//                stories.addAll(storyPosterUsers)
-//                mViewMvc.bindStories(stories)
-//            } else {
-//                mViewMvc.addStory(userModel)
-//                mStoryViewModel.fetchStoryPostersAndNotify()
-//            }
-//        } else {
-//            mViewModel.fetchUserAndNotify()
-//        }
+        mViewModel =
+            ViewModelProvider(requireActivity(), mViewModelFactory).get(HomeViewModel::class.java)
+
+        val cachedFeedPosts = mViewModel.getCachedFeedPosts()
+        lifecycleScope.launchWhenStarted {
+            if (cachedFeedPosts != null) {
+                mViewMvc.addPosts(cachedFeedPosts.data)
+            } else {
+                fetchFeedPosts()
+            }
+        }
+
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
 
         mViewMvc.unregisterListener()
-        mViewModel.unregisterListener(this)
-        mStoryViewModel.unregisterListener(this)
         mRequestResultDispatcher.unregisterRequestResultListener(this)
     }
 
@@ -105,44 +90,33 @@ class HomeFragment : BaseFragment(), HomeViewMvc.Listener,
     }
 
     override fun onScrolledToBottom() {
-        mViewModel.fetchNextPostAndNotify()
-    }
-
-    override fun onUserFetched(user: User) {
-        mViewMvc.addStory(user)
-        mStoryViewModel.fetchStoryPostersAndNotify()
-    }
-
-    override fun onPostFetched(feedModel: Feed) {
-        mViewMvc.addPost(feedModel)
-    }
-
-    override fun onPostUpdated(position: Int, feedModel: Feed) {
-        mViewMvc.updatePost(position, feedModel)
+        lifecycleScope.launchWhenStarted {
+            fetchFeedPosts()
+        }
     }
 
     // feed item view callbacks
     override fun onUserProfileOrUsernameClicked(user: User) {
-//        mScreensNavigator.toUserProfile(user.id, user.imageUrl, user.name)
+        mScreensNavigator.toUserProfile(user.id, user.name, user.imageUrl, user.bio)
     }
 
-    override fun onLikeClicked(position: Int, feedModel: Feed) {
-        mViewModel.likeOrDislikePostAndNotify(position, feedModel)
+    override fun onLikeClicked(position: Int, feed: Feed) {
+//        mViewModel.likeOrDislikePostAndNotify(position, feedModel)
     }
 
-    override fun onPostDoubleClick(position: Int, feedModel: Feed) {
-        mViewModel.likeOrDislikePostAndNotify(position, feedModel)
+    override fun onPostDoubleClick(position: Int, feed: Feed) {
+//        mViewModel.likeOrDislikePostAndNotify(position, feedModel)
     }
 
-    override fun onLikeCountClicked(postId: String) {
-        mScreensNavigator.toUsersList(DataType.LIKES, postId)
+    override fun onLikeCountClicked(postId: Int) {
+//        mScreensNavigator.toUsersList(DataType.LIKES, postId)
     }
 
-    override fun onCommentClicked(postId: String) {
-        val user = mViewModel.getUser()
-        if (user != null) {
+    override fun onCommentClicked(postId: Int) {
+//        val user = mViewModel.getUser()
+//        if (user != null) {
 //            mScreensNavigator.toComments(postId, user.id, user.imageUrl, user.name)
-        }
+//        }
     }
 
     // story model callbacks
@@ -160,6 +134,21 @@ class HomeFragment : BaseFragment(), HomeViewMvc.Listener,
                 }
             }
         }
+    }
+
+    private suspend fun fetchFeedPosts() {
+        val result = mViewModel.fetchFeedPosts()
+        Log.d(javaClass.simpleName, "fetchFeedPosts() called, $result")
+        result.fold(
+            onSuccess = { response ->
+                if (response == null) return@fold
+
+                mViewMvc.addPosts(response.data)
+            },
+            onFailure = { error ->
+                Log.e(javaClass.simpleName, "fetchFeedPosts: $error")
+            }
+        )
     }
 
     companion object {

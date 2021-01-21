@@ -7,4 +7,5 @@ package com.kumela.socialnetwork.ui.common.bottomnav
 interface BottomNavHelper {
     fun showBottomNav()
     fun hideBottomNav()
+    fun resetIndex()
 }

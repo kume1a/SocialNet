@@ -14,18 +14,17 @@ interface HomeViewMvc : ObservableViewMvc<HomeViewMvc.Listener> {
         fun onScrolledToBottom()
 
         fun onUserProfileOrUsernameClicked(user: User)
-        fun onLikeCountClicked(postId: String)
-        fun onCommentClicked(postId: String)
-        fun onLikeClicked(position: Int, feedModel: Feed)
-        fun onPostDoubleClick(position: Int, feedModel: Feed)
+        fun onLikeCountClicked(postId: Int)
+        fun onCommentClicked(postId: Int)
+        fun onLikeClicked(position: Int, feed: Feed)
+        fun onPostDoubleClick(position: Int, feed: Feed)
     }
 
     fun bindStories(users: List<User>)
     fun addStory(user: User)
 
-    fun addPost(post: Feed)
-    fun bindPosts(posts: List<Feed>)
-    fun updatePost(position: Int, feedModel: Feed)
+    fun addPosts(posts: List<Feed>)
+    fun updatePost(position: Int, feed: Feed)
 
     fun getCurrentFeedListOffset(): Int
     fun scrollFeedListTo(feedListOffset: Int)

@@ -5,6 +5,7 @@ import com.kumela.socialnetwork.common.di.annotations.ViewModelKey
 import com.kumela.socialnetwork.models.Message
 import com.kumela.socialnetwork.models.UserChat
 import com.kumela.socialnetwork.models.list.Post
+import com.kumela.socialnetwork.network.authentication.KeyStore
 import com.kumela.socialnetwork.network.firebase.helpers.QueryPager
 import com.kumela.socialnetwork.network.repositories.FollowRepository
 import com.kumela.socialnetwork.network.repositories.PostRepository
@@ -37,8 +38,9 @@ class ViewModelModule {
     @IntoMap
     @ViewModelKey(HomeViewModel::class)
     fun providesHomeViewModel(
-        @Named("feedPostIdsQueryPager") feedPostIdsQueryPager: QueryPager<String>
-    ): ViewModel = HomeViewModel(feedPostIdsQueryPager)
+        postRepository: PostRepository,
+        keyStore: KeyStore
+    ): ViewModel = HomeViewModel(postRepository, keyStore)
 
     @Provides
     @IntoMap

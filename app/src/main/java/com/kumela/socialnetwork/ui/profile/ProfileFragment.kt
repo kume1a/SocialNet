@@ -86,6 +86,7 @@ class ProfileFragment : BaseFragment(), ProfileViewMvc.Listener {
     override fun onSignOutClicked() {
         activity?.viewModelStore?.clear()
         mAuthUseCase.signout()
+        mBottomNavHelper.resetIndex()
         mScreensNavigator.toAuth()
     }
 

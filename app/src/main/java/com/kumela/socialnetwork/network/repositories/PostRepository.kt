@@ -2,6 +2,7 @@ package com.kumela.socialnetwork.network.repositories
 
 import com.kumela.socialnetwork.network.NetworkError
 import com.kumela.socialnetwork.network.api.ApiService
+import com.kumela.socialnetwork.network.api.PaginatedFeedResponse
 import com.kumela.socialnetwork.network.api.PaginatedPostResponse
 import com.kumela.socialnetwork.network.api.PostBody
 import com.kumela.socialnetwork.network.common.Result
@@ -28,5 +29,13 @@ class PostRepository(private val apiService: ApiService) {
         limit: Int,
     ): Result<PaginatedPostResponse, NetworkError> = withContext(Dispatchers.IO) {
         return@withContext safeCall { apiService.getPosts(userId, page, limit) }.mapToResult()
+    }
+
+    suspend fun fetchFeedPosts(
+        userId: Int,
+        page: Int,
+        limit: Int
+    ): Result<PaginatedFeedResponse, NetworkError> = withContext(Dispatchers.IO) {
+        return@withContext safeCall { apiService.getFeedPosts(userId, page, limit) }.mapToResult()
     }
 }

@@ -9,16 +9,16 @@ import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
 
 interface FeedItemViewMvc : ObservableViewMvc<FeedItemViewMvc.Listener> {
     interface Listener {
-        fun onProfileImageClicked(position: Int, feedModel: Feed)
-        fun onUsernameClicked(position: Int, feedModel: Feed)
-        fun onLikeClicked(position: Int, feedModel: Feed)
-        fun onPostDoubleClicked(position: Int, feedModel: Feed)
-        fun onLikeCountClicked(position: Int, feedModel: Feed)
-        fun onCommentsClicked(position: Int, feedModel: Feed)
-        fun onCommentCountClicked(position: Int, feedModel: Feed)
+        fun onProfileImageClicked(position: Int, feed: Feed)
+        fun onUsernameClicked(position: Int, feed: Feed)
+        fun onLikeClicked(position: Int, feed: Feed)
+        fun onPostDoubleClicked(position: Int, feed: Feed)
+        fun onLikeCountClicked(position: Int, feed: Feed)
+        fun onCommentsClicked(position: Int, feed: Feed)
+        fun onCommentCountClicked(position: Int, feed: Feed)
 
         fun onMenuClicked()
     }
 
-    fun bindPost(position: Int, feedModel: Feed)
+    fun bindPost(position: Int, feed: Feed)
 }

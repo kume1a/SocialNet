@@ -33,4 +33,5 @@ interface BottomNavViewMvc : ObservableViewMvc<BottomNavViewMvc.Listener> {
 
     fun showBottomNav()
     fun hideBottomNav()
+    fun resetBottomNavIndex()
 }

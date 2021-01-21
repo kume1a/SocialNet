@@ -109,6 +109,10 @@ class MainActivity : BaseActivity(),
         mViewMvc.hideBottomNav()
     }
 
+    override fun resetIndex() {
+        mViewMvc.resetBottomNavIndex()
+    }
+
     override fun onFabClicked() {
         if (mViewMvc.isAnimationInProgress()) return
 

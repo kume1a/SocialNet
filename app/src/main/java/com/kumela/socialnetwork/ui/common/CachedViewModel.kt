@@ -55,11 +55,6 @@ abstract class CachedViewModel : ViewModel() {
             val result = call.invoke(page)
             result.fold(
                 onSuccess = { t ->
-                    if (t.page * t.perPage >= t.total) {
-                        dataPages.remove(k)
-                        dataPages[k] = flagInvalidPage
-                    }
-
                     if (!cache.containsKey(k)) {
                         cache[k] = t
                     } else {
@@ -76,6 +71,11 @@ abstract class CachedViewModel : ViewModel() {
 
                     res = Result.Success(t)
                     dataPages[k] = page + 1
+
+                    if (t.page * t.perPage >= t.total) {
+                        dataPages.remove(k)
+                        dataPages[k] = flagInvalidPage
+                    }
                 },
                 onFailure = { f ->
                     res = Result.Failure(f)

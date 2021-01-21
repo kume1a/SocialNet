@@ -1,5 +1,6 @@
 package com.kumela.socialnetwork.network.api
 
+import com.kumela.socialnetwork.models.Feed
 import com.kumela.socialnetwork.models.User
 import com.kumela.socialnetwork.models.list.Post
 import retrofit2.Response
@@ -27,6 +28,13 @@ data class PaginatedPostResponse(
     override var page: Int,
     override var perPage: Int,
 ) : PaginatedResponse<Post>
+data class PaginatedFeedResponse(
+    override val data: ArrayList<Feed>,
+    override var total: Int,
+    override var page: Int,
+    override var perPage: Int,
+) : PaginatedResponse<Feed>
+
 
 interface ApiService {
     @POST("/auth/signin")
@@ -56,4 +64,11 @@ interface ApiService {
         @Query("page") page: Int,
         @Query("limit") limit: Int
     ): Response<PaginatedPostResponse>
+
+    @GET("/posts/feed/{userId}")
+    suspend fun getFeedPosts(
+        @Path("userId") userid: Int,
+        @Query("page") page: Int,
+        @Query("limit") limit: Int
+    ): Response<PaginatedFeedResponse>
 }

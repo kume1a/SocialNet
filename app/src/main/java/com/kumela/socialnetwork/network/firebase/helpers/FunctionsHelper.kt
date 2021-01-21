@@ -147,10 +147,11 @@ object FunctionsObjectsDeserializer {
         // TODO: 11/1/2020 refactor from strings to constant fields
         return when (T::class) {
             Feed::class -> Feed(
-                map["postId"] as String,
-                map["posterUid"] as String,
+                map["postId"] as Int,
+                map["posterUid"] as Int,
                 map["posterUsername"] as String,
                 map["posterImageUri"] as String,
+                map[""] as String,
                 map["liked"] as Boolean,
                 map["timestamp"] as Long,
                 map["postImageUri"] as String,

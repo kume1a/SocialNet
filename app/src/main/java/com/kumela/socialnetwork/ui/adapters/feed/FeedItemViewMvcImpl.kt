@@ -69,7 +69,7 @@ class FeedItemViewMvcImpl(
             listener?.onMenuClicked()
         }
         imagePost.setOnDoubleClickListener {
-            val drawable = if (feedModel!!.liked) {
+            val drawable = if (feedModel!!.isLiked) {
                 avdDislike.visibility = View.VISIBLE
                 avdDislike.drawable
             } else {
@@ -82,22 +82,22 @@ class FeedItemViewMvcImpl(
         }
     }
 
-    override fun bindPost(position: Int, feedModel: Feed) {
+    override fun bindPost(position: Int, feed: Feed) {
         this.position = position
-        this.feedModel = feedModel
+        this.feedModel = feed
 
-        imageProfile.load(feedModel.posterImageUri)
-        imagePost.load(feedModel.postImageUri)
-        textTime.setTimePassed(feedModel.timestamp)
-        textUsername.text = feedModel.posterUsername
-        textHeader.text = feedModel.header
+        imageProfile.load(feed.userImageUrl)
+        imagePost.load(feed.imageUrl)
+        textTime.setTimePassed(feed.createdAt)
+        textUsername.text = feed.userName
+        textHeader.text = feed.header
 
-        textLikesCount.text = feedModel.likeCount.toString()
-        textCommentsCount.text = feedModel.commentCount.toString()
+        textLikesCount.text = feed.likeCount.toString()
+        textCommentsCount.text = feed.commentCount.toString()
 
-        textDescription.text = feedModel.description
+        textDescription.text = feed.description
 
-        if (feedModel.liked) {
+        if (feed.isLiked) {
             imageHeart.setImageResource(R.drawable.ic_heart_filled)
         } else {
             imageHeart.setImageResource(R.drawable.ic_heart)

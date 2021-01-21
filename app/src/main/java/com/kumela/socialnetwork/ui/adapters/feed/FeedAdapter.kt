@@ -14,27 +14,22 @@ import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 class FeedAdapter(
     private val viewMvcFactory: ViewMvcFactory,
     private val listener: Listener,
-    private val onBottomScrolledListener: () -> Unit
 ) : RecyclerView.Adapter<FeedAdapter.FeedViewHolder>(), FeedItemViewMvc.Listener {
 
     interface Listener {
         fun onUserProfileOrUsernameClicked(user: User)
-        fun onLikeClicked(position: Int, feedModel: Feed)
-        fun onPostDoubleClicked(position: Int, feedModel: Feed)
-        fun onLikeCountClicked(postId: String)
-        fun onCommentClicked(postId: String)
+        fun onLikeClicked(position: Int, feed: Feed)
+        fun onPostDoubleClicked(position: Int, feed: Feed)
+        fun onLikeCountClicked(postId: Int)
+        fun onCommentClicked(postId: Int)
     }
 
     private val items = arrayListOf<Feed>()
 
-    fun addPost(post: Feed) {
-        items.add(post)
-        notifyItemInserted(items.size - 1)
-    }
-
-    fun bindPosts(posts: List<Feed>) {
+    fun addPosts(posts: List<Feed>) {
+        val size = itemCount
         items.addAll(posts)
-        notifyDataSetChanged()
+        notifyItemRangeInserted(size, posts.size)
     }
 
     fun updatePost(position: Int, post: Feed) {
@@ -50,10 +45,6 @@ class FeedAdapter(
 
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
         holder.viewMvc.bindPost(position, items[position])
-
-        if (position == items.size - 1) {
-            onBottomScrolledListener.invoke()
-        }
     }
 
     override fun getItemCount(): Int = items.size
@@ -61,36 +52,34 @@ class FeedAdapter(
     class FeedViewHolder(val viewMvc: FeedItemViewMvc) : RecyclerView.ViewHolder(viewMvc.rootView)
 
     // view callbacks
-    override fun onProfileImageClicked(position: Int, feedModel: Feed) {
-//        val user =
-//            User(feedModel.posterUid, feedModel.posterUsername, feedModel.posterImageUri)
-//        listener.onUserProfileOrUsernameClicked(user)
+    override fun onProfileImageClicked(position: Int, feed: Feed) {
+        val user = User(feed.userId, feed.userName, feed.userImageUrl, feed.userBio)
+        listener.onUserProfileOrUsernameClicked(user)
     }
 
-    override fun onUsernameClicked(position: Int, feedModel: Feed) {
-//        val user =
-//            User(feedModel.posterUid, feedModel.posterUsername, feedModel.posterImageUri)
-//        listener.onUserProfileOrUsernameClicked(user)
+    override fun onUsernameClicked(position: Int, feed: Feed) {
+        val user = User(feed.userId, feed.userName, feed.userImageUrl, feed.userBio)
+        listener.onUserProfileOrUsernameClicked(user)
     }
 
-    override fun onLikeClicked(position: Int, feedModel: Feed) {
-        listener.onLikeClicked(position, feedModel)
+    override fun onLikeClicked(position: Int, feed: Feed) {
+        listener.onLikeClicked(position, feed)
     }
 
-    override fun onPostDoubleClicked(position: Int, feedModel: Feed) {
-        listener.onPostDoubleClicked(position, feedModel)
+    override fun onPostDoubleClicked(position: Int, feed: Feed) {
+        listener.onPostDoubleClicked(position, feed)
     }
 
-    override fun onLikeCountClicked(position: Int, feedModel: Feed) {
-        listener.onLikeCountClicked(feedModel.postId)
+    override fun onLikeCountClicked(position: Int, feed: Feed) {
+        listener.onLikeCountClicked(feed.id)
     }
 
-    override fun onCommentsClicked(position: Int, feedModel: Feed) {
-        listener.onCommentClicked(feedModel.postId)
+    override fun onCommentsClicked(position: Int, feed: Feed) {
+        listener.onCommentClicked(feed.id)
     }
 
-    override fun onCommentCountClicked(position: Int, feedModel: Feed) {
-        listener.onCommentClicked(feedModel.postId)
+    override fun onCommentCountClicked(position: Int, feed: Feed) {
+        listener.onCommentClicked(feed.id)
     }
 
     override fun onMenuClicked() {

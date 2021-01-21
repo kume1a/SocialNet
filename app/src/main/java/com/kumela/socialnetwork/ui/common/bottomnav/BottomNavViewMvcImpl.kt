@@ -84,6 +84,10 @@ class BottomNavViewMvcImpl(
         }
     }
 
+    override fun resetBottomNavIndex() {
+        bottomNavigationView.resetIndex()
+    }
+
     // popup menu listener
     override fun onImageClicked() {
         listener?.onFabMenuImageClicked()

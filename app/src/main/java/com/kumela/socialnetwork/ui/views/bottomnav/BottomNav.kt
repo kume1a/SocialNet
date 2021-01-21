@@ -467,6 +467,10 @@ class BottomNav @JvmOverloads constructor(
         }
     }
 
+    fun resetIndex() {
+        itemActiveIndex = 0
+    }
+
     private fun Float.toPx(): Float {
         return (this * resources.displayMetrics.density).roundToInt().toFloat()
     }
