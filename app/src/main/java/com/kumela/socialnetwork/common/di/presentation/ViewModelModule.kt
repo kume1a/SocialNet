@@ -67,8 +67,8 @@ class ViewModelModule {
     @IntoMap
     @ViewModelKey(ExploreViewModel::class)
     fun providesExploreViewModel(
-        postsQueryPager: QueryPager<Post>
-    ): ViewModel = ExploreViewModel(postsQueryPager)
+        postRepository: PostRepository
+    ): ViewModel = ExploreViewModel(postRepository)
 
     @Provides
     @IntoMap

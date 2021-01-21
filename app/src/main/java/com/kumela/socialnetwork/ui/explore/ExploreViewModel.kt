@@ -1,49 +1,24 @@
 package com.kumela.socialnetwork.ui.explore
 
-import android.util.Log
-import com.kumela.socialnetwork.models.list.Post
-import com.kumela.socialnetwork.network.firebase.PostUseCase
-import com.kumela.socialnetwork.network.firebase.helpers.QueryPager
-import com.kumela.socialnetwork.ui.common.viewmodels.ObservableViewModel
+import com.kumela.socialnetwork.network.NetworkError
+import com.kumela.socialnetwork.network.api.PaginatedPostResponse
+import com.kumela.socialnetwork.network.common.Result
+import com.kumela.socialnetwork.network.repositories.PostRepository
+import com.kumela.socialnetwork.ui.common.CachedViewModel
 
 /**
  * Created by Toko on 05,November,2020
  **/
 
-class ExploreViewModel(private val postsQueryPager: QueryPager<Post>) :
-    ObservableViewModel<ExploreViewModel.Listener>() {
+class ExploreViewModel(
+    private val postRepository: PostRepository,
+) : CachedViewModel() {
 
-    interface Listener {
-        fun onPostsFetched(posts: List<Post>)
+    suspend fun fetchPosts(): Result<PaginatedPostResponse?, NetworkError> {
+        return fetchAndCachePage { page ->
+            postRepository.fetchExplorePosts(page, 3)
+        }
     }
 
-    // cached data
-    private val postModels = ArrayList<Post>()
-
-    fun getPostModels(): List<Post> = postModels
-
-    init {
-        postsQueryPager.registerListener(uuid)
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-
-        postsQueryPager.unregisterListener(uuid)
-    }
-
-    fun fetchNextPostPageAndNotify() {
-        postsQueryPager.fetchNextPageAndNotify(uuid, PostUseCase.getPostsRef(),
-            onSuccessListener = { postModels ->
-                if (postModels != null && postModels.isNotEmpty()) {
-                    this.postModels.addAll(postModels)
-                    for (listener in listeners) {
-                        listener.onPostsFetched(postModels)
-                    }
-                }
-            },
-            onFailureListener = { databaseError ->
-                Log.e(javaClass.simpleName, "fetchNextPostPageAndNotify: ", databaseError.toException())
-            })
-    }
+    fun getCachedPosts(): PaginatedPostResponse? = getFromCache()
 }

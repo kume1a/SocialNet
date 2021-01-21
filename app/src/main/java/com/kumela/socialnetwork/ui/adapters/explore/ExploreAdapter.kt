@@ -34,7 +34,7 @@ class ExploreAdapter(
             onScrolledToBottomListener.invoke()
         }
 
-        return if ((position + 1) % 3 == 0) {
+        return if ((position) % 3 == 0) {
             VIEW_TYPE_2
         } else VIEW_TYPE_1
     }

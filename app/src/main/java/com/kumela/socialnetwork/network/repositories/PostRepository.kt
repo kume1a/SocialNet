@@ -38,4 +38,13 @@ class PostRepository(private val apiService: ApiService) {
     ): Result<PaginatedFeedResponse, NetworkError> = withContext(Dispatchers.IO) {
         return@withContext safeCall { apiService.getFeedPosts(userId, page, limit) }.mapToResult()
     }
+
+    suspend fun fetchExplorePosts(
+        page: Int,
+        limit: Int,
+    ): Result<PaginatedPostResponse, NetworkError> = withContext(Dispatchers.IO) {
+        return@withContext safeCall {
+            apiService.getExplorePosts(page, limit)
+        }.mapToResult()
+    }
 }

@@ -21,7 +21,6 @@ import com.kumela.socialnetwork.ui.common.controllers.IntentDispatcher
 import com.kumela.socialnetwork.ui.common.controllers.RequestResultDispatcher
 import com.kumela.socialnetwork.ui.common.viewmodels.ViewModelFactory
 import com.kumela.socialnetwork.ui.story_presenter.StoryViewModel
-import java.time.ZonedDateTime
 import javax.inject.Inject
 
 /**
@@ -138,7 +137,6 @@ class HomeFragment : BaseFragment(), HomeViewMvc.Listener,
 
     private suspend fun fetchFeedPosts() {
         val result = mViewModel.fetchFeedPosts()
-        Log.d(javaClass.simpleName, "fetchFeedPosts() called, $result")
         result.fold(
             onSuccess = { response ->
                 if (response == null) return@fold

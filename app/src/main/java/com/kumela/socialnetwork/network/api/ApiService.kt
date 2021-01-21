@@ -58,7 +58,7 @@ interface ApiService {
     @POST("/posts")
     suspend fun createPost(@Body body: PostBody): Response<Unit>
 
-    @GET("/posts/{userId}")
+    @GET("/posts/user/{userId}")
     suspend fun getPosts(
         @Path("userId") userId: Int,
         @Query("page") page: Int,
@@ -71,4 +71,10 @@ interface ApiService {
         @Query("page") page: Int,
         @Query("limit") limit: Int
     ): Response<PaginatedFeedResponse>
+
+    @GET("/posts/explore")
+    suspend fun getExplorePosts(
+        @Query("page") page: Int,
+        @Query("limit") limit: Int,
+    ): Response<PaginatedPostResponse>
 }

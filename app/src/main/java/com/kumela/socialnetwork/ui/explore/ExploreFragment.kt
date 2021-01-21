@@ -1,11 +1,13 @@
 package com.kumela.socialnetwork.ui.explore
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.kumela.socialnetwork.models.list.Post
+import androidx.lifecycle.lifecycleScope
+import com.kumela.socialnetwork.network.common.fold
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper
 import com.kumela.socialnetwork.ui.common.controllers.BaseFragment
@@ -16,8 +18,7 @@ import javax.inject.Inject
  * Created by Toko on 24,September,2020
  **/
 
-class ExploreFragment : BaseFragment(), ExploreViewMvc.Listener,
-    ExploreViewModel.Listener {
+class ExploreFragment : BaseFragment(), ExploreViewMvc.Listener {
 
     private lateinit var mViewMvc: ExploreViewMvc
     private lateinit var mViewModel: ExploreViewModel
@@ -43,11 +44,21 @@ class ExploreFragment : BaseFragment(), ExploreViewMvc.Listener,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mViewModel = ViewModelProvider(requireActivity(), mViewModelFactory).get(ExploreViewModel::class.java)
+        mViewModel = ViewModelProvider(
+            this,
+            mViewModelFactory
+        ).get(ExploreViewModel::class.java)
 
         mViewMvc.registerListener(this)
-        mViewModel.registerListener(this)
 
+        val posts = mViewModel.getCachedPosts()
+        lifecycleScope.launchWhenStarted {
+            if (posts != null) {
+                mViewMvc.addPosts(posts.data)
+            } else {
+                fetchPosts()
+            }
+        }
 //        val postModels = mViewModel.getPostModels()
 //        if (postModels.isNotEmpty()) {
 //            mViewMvc.bindPosts(postModels)
@@ -58,9 +69,7 @@ class ExploreFragment : BaseFragment(), ExploreViewMvc.Listener,
 
     override fun onDestroyView() {
         super.onDestroyView()
-
         mViewMvc.unregisterListener()
-        mViewModel.unregisterListener(this)
     }
 
     override fun onSearchClicked() {
@@ -68,11 +77,21 @@ class ExploreFragment : BaseFragment(), ExploreViewMvc.Listener,
     }
 
     override fun onScrolledToBottom() {
-        mViewModel.fetchNextPostPageAndNotify()
+        lifecycleScope.launchWhenStarted { fetchPosts() }
     }
 
-    // view model callbacks
-    override fun onPostsFetched(posts: List<Post>) {
-        mViewMvc.addPosts(posts)
+    private suspend fun fetchPosts() {
+        val result = mViewModel.fetchPosts()
+
+        result.fold(
+            onSuccess = { response ->
+                if (response == null) return@fold
+
+                mViewMvc.addPosts(response.data)
+            },
+            onFailure = { error ->
+                Log.e(javaClass.simpleName, "fetchPosts: $error")
+            }
+        )
     }
 }

@@ -13,6 +13,5 @@ interface ExploreViewMvc  : ObservableViewMvc<ExploreViewMvc.Listener> {
         fun onScrolledToBottom()
     }
 
-    fun bindPosts(posts: List<Post>)
     fun addPosts(posts: List<Post>)
 }
