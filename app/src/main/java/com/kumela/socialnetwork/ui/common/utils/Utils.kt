@@ -31,8 +31,11 @@ fun TextView.setTimePassed(timestamp: Long, shorten: Boolean = false) {
     val ago =
         DateUtils.getRelativeTimeSpanString(timestamp, now, DateUtils.MINUTE_IN_MILLIS).toString()
     if (shorten) {
-        this.text = ago.replace(" minutes ago", "m")
-            .replace(" hours ago", "hrs")
+        this.text = ago
+            .replace("In 0 minutes", "0m")
+            .replace(" minutes ago", "m")
+            .replace(" minute ago", "m")
+            .replace(" hours ago", "h")
             .replace(" days ago", "d")
             .replace("Yesterday", "1d")
         return

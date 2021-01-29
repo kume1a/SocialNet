@@ -1,77 +1,37 @@
 package com.kumela.socialnetwork.ui.comments
 
-import android.util.Log
 import com.kumela.socialnetwork.models.Comment
-import com.kumela.socialnetwork.models.list.CommentList
-import com.kumela.socialnetwork.network.firebase.PostUseCase
-import com.kumela.socialnetwork.network.firebase.UserUseCase
-import com.kumela.socialnetwork.ui.common.viewmodels.ObservableViewModel
+import com.kumela.socialnetwork.network.NetworkError
+import com.kumela.socialnetwork.network.api.PaginatedCommentResponse
+import com.kumela.socialnetwork.network.api.PaginatedReplyResponse
+import com.kumela.socialnetwork.network.common.Result
+import com.kumela.socialnetwork.network.repositories.CommentRepository
+import com.kumela.socialnetwork.ui.common.CachedViewModel
 
 /**
  * Created by Toko on 08,November,2020
  **/
 
-class CommentsViewModel : ObservableViewModel<CommentsViewModel.Listener>() {
-    interface Listener {
-        fun onCommentFetched(comment: CommentList)
+class CommentsViewModel(
+    private val commentRepository: CommentRepository
+) : CachedViewModel() {
+
+    suspend fun createComment(
+        postId: Int,
+        commentBody: String
+    ): Result<Comment, NetworkError> {
+        return commentRepository.createComment(postId, commentBody)
     }
 
-    private var comments = ArrayList<CommentList>()
-
-    fun getComments(): List<CommentList> = comments
-
-    init {
-        PostUseCase.registerListener(uuid)
-        UserUseCase.registerListener(uuid)
+    suspend fun getComments(
+        postId: Int
+    ): Result<PaginatedCommentResponse?, NetworkError> {
+        return fetchAndCachePage { page -> commentRepository.getComments(postId, page, 10) }
     }
 
-    override fun onCleared() {
-        super.onCleared()
-
-        PostUseCase.unregisterListener(uuid)
-        UserUseCase.unregisterListener(uuid)
+    suspend fun getFirstReplies(postId: Int, commentId: Int): Result<PaginatedReplyResponse, NetworkError> {
+        return commentRepository.getReplies(postId, commentId, 1, 3)
     }
 
-    fun createComment(postId: String, comment: Comment) {
-        PostUseCase.createComment(uuid, postId, comment,
-            onSuccessListener = {
-                Log.d(javaClass.simpleName, "createComment: comment posted")
-            },
-            onFailureListener = { exception ->
-                Log.e(javaClass.simpleName, "createComment: ", exception)
-            })
-    }
-
-    fun fetchCommentsAndNotify(postId: String) {
-        PostUseCase.fetchComments(uuid, postId,
-            onSuccessListener = { comments ->
-                for (comment in comments) {
-                    fetchCommentAuthorAndNotifyListeners(comment)
-                }
-            },
-            onFailureListener = { databaseError ->
-                Log.e(javaClass.simpleName, "fetchCommentsAndNotify: ", databaseError.toException())
-            })
-
-    }
-
-    private fun fetchCommentAuthorAndNotifyListeners(comment: Comment) {
-        UserUseCase.fetchUserAndNotify(uuid, comment.userId,
-            onSuccessListener = { userModel ->
-//                val commentListModel = CommentList(
-//                    userModel.id,
-//                    userModel.imageUrl,
-//                    userModel.name,
-//                    comment.comment,
-//                    comment.timestamp
-//                )
-//                this.comments.add(commentListModel)
-//                for (listener in listeners) {
-//                    listener.onCommentFetched(commentListModel)
-//                }
-            },
-            onFailureListener = { databaseError ->
-                Log.e(javaClass.simpleName, "fetchCommentAuthorAndNotifyListeners: ", databaseError.toException())
-            })
-    }
+    fun getCachedComments(): PaginatedCommentResponse? = getFromCache()
 }

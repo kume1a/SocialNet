@@ -53,12 +53,12 @@ class FeedAdapter(
 
     // view callbacks
     override fun onProfileImageClicked(position: Int, feed: Feed) {
-        val user = User(feed.userId, feed.userName, feed.userImageUrl, feed.userBio)
+        val user = User(feed.userId, feed.userName, feed.userImageUrl)
         listener.onUserProfileOrUsernameClicked(user)
     }
 
     override fun onUsernameClicked(position: Int, feed: Feed) {
-        val user = User(feed.userId, feed.userName, feed.userImageUrl, feed.userBio)
+        val user = User(feed.userId, feed.userName, feed.userImageUrl)
         listener.onUserProfileOrUsernameClicked(user)
     }
 

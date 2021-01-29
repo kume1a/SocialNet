@@ -1,6 +1,8 @@
 package com.kumela.socialnetwork.network.api
 
+import com.kumela.socialnetwork.models.Comment
 import com.kumela.socialnetwork.models.Feed
+import com.kumela.socialnetwork.models.Reply
 import com.kumela.socialnetwork.models.User
 import com.kumela.socialnetwork.models.list.Post
 import retrofit2.Response
@@ -14,8 +16,10 @@ data class SignupBody(val name: String, val email: String, val password: String)
 data class SigninBody(val email: String, val password: String)
 data class PostBody(val imageUrl: String, val header: String, val description: String)
 data class LikeDislikeBody(val postId: Int)
+data class CommentBody(val postId: Int, val body: String)
+data class ReplyBody(val body: String)
 
-interface PaginatedResponse<T: Any> {
+interface PaginatedResponse<T : Any> {
     val data: ArrayList<T>
     var total: Int
     var page: Int
@@ -35,6 +39,19 @@ data class PaginatedFeedResponse(
     override var page: Int,
     override var perPage: Int,
 ) : PaginatedResponse<Feed>
+data class PaginatedCommentResponse(
+    override val data: ArrayList<Comment>,
+    override var total: Int,
+    override var page: Int,
+    override var perPage: Int
+): PaginatedResponse<Comment>
+data class PaginatedReplyResponse(
+    override val data: ArrayList<Reply>,
+    override var total: Int,
+    override var page: Int,
+    override var perPage: Int
+): PaginatedResponse<Reply>
+
 
 
 interface ApiService {
@@ -84,4 +101,29 @@ interface ApiService {
 
     @POST("/posts/dislike")
     suspend fun dislikePost(@Body body: LikeDislikeBody): Response<Unit>
+
+    @POST("/comments/")
+    suspend fun createComment(@Body body: CommentBody): Response<Comment>
+
+    @POST("/comments/{postId}/{commentId}")
+    suspend fun createReply(
+        @Path("postId") postId: Int,
+        @Path("commentId") commentId: Int,
+        @Body body: ReplyBody
+    ): Response<Reply>
+
+    @GET("/comments/{postId}")
+    suspend fun getComments(
+        @Path("postId") postId: Int,
+        @Query("page") page: Int,
+        @Query("limit") limit: Int
+    ): Response<PaginatedCommentResponse>
+
+    @GET("/comments/{postId}/{commentId}")
+    suspend fun getReplies(
+        @Path("postId") postId: Int,
+        @Path("commentId") commentId: Int,
+        @Query("page") page: Int,
+        @Query("limit") limit: Int
+    ): Response<PaginatedReplyResponse>
 }

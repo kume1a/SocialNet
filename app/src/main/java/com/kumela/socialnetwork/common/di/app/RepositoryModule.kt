@@ -36,4 +36,9 @@ class RepositoryModule {
     @Provides
     fun providesUserRepository(apiService: ApiService, keyStore: KeyStore): UserRepository =
         UserRepository(apiService, keyStore)
+
+    @AppScope
+    @Provides
+    fun providesCommentRepository(apiService: ApiService): CommentRepository =
+        CommentRepository(apiService)
 }

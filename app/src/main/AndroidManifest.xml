@@ -15,6 +15,7 @@
         android:name="com.kumela.socialnetwork.common.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -22,6 +23,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="com.kumela.socialnetwork.ui.common.main.MainActivity"
+            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -12,9 +12,9 @@ class SearchScreensNavigator @Inject constructor(private val navController: NavC
         navController.navigateUp()
     }
 
-    fun toUserProfile(id: Int, imageUrl: String, name: String, bio: String) {
+    fun toUserProfile(id: Int, imageUrl: String, name: String) {
         val action = SearchFragmentDirections
-            .actionGlobalUserProfileFragment(id, imageUrl, name, bio)
+            .actionGlobalUserProfileFragment(id, imageUrl, name)
         navController.navigate(action)
     }
 }

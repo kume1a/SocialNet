@@ -1,34 +1,35 @@
 package com.kumela.socialnetwork.ui.comments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.kumela.socialnetwork.models.Comment
 import com.kumela.socialnetwork.models.User
-import com.kumela.socialnetwork.models.list.CommentList
-import com.kumela.socialnetwork.network.firebase.UserUseCase
+import com.kumela.socialnetwork.network.common.Result
+import com.kumela.socialnetwork.network.common.fold
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper
 import com.kumela.socialnetwork.ui.common.controllers.BaseFragment
+import com.kumela.socialnetwork.ui.common.viewmodels.ViewModelFactory
 import javax.inject.Inject
 
 /**
  * Created by Toko on 24,September,2020
  **/
 
-class CommentsFragment : BaseFragment(), CommentsViewMvc.Listener, CommentsViewModel.Listener {
+class CommentsFragment : BaseFragment(), CommentsViewMvc.Listener {
 
     private lateinit var mViewMvc: CommentsViewMvc
     private lateinit var mViewModel: CommentsViewModel
 
-    private lateinit var argPostId: String
-    private lateinit var argCurrentUserId: String
-    private lateinit var argCurrentUserImageUri: String
-    private lateinit var argCurrentUserUsername: String
+    private var argPostId: Int? = null
 
     @Inject lateinit var mViewMvcFactory: ViewMvcFactory
+    @Inject lateinit var mViewModelFactory: ViewModelFactory
     @Inject lateinit var mBottomNavHelper: BottomNavHelper
     @Inject lateinit var mScreensNavigator: CommentsScreensNavigator
 
@@ -51,28 +52,24 @@ class CommentsFragment : BaseFragment(), CommentsViewMvc.Listener, CommentsViewM
         val args = CommentsFragmentArgs.fromBundle(requireArguments())
 
         argPostId = args.postId
-        argCurrentUserId = args.currentUserId
-        argCurrentUserImageUri = args.currentUserProfileImageUri
-        argCurrentUserUsername = args.currentUserUsername
 
-        mViewModel = ViewModelProvider(this).get(CommentsViewModel::class.java)
+        mViewModel = ViewModelProvider(this, mViewModelFactory).get(CommentsViewModel::class.java)
 
-        mViewModel.registerListener(this)
         mViewMvc.registerListener(this)
 
-        val comments = mViewModel.getComments()
-
-        if (comments.isNotEmpty()) {
-            mViewMvc.bindComments(comments)
-        } else {
-            mViewModel.fetchCommentsAndNotify(argPostId)
+        val cachedComments = mViewModel.getCachedComments()
+        lifecycleScope.launchWhenStarted {
+            if (cachedComments != null) {
+                mViewMvc.addComments(cachedComments.data)
+            } else {
+                fetchComments()
+            }
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
 
-        mViewModel.unregisterListener(this)
         mViewMvc.unregisterListener()
     }
 
@@ -82,32 +79,96 @@ class CommentsFragment : BaseFragment(), CommentsViewMvc.Listener, CommentsViewM
     }
 
     override fun onUserClicked(user: User) {
-//        if (user.id != UserUseCase.uid) {
-//            mScreensNavigator.toUserProfile(user.id, user.imageUrl, user.name)
-//        }
+        mScreensNavigator.toUserProfile(user.id, user.imageUrl, user.name)
+    }
+
+    override fun onLikeClicked(comment: Comment) {
+        Log.d(javaClass.simpleName, "onLikeClicked() called with: comment = $comment")
+    }
+
+    override fun onReplyClicked(comment: Comment) {
+        mScreensNavigator.toReplies(
+            argPostId!!,
+            comment.id,
+            comment.userId,
+            comment.userName,
+            comment.userImageUrl,
+            comment.createdAt,
+            comment.body
+        )
+    }
+
+    override fun onReplierClicked(comment: Comment) {
+        mScreensNavigator.toReplies(
+            argPostId!!,
+            comment.id,
+            comment.userId,
+            comment.userName,
+            comment.userImageUrl,
+            comment.createdAt,
+            comment.body
+        )
+    }
+
+    override fun onLastCommentBound() {
+        lifecycleScope.launchWhenStarted { fetchComments() }
     }
 
     override fun onPostClicked() {
-        val comment = mViewMvc.getComment()
+        val comment = mViewMvc.getComment().trim()
 
         if (comment.isBlank()) return
 
-        val commentModel = Comment(UserUseCase.uid, System.currentTimeMillis(), comment)
-        val commentListModel =  CommentList(
-            argCurrentUserId,
-            argCurrentUserImageUri,
-            argCurrentUserUsername,
-            comment,
-            System.currentTimeMillis()
-        )
-
-        mViewModel.createComment(argPostId, commentModel)
-        mViewMvc.clearInputField()
-        mViewMvc.addComment(commentListModel)
+        lifecycleScope.launchWhenStarted {
+            val result = mViewModel.createComment(argPostId!!, comment)
+            result.fold(
+                onSuccess = { comment ->
+                    mViewMvc.clearInputField()
+                    mViewModel.getCachedComments()?.data?.add(comment)
+                    mViewMvc.addComment(comment)
+                },
+                onFailure = { error ->
+                    Log.e(javaClass.simpleName, "onPostClicked: error = $error")
+                }
+            )
+        }
     }
 
-    // view model callbacks
-    override fun onCommentFetched(comment: CommentList) {
-        mViewMvc.addComment(comment)
+    private suspend fun fetchComments() {
+        val result = mViewModel.getComments(argPostId!!)
+        result.fold(
+            onSuccess = { response ->
+                if (response == null) return@fold
+
+                mViewMvc.addComments(response.data)
+                for (comment in response.data) {
+                    lifecycleScope.launchWhenStarted {
+                        fetchReplies(comment)
+                    }
+                }
+            },
+            onFailure = { error ->
+                Log.e(javaClass.simpleName, "fetchComments: $error")
+            }
+        )
+    }
+
+    private suspend fun fetchReplies(comment: Comment) {
+        val result = mViewModel.getFirstReplies(argPostId!!, comment.id)
+        when (result) {
+            is Result.Success -> {
+                val newComment = comment.copy(firstReplies = result.value.data, replyCount = result.value.total)
+                mViewMvc.updateComment(newComment)
+
+                // update cache
+                val cachedComments = mViewModel.getCachedComments()
+                if (cachedComments?.data != null) {
+                    val index = cachedComments.data.indexOf(comment)
+                    cachedComments.data.remove(comment)
+                    cachedComments.data.add(index, newComment)
+                }
+            }
+            is Result.Failure -> Log.e(javaClass.simpleName, "fetchReplies: ${result.failure}")
+        }
     }
 }

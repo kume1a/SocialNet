@@ -4,19 +4,17 @@ import androidx.lifecycle.ViewModel
 import com.kumela.socialnetwork.common.di.annotations.ViewModelKey
 import com.kumela.socialnetwork.models.Message
 import com.kumela.socialnetwork.models.UserChat
-import com.kumela.socialnetwork.models.list.Post
 import com.kumela.socialnetwork.network.authentication.KeyStore
 import com.kumela.socialnetwork.network.firebase.helpers.QueryPager
-import com.kumela.socialnetwork.network.repositories.FollowRepository
-import com.kumela.socialnetwork.network.repositories.PostRepository
-import com.kumela.socialnetwork.network.repositories.SearchRepository
-import com.kumela.socialnetwork.network.repositories.UserRepository
+import com.kumela.socialnetwork.network.repositories.*
 import com.kumela.socialnetwork.ui.chat.ChatViewModel
+import com.kumela.socialnetwork.ui.comments.CommentsViewModel
 import com.kumela.socialnetwork.ui.common.viewmodels.ViewModelFactory
 import com.kumela.socialnetwork.ui.explore.ExploreViewModel
 import com.kumela.socialnetwork.ui.home.HomeViewModel
 import com.kumela.socialnetwork.ui.messages.MessagesViewModel
 import com.kumela.socialnetwork.ui.profile.ProfileViewModel
+import com.kumela.socialnetwork.ui.replies.ReplyViewModel
 import com.kumela.socialnetwork.ui.search.SearchViewModel
 import com.kumela.socialnetwork.ui.user_list.UserListViewModel
 import com.kumela.socialnetwork.ui.user_profile.UserProfileViewModel
@@ -92,4 +90,18 @@ class ViewModelModule {
     fun providesSearchViewModel(
         searchRepository: SearchRepository
     ): ViewModel = SearchViewModel(searchRepository)
+
+    @Provides
+    @IntoMap
+    @ViewModelKey(CommentsViewModel::class)
+    fun provideCommentViewModel(
+        commentRepository: CommentRepository
+    ): ViewModel = CommentsViewModel(commentRepository)
+
+    @Provides
+    @IntoMap
+    @ViewModelKey(ReplyViewModel::class)
+    fun provideReplyViewModel(
+        commentRepository: CommentRepository
+    ): ViewModel = ReplyViewModel(commentRepository)
 }

@@ -7,6 +7,5 @@ package com.kumela.socialnetwork.models
 data class User(
     val id: Int,
     val name: String,
-    val imageUrl: String,
-    val bio: String = "",
+    val imageUrl: String
 )

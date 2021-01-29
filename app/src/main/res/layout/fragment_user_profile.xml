@@ -46,25 +46,6 @@
                 app:layout_constraintTop_toTopOf="@id/image_profile"
                 tools:text="Anna Alvarad" />
 
-            <TextView
-                android:id="@+id/text_bio"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="12dp"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:textAlignment="textStart"
-                android:textColor="@color/secondary_text"
-                android:textSize="14sp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/image_profile"
-                app:layout_constraintTop_toBottomOf="@id/text_username"
-                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                tools:visibility="visible" />
-
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_follow"
                 android:layout_width="wrap_content"
@@ -77,7 +58,7 @@
                 android:textAllCaps="false"
                 app:cornerRadius="20dp"
                 app:layout_constraintStart_toEndOf="@id/image_profile"
-                app:layout_constraintTop_toBottomOf="@id/text_bio" />
+                app:layout_constraintTop_toBottomOf="@id/text_username" />
 
             <ImageButton
                 android:id="@+id/button_send_message"

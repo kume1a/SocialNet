@@ -88,6 +88,6 @@ class SearchFragment : BaseFragment(), SearchViewMvc.Listener {
     }
 
     override fun onSearchItemClicked(user: User) {
-        mScreensNavigator.toUserProfile(user.id, user.imageUrl, user.name, user.bio)
+        mScreensNavigator.toUserProfile(user.id, user.imageUrl, user.name)
     }
 }

@@ -151,7 +151,6 @@ object FunctionsObjectsDeserializer {
                 map["posterUid"] as Int,
                 map["posterUsername"] as String,
                 map["posterImageUri"] as String,
-                map[""] as String,
                 map["liked"] as Boolean,
                 map["timestamp"] as Long,
                 map["postImageUri"] as String,

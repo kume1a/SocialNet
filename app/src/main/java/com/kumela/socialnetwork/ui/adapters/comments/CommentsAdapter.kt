@@ -1,10 +1,9 @@
 package com.kumela.socialnetwork.ui.adapters.comments
 
-import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.kumela.socialnetwork.models.Comment
 import com.kumela.socialnetwork.models.User
-import com.kumela.socialnetwork.models.list.CommentList
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 
 /**
@@ -16,21 +15,32 @@ class CommentsAdapter(
     private val listener: Listener
 ) : RecyclerView.Adapter<CommentsAdapter.CommentsViewHolder>(), CommentsItemViewMvc.Listener {
 
-    fun interface Listener {
+    interface Listener {
         fun onUserClicked(user: User)
+        fun onLikeClicked(comment: Comment)
+        fun onReplyClicked(comment: Comment)
+        fun onReplierClicked(comment: Comment)
+
+        fun onLastCommentBound()
     }
 
-    private val items = ArrayList<CommentList>()
+    private val items = ArrayList<Comment>()
 
-    fun bindComments(comments: List<CommentList>) {
-        items.clear()
+    fun addComments(comments: List<Comment>) {
+        val size = comments.size
         items.addAll(comments)
-        notifyDataSetChanged()
+        notifyItemRangeInserted(size, items.size)
     }
 
-    fun addComment(comment: CommentList) {
-        items.add(0, comment)
-        notifyItemInserted(0)
+    fun addComment(comment: Comment) {
+        items.add(comment)
+        notifyItemInserted(items.size - 1)
+    }
+
+    fun updateComment(comment: Comment) {
+        val index = items.indexOfFirst { it.id == comment.id }
+        items[index] = comment
+        notifyItemChanged(index)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentsViewHolder {
@@ -40,23 +50,35 @@ class CommentsAdapter(
     }
 
     override fun onBindViewHolder(holder: CommentsViewHolder, position: Int) {
+        if (position == items.size -1) {
+            listener.onLastCommentBound()
+        }
         holder.viewMvc.bindComment(items[position])
     }
 
     override fun getItemCount(): Int = items.size
 
-    class CommentsViewHolder(val viewMvc: CommentsItemViewMvc) : RecyclerView.ViewHolder(viewMvc.rootView)
+    class CommentsViewHolder(val viewMvc: CommentsItemViewMvc) :
+        RecyclerView.ViewHolder(viewMvc.rootView)
 
     // view callbacks
-    override fun onUserProfileImageClicked(data: CommentList) {
-//        listener.onUserClicked(User(data.posterId, data.posterUsername, data.posterImageUri))
+    override fun onUserProfileImageClicked(comment: Comment) {
+        listener.onUserClicked(User(comment.userId, comment.userName, comment.userImageUrl))
     }
 
-    override fun onUserUsernameClicked(data: CommentList) {
-//        listener.onUserClicked(User(data.posterId, data.posterUsername, data.posterImageUri))
+    override fun onUserNameClicked(comment: Comment) {
+        listener.onUserClicked(User(comment.userId, comment.userName, comment.userImageUrl))
     }
 
-    override fun onMenuClicked(data: CommentList) {
-        Log.d(javaClass.simpleName, "onMenuClicked() called with: commentListModel = $data")
+    override fun onLikeClicked(comment: Comment) {
+        listener.onLikeClicked(comment)
+    }
+
+    override fun onReplyClicked(comment: Comment) {
+        listener.onReplyClicked(comment)
+    }
+
+    override fun onReplierClicked(comment: Comment) {
+        listener.onReplierClicked(comment)
     }
 }

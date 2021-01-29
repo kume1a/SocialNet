@@ -12,10 +12,35 @@ class CommentsScreensNavigator @Inject constructor(private val navController: Na
         navController.navigateUp()
     }
 
-    fun toUserProfile(userId: String, userImageUri: String, userUsername: String) {
-//        val action =
-//            CommentsFragmentDirections.actionGlobalUserProfileFragment(userId, userImageUri, userUsername)
-//        navController.navigate(action)
+    fun toUserProfile(userId: Int, userImageUrl: String, userName: String) {
+        val action =
+            CommentsFragmentDirections.actionGlobalUserProfileFragment(
+                userId,
+                userImageUrl,
+                userName
+            )
+        navController.navigate(action)
+    }
+
+    fun toReplies(
+        postId: Int,
+        commentId: Int,
+        commentUserId: Int,
+        commentUserName: String,
+        commentUserImageUrl: String,
+        commentCreatedAt: Long,
+        commentBody: String
+    ) {
+        val action = CommentsFragmentDirections.actionCommentsFragmentToReplyFragment(
+            postId,
+            commentId,
+            commentUserId,
+            commentUserName,
+            commentUserImageUrl,
+            commentCreatedAt,
+            commentBody
+        )
+        navController.navigate(action)
     }
 
 }

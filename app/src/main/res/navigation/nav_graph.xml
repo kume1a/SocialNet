@@ -163,16 +163,10 @@
         tools:layout="@layout/fragment_comments">
         <argument
             android:name="postId"
-            app:argType="string" />
-        <argument
-            android:name="currentUserId"
-            app:argType="string" />
-        <argument
-            android:name="currentUserProfileImageUri"
-            app:argType="string" />
-        <argument
-            android:name="currentUserUsername"
-            app:argType="string" />
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_commentsFragment_to_replyFragment"
+            app:destination="@id/replyFragment" />
     </fragment>
 
     <fragment
@@ -212,9 +206,6 @@
         <action
             android:id="@+id/action_userProfileFragment_to_userListFragment"
             app:destination="@id/userListFragment" />
-        <argument
-            android:name="bio"
-            app:argType="string" />
     </fragment>
     <action
         android:id="@+id/action_global_userProfileFragment"
@@ -245,6 +236,33 @@
         android:name="com.kumela.socialnetwork.ui.story_presenter.StoryPresenterFragment" >
         <argument
             android:name="initialAuthorId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/replyFragment"
+        tools:layout="@layout/fragment_reply"
+        android:name="com.kumela.socialnetwork.ui.replies.ReplyFragment"
+        android:label="ReplyFragment" >
+        <argument
+            android:name="postId"
+            app:argType="integer" />
+        <argument
+            android:name="commentId"
+            app:argType="integer" />
+        <argument
+            android:name="commentUserId"
+            app:argType="integer" />
+        <argument
+            android:name="commentUserName"
+            app:argType="string" />
+        <argument
+            android:name="commentUserImageUrl"
+            app:argType="string" />
+        <argument
+            android:name="commentCreatedAt"
+            app:argType="long" />
+        <argument
+            android:name="commentBody"
             app:argType="string" />
     </fragment>
 </navigation>

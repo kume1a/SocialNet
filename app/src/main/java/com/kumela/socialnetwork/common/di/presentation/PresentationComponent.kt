@@ -2,16 +2,17 @@ package com.kumela.socialnetwork.common.di.presentation
 
 import com.kumela.socialnetwork.common.di.annotations.PresentationScope
 import com.kumela.socialnetwork.common.permissions.PermissionHelper
+import com.kumela.socialnetwork.ui.auth.AuthFragment
 import com.kumela.socialnetwork.ui.chat.ChatFragment
 import com.kumela.socialnetwork.ui.comments.CommentsFragment
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.dialogs.alertdialog.AlertDialog
 import com.kumela.socialnetwork.ui.explore.ExploreFragment
 import com.kumela.socialnetwork.ui.home.HomeFragment
-import com.kumela.socialnetwork.ui.auth.AuthFragment
 import com.kumela.socialnetwork.ui.messages.MessagesFragment
 import com.kumela.socialnetwork.ui.post_image.PostImageFragment
 import com.kumela.socialnetwork.ui.profile.ProfileFragment
+import com.kumela.socialnetwork.ui.replies.ReplyFragment
 import com.kumela.socialnetwork.ui.search.SearchFragment
 import com.kumela.socialnetwork.ui.splash.SplashFragment
 import com.kumela.socialnetwork.ui.story_presenter.StoryPresenterFragment
@@ -46,6 +47,7 @@ interface PresentationComponent {
     fun inject(fragment: UserListFragment)
     fun inject(fragment: StoryUploaderFragment)
     fun inject(fragment: StoryPresenterFragment)
+    fun inject(fragment: ReplyFragment)
 
     fun inject(dialogFragment: AlertDialog)
 }

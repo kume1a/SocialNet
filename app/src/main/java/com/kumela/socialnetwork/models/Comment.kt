@@ -5,7 +5,13 @@ package com.kumela.socialnetwork.models
  **/
 
 data class Comment(
-    val userId: String = "",
-    val timestamp: Long = 0,
-    val comment: String = ""
+    val id: Int,
+    val userId: Int,
+    val postId: Int,
+    val userName: String,
+    val userImageUrl: String,
+    val createdAt: Long,
+    val body: String,
+    val firstReplies: MutableList<Reply>?,
+    val replyCount: Int?
 )

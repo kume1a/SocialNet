@@ -9,11 +9,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.kumela.socialnetwork.R
-import com.kumela.socialnetwork.models.list.CommentList
+import com.kumela.socialnetwork.models.Comment
+import com.kumela.socialnetwork.models.User
 import com.kumela.socialnetwork.ui.adapters.comments.CommentsAdapter
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.mvc.BaseObservableViewMvc
 import com.kumela.socialnetwork.ui.common.toolbar.ToolbarViewMvc
+import com.kumela.socialnetwork.ui.common.utils.WrapContentLinearLayoutManager
 
 /**
  * Created by Toko on 24,September,2020
@@ -34,31 +36,55 @@ class CommentsViewMvcImpl(
     private val buttonPost: MaterialButton = findViewById(R.id.button_post)
     private val recyclerComments: RecyclerView = findViewById(R.id.recycler_comments)
 
+    private val commentsAdapter = CommentsAdapter(
+        viewMvcFactory,
+        object : CommentsAdapter.Listener {
+            override fun onUserClicked(user: User) {
+                listener?.onUserClicked(user)
+            }
 
-    private val commentsAdapter = CommentsAdapter(viewMvcFactory) { listener?.onUserClicked(it) }
+            override fun onLikeClicked(comment: Comment) {
+                listener?.onLikeClicked(comment)
+            }
+
+            override fun onReplyClicked(comment: Comment) {
+                listener?.onReplyClicked(comment)
+            }
+
+            override fun onReplierClicked(comment: Comment) {
+                listener?.onReplierClicked(comment)
+            }
+
+            override fun onLastCommentBound() {
+                listener?.onLastCommentBound()
+            }
+        })
 
     init {
         toolbarViewMvc.setTitle("Comments")
         toolbarViewMvc.setTitleStyle(18f, R.color.primary_text, true, View.TEXT_ALIGNMENT_CENTER)
-
         toolbarViewMvc.enableUpButtonAndListen { listener?.onNavigateUpClicked() }
 
         toolbar.addView(toolbarViewMvc.rootView)
 
         recyclerComments.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true)
+            layoutManager = WrapContentLinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = commentsAdapter
         }
 
         buttonPost.setOnClickListener { listener?.onPostClicked() }
     }
 
-    override fun bindComments(comments: List<CommentList>) {
-        commentsAdapter.bindComments(comments)
+    override fun addComments(comments: List<Comment>) {
+        commentsAdapter.addComments(comments)
     }
 
-    override fun addComment(comment: CommentList) {
+    override fun addComment(comment: Comment) {
         commentsAdapter.addComment(comment)
+    }
+
+    override fun updateComment(comment: Comment) {
+        commentsAdapter.updateComment(comment)
     }
 
     override fun getComment(): String = etInput.text.toString()

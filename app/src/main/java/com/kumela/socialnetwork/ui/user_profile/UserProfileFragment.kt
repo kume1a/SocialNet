@@ -30,7 +30,6 @@ class UserProfileFragment : BaseFragment(), UserProfileViewMvc.Listener {
     private var argId: Int = -1
     private lateinit var argImageUri: String
     private lateinit var argName: String
-    private lateinit var argBio: String
 
     @Inject lateinit var mViewMvcFactory: ViewMvcFactory
     @Inject lateinit var mViewModelFactory: ViewModelFactory
@@ -58,7 +57,6 @@ class UserProfileFragment : BaseFragment(), UserProfileViewMvc.Listener {
         argId = args.id
         argImageUri = args.imageUrl
         argName = args.name
-        argBio = args.bio
 
         mViewMvc.bindProfileImage(argImageUri)
         mViewMvc.bindUsername(argName)

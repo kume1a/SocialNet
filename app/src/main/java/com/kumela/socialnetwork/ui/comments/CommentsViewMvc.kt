@@ -1,7 +1,7 @@
 package com.kumela.socialnetwork.ui.comments
 
+import com.kumela.socialnetwork.models.Comment
 import com.kumela.socialnetwork.models.User
-import com.kumela.socialnetwork.models.list.CommentList
 import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
 
 /**
@@ -13,12 +13,18 @@ interface CommentsViewMvc : ObservableViewMvc<CommentsViewMvc.Listener> {
         fun onNavigateUpClicked()
 
         fun onUserClicked(user: User)
+        fun onLikeClicked(comment: Comment)
+        fun onReplyClicked(comment: Comment)
+        fun onReplierClicked(comment: Comment)
+        fun onLastCommentBound()
+
         fun onPostClicked()
     }
 
-    fun bindComments(comments: List<CommentList>)
+    fun addComments(comments: List<Comment>)
+    fun addComment(comment: Comment)
+    fun updateComment(comment: Comment)
+
     fun getComment(): String
     fun clearInputField()
-
-    fun addComment(comment: CommentList)
 }

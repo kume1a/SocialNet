@@ -1,7 +1,6 @@
 package com.kumela.socialnetwork.ui.home
 
 import android.net.Uri
-import android.util.Log
 import androidx.navigation.NavController
 import com.kumela.socialnetwork.ui.user_list.DataType
 import javax.inject.Inject
@@ -12,9 +11,9 @@ import javax.inject.Inject
 
 class HomeScreensNavigator @Inject constructor(private val navController: NavController) {
 
-    fun toUserProfile(userId: Int, name: String, imageUri: String, bio: String) {
+    fun toUserProfile(userId: Int, name: String, imageUri: String) {
         val action =
-            HomeFragmentDirections.actionGlobalUserProfileFragment(userId, imageUri, name, bio)
+            HomeFragmentDirections.actionGlobalUserProfileFragment(userId, imageUri, name)
         navController.navigate(action)
     }
 
@@ -28,18 +27,8 @@ class HomeScreensNavigator @Inject constructor(private val navController: NavCon
         navController.navigate(action)
     }
 
-    fun toComments(
-        postId: String,
-        currentUserId: String,
-        currentUserProfileImageUri: String,
-        currentUserUsername: String
-    ) {
-        val action = HomeFragmentDirections.actionHomeFragmentToCommentsFragment(
-            postId,
-            currentUserId,
-            currentUserProfileImageUri,
-            currentUserUsername
-        )
+    fun toComments(postId: Int) {
+        val action = HomeFragmentDirections.actionHomeFragmentToCommentsFragment(postId)
         navController.navigate(action)
     }
 
