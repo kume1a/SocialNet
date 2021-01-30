@@ -82,11 +82,13 @@ class CommentsItemViewMvc(
                 textBody.text = reply.body
                 if (index == comment.firstReplies.size - 1) {
                     treeLine.paintBottomLine = false
-                    textViewMoreReplies.text = "view ${comment.replyCount} more replies"
-                    textViewMoreReplies.visibility = View.VISIBLE
-                } else {
-                    textViewMoreReplies.visibility = View.GONE
-                }
+
+                    if (comment.replyCount != null && comment.replyCount > 3) {
+                        textViewMoreReplies.text = "view ${comment.replyCount - 3} more repl${if (comment.replyCount - 3 == 1) "y" else "ies"}"
+                        textViewMoreReplies.visibility = View.VISIBLE
+                    } else textViewMoreReplies.visibility = View.GONE
+                } else textViewMoreReplies.visibility = View.GONE
+
 
                 linearLayout.addView(view)
             }

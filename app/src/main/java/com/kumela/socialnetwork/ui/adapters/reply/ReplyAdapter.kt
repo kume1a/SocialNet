@@ -21,14 +21,13 @@ class ReplyAdapter(
     private val items = ArrayList<Reply>()
 
     fun addReplies(replies: List<Reply>) {
-        val size = replies.size
-        items.addAll(replies)
-        notifyItemRangeInserted(size, items.size)
+        items.addAll(0, replies)
+        notifyItemRangeInserted(0, items.size)
     }
 
     fun addReply(reply: Reply) {
-        items.add(reply)
-        notifyItemInserted(items.size - 1)
+        items.add(0, reply)
+        notifyItemInserted(0)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReplyViewHolder {

@@ -13,6 +13,7 @@ import com.kumela.socialnetwork.models.Comment
 import com.kumela.socialnetwork.models.Reply
 import com.kumela.socialnetwork.models.User
 import com.kumela.socialnetwork.network.common.fold
+import com.kumela.socialnetwork.ui.common.EventViewModel
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper
 import com.kumela.socialnetwork.ui.common.controllers.BaseFragment
@@ -24,6 +25,7 @@ class ReplyFragment : BaseFragment(), ReplyViewMvc.Listener {
 
     private lateinit var mViewMvc: ReplyViewMvc
     private lateinit var mViewModel: ReplyViewModel
+    private lateinit var mEventViewModel: EventViewModel
 
     private var argPostId: Int? = null
     private var argCommentId: Int? = null
@@ -61,6 +63,7 @@ class ReplyFragment : BaseFragment(), ReplyViewMvc.Listener {
         argCommentUserImageUrl = args.commentUserImageUrl
 
         mViewModel = ViewModelProvider(this, mViewModelFactory).get(ReplyViewModel::class.java)
+        mEventViewModel = ViewModelProvider(requireActivity()).get(EventViewModel::class.java)
 
         mViewMvc.registerListener(this)
 
@@ -138,6 +141,8 @@ class ReplyFragment : BaseFragment(), ReplyViewMvc.Listener {
                     mViewMvc.clearInputField()
                     mViewModel.getCachedReplies()?.data?.add(reply)
                     mViewMvc.addReply(reply)
+                    mEventViewModel.addNewReply(reply)
+                    mEventViewModel.newCommentAdded(argPostId!!)
                 },
                 onFailure = { error ->
                     Log.e(javaClass.simpleName, "onPostClicked: error = $error")

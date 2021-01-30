@@ -68,7 +68,9 @@ class CommentsViewMvcImpl(
         toolbar.addView(toolbarViewMvc.rootView)
 
         recyclerComments.apply {
-            layoutManager = WrapContentLinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            val lm = WrapContentLinearLayoutManager(context, LinearLayoutManager.VERTICAL, true)
+            lm.stackFromEnd = true
+            layoutManager = lm
             adapter = commentsAdapter
         }
 

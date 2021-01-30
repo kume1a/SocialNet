@@ -74,7 +74,7 @@ interface ApiService {
     suspend fun switchFollowStatus(@Path("userId") userId: Int): Response<Unit>
 
     @POST("/posts")
-    suspend fun createPost(@Body body: PostBody): Response<Unit>
+    suspend fun createPost(@Body body: PostBody): Response<Post>
 
     @GET("/posts/user/{userId}")
     suspend fun getPosts(

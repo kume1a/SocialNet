@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import com.kumela.socialnetwork.models.Feed
 import com.kumela.socialnetwork.models.User
 import com.kumela.socialnetwork.network.common.fold
+import com.kumela.socialnetwork.ui.common.EventViewModel
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper
 import com.kumela.socialnetwork.ui.common.controllers.ActivityResultListener
@@ -32,6 +33,7 @@ class HomeFragment : BaseFragment(), HomeViewMvc.Listener,
 
     private lateinit var mViewMvc: HomeViewMvc
     private lateinit var mViewModel: HomeViewModel
+    private lateinit var mEventViewModel: EventViewModel
 
     @Inject lateinit var mViewMvcFactory: ViewMvcFactory
     @Inject lateinit var mViewModelFactory: ViewModelFactory
@@ -61,6 +63,7 @@ class HomeFragment : BaseFragment(), HomeViewMvc.Listener,
 
         mViewModel =
             ViewModelProvider(requireActivity(), mViewModelFactory).get(HomeViewModel::class.java)
+        mEventViewModel = ViewModelProvider(requireActivity()).get(EventViewModel::class.java)
 
         val cachedFeedPosts = mViewModel.getCachedFeedPosts()
         lifecycleScope.launchWhenStarted {
@@ -68,6 +71,22 @@ class HomeFragment : BaseFragment(), HomeViewMvc.Listener,
                 mViewMvc.addPosts(cachedFeedPosts.data)
             } else {
                 fetchFeedPosts()
+            }
+
+            for (postIdToNewCommentCount in mEventViewModel.getNewComments()) {
+                mViewModel.getCachedFeedPosts()?.data?.let { cached ->
+                    val post = cached.firstOrNull { feed -> feed.id == postIdToNewCommentCount.key }
+                    if (post != null) {
+                        val newPost =
+                            post.copy(commentCount = post.commentCount + postIdToNewCommentCount.value)
+
+                        val index = cached.indexOf(post)
+                        cached.removeAt(index)
+                        cached.add(index, newPost)
+
+                        mViewMvc.updatePost(index, newPost)
+                    }
+                }
             }
         }
 

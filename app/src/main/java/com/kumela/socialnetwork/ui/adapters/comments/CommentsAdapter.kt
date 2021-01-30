@@ -27,14 +27,13 @@ class CommentsAdapter(
     private val items = ArrayList<Comment>()
 
     fun addComments(comments: List<Comment>) {
-        val size = comments.size
-        items.addAll(comments)
-        notifyItemRangeInserted(size, items.size)
+        items.addAll(0, comments)
+        notifyItemRangeInserted(0, items.size)
     }
 
     fun addComment(comment: Comment) {
-        items.add(comment)
-        notifyItemInserted(items.size - 1)
+        items.add(0, comment)
+        notifyItemInserted(0)
     }
 
     fun updateComment(comment: Comment) {

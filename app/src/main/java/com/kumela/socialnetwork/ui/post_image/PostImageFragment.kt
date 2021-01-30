@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.kumela.socialnetwork.network.common.Result
 import com.kumela.socialnetwork.network.common.fold
@@ -14,6 +15,7 @@ import com.kumela.socialnetwork.network.repositories.ImageRepository
 import com.kumela.socialnetwork.network.repositories.ImageType
 import com.kumela.socialnetwork.network.repositories.PostRepository
 import com.kumela.socialnetwork.network.repositories.UserRepository
+import com.kumela.socialnetwork.ui.common.EventViewModel
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper
 import com.kumela.socialnetwork.ui.common.controllers.BaseFragment
@@ -27,6 +29,7 @@ import javax.inject.Inject
 class PostImageFragment : BaseFragment(), PostImageViewMvc.Listener {
 
     private lateinit var mViewMvc: PostImageViewMvc
+    private lateinit var mEventViewModel: EventViewModel
 
     private var argImageUri: String? = null
     private var argImageBitmap: Bitmap? = null
@@ -64,6 +67,9 @@ class PostImageFragment : BaseFragment(), PostImageViewMvc.Listener {
             throw IllegalStateException("both imageUri and imageBitmap should not be null")
         }
 
+        mEventViewModel = ViewModelProvider(requireActivity()).get(EventViewModel::class.java)
+        mViewMvc.registerListener(this)
+
         if (argImageUri != null) {
             mViewMvc.bindPostImage(Uri.parse(argImageUri))
         } else {
@@ -88,13 +94,8 @@ class PostImageFragment : BaseFragment(), PostImageViewMvc.Listener {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        mViewMvc.registerListener(this)
-    }
-
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroyView() {
+        super.onDestroyView()
         mViewMvc.unregisterListener()
     }
 
@@ -130,7 +131,8 @@ class PostImageFragment : BaseFragment(), PostImageViewMvc.Listener {
 
             val result = mPostRepository.createPost(imageUrl, header, description)
             result.fold(
-                onSuccess = {
+                onSuccess = { post ->
+                    mEventViewModel.addNewPost(post)
                     mScreensNavigator.navigateUp()
                 },
                 onFailure = { error ->

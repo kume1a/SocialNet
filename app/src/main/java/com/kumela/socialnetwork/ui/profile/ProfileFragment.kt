@@ -13,6 +13,7 @@ import com.kumela.socialnetwork.network.authentication.AuthUseCase
 import com.kumela.socialnetwork.network.authentication.KeyStore
 import com.kumela.socialnetwork.network.common.fold
 import com.kumela.socialnetwork.network.firebase.UserUseCase
+import com.kumela.socialnetwork.ui.common.EventViewModel
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper
 import com.kumela.socialnetwork.ui.common.controllers.BaseFragment
@@ -28,6 +29,7 @@ class ProfileFragment : BaseFragment(), ProfileViewMvc.Listener {
 
     private lateinit var mViewMvc: ProfileViewMvc
     private lateinit var mViewModel: ProfileViewModel
+    private lateinit var mEventViewModel: EventViewModel
 
     @Inject lateinit var mViewMvcFactory: ViewMvcFactory
     @Inject lateinit var mViewModelFactory: ViewModelFactory
@@ -53,6 +55,11 @@ class ProfileFragment : BaseFragment(), ProfileViewMvc.Listener {
         super.onViewCreated(view, savedInstanceState)
 
         mViewModel = ViewModelProvider(this, mViewModelFactory).get(ProfileViewModel::class.java)
+        mEventViewModel = ViewModelProvider(requireActivity()).get(EventViewModel::class.java)
+
+        mViewMvc.registerListener(this)
+        val newPosts = mEventViewModel.getNewPosts()
+
         lifecycleScope.launchWhenStarted {
             fetchUser()
 
@@ -62,16 +69,13 @@ class ProfileFragment : BaseFragment(), ProfileViewMvc.Listener {
             } else {
                 fetchPosts()
             }
+            mViewModel.getPosts()?.data?.addAll(newPosts)
+            mViewMvc.addPosts(newPosts)
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        mViewMvc.registerListener(this)
-    }
-
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroyView() {
+        super.onDestroyView()
         mViewMvc.unregisterListener()
     }
 

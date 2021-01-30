@@ -11,6 +11,7 @@ import com.kumela.socialnetwork.models.Comment
 import com.kumela.socialnetwork.models.User
 import com.kumela.socialnetwork.network.common.Result
 import com.kumela.socialnetwork.network.common.fold
+import com.kumela.socialnetwork.ui.common.EventViewModel
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper
 import com.kumela.socialnetwork.ui.common.controllers.BaseFragment
@@ -25,6 +26,7 @@ class CommentsFragment : BaseFragment(), CommentsViewMvc.Listener {
 
     private lateinit var mViewMvc: CommentsViewMvc
     private lateinit var mViewModel: CommentsViewModel
+    private lateinit var mEventViewModel: EventViewModel
 
     private var argPostId: Int? = null
 
@@ -54,6 +56,7 @@ class CommentsFragment : BaseFragment(), CommentsViewMvc.Listener {
         argPostId = args.postId
 
         mViewModel = ViewModelProvider(this, mViewModelFactory).get(CommentsViewModel::class.java)
+        mEventViewModel = ViewModelProvider(requireActivity()).get(EventViewModel::class.java)
 
         mViewMvc.registerListener(this)
 
@@ -63,6 +66,30 @@ class CommentsFragment : BaseFragment(), CommentsViewMvc.Listener {
                 mViewMvc.addComments(cachedComments.data)
             } else {
                 fetchComments()
+            }
+
+            for (reply in mEventViewModel.getNewReplies()) {
+                mViewModel.getCachedComments()?.data?.let { cached ->
+                    val comment = cached.firstOrNull { comment -> comment.id == reply.commentId }
+                    if (comment != null) {
+                        val newReplies = if (comment.firstReplies != null) {
+                            if (comment.firstReplies.size > 2) {
+                                comment.firstReplies.removeLast()
+                            }
+                            comment.firstReplies.add(0, reply)
+                            comment.firstReplies
+                        } else {
+                            mutableListOf(reply)
+                        }
+
+                        val newComment = comment.copy(replyCount = (comment.replyCount ?: 0) + 1, firstReplies = newReplies)
+                        val index = cached.indexOf(comment)
+                        cached.remove(comment)
+                        cached.add(index, newComment)
+
+                        mViewMvc.updateComment(newComment)
+                    }
+                }
             }
         }
     }
@@ -126,6 +153,7 @@ class CommentsFragment : BaseFragment(), CommentsViewMvc.Listener {
                     mViewMvc.clearInputField()
                     mViewModel.getCachedComments()?.data?.add(comment)
                     mViewMvc.addComment(comment)
+                    mEventViewModel.newCommentAdded(argPostId!!)
                 },
                 onFailure = { error ->
                     Log.e(javaClass.simpleName, "onPostClicked: error = $error")
@@ -157,7 +185,8 @@ class CommentsFragment : BaseFragment(), CommentsViewMvc.Listener {
         val result = mViewModel.getFirstReplies(argPostId!!, comment.id)
         when (result) {
             is Result.Success -> {
-                val newComment = comment.copy(firstReplies = result.value.data, replyCount = result.value.total)
+                val newComment =
+                    comment.copy(firstReplies = result.value.data, replyCount = result.value.total)
                 mViewMvc.updateComment(newComment)
 
                 // update cache
