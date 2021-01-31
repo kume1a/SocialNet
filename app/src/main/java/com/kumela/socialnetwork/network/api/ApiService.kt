@@ -1,9 +1,6 @@
 package com.kumela.socialnetwork.network.api
 
-import com.kumela.socialnetwork.models.Comment
-import com.kumela.socialnetwork.models.Feed
-import com.kumela.socialnetwork.models.Reply
-import com.kumela.socialnetwork.models.User
+import com.kumela.socialnetwork.models.*
 import com.kumela.socialnetwork.models.list.Post
 import retrofit2.Response
 import retrofit2.http.*
@@ -126,4 +123,7 @@ interface ApiService {
         @Query("page") page: Int,
         @Query("limit") limit: Int
     ): Response<PaginatedReplyResponse>
+
+    @GET("/users/{userId}/meta")
+    suspend fun getUserMeta(@Path("userId") userId: Int): Response<UserMeta>
 }

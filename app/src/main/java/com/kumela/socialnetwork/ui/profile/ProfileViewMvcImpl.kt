@@ -39,7 +39,6 @@ class ProfileViewMvcImpl(
 
     private val imageProfile: RoundedImageView = findViewById(R.id.image_profile)
     private val textUsername: TextView = findViewById(R.id.text_username)
-    private val textBio: TextView = findViewById(R.id.text_bio)
     private val textPostCount: TextView = findViewById(R.id.text_post_count)
     private val textFollowerCount: TextView = findViewById(R.id.text_follower_count)
     private val textFollowerHeader: TextView = findViewById(R.id.text_followers)
@@ -110,13 +109,6 @@ class ProfileViewMvcImpl(
         textUsername.text = username
     }
 
-    override fun bindBio(bio: String) {
-        if (bio.isEmpty()) return
-
-        textBio.visibility = View.VISIBLE
-        textBio.text = bio
-    }
-
     override fun bindPostCount(postCount: Int) {
         textPostCount.text = postCount.toString()
     }
@@ -127,6 +119,11 @@ class ProfileViewMvcImpl(
 
     override fun bindFollowingCount(followingCount: Int) {
         textFollowingCount.text = followingCount.toString()
+    }
+
+    override fun insetPostsAtTop(posts: List<Post>) {
+        showPosts()
+        recyclerPosts.post { postsAdapter.insertPosts(posts) }
     }
 
     override fun addPosts(posts: List<Post>) {

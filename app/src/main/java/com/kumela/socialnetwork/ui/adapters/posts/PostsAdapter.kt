@@ -17,6 +17,11 @@ class PostsAdapter(
 
     private val items = arrayListOf<Post>()
 
+    fun insertPosts(posts: List<Post>) {
+        items.addAll(0, posts)
+        notifyItemRangeInserted(0, posts.size)
+    }
+
     fun addPosts(posts: List<Post>) {
         val size = itemCount
         items.addAll(posts)

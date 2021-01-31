@@ -22,6 +22,12 @@ abstract class CachedViewModel : ViewModel() {
     ): Result<T, F> {
         val k = T::class
         var res: Result<T, F>? = null
+
+        val cached = getFromCache<T>()
+        if (cached != null) {
+            return Result.Success(cached)
+        }
+
         withContext(viewModelScope.coroutineContext) {
             val result = call.invoke()
             result.fold(

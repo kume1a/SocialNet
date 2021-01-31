@@ -1,7 +1,7 @@
 package com.kumela.socialnetwork.ui.profile
 
-import com.kumela.socialnetwork.models.list.Post
 import com.kumela.socialnetwork.models.Story
+import com.kumela.socialnetwork.models.list.Post
 import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
 
 /**
@@ -23,12 +23,12 @@ interface ProfileViewMvc : ObservableViewMvc<ProfileViewMvc.Listener> {
 
     fun bindProfileImage(imageUri: String)
     fun bindUsername(username: String)
-    fun bindBio(bio: String)
     fun bindPostCount(postCount: Int)
     fun bindFollowerCount(followerCount: Int)
     fun bindFollowingCount(followingCount: Int)
     fun showNoPostsAvailable()
 
+    fun insetPostsAtTop(posts: List<Post>)
     fun addPosts(posts: List<Post>)
 
     fun addStories(stories: List<Story>)

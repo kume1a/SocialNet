@@ -40,7 +40,6 @@ class UserProfileViewMvcImpl(
 
     private val imageProfile: RoundedImageView = findViewById(R.id.image_profile)
     private val textUsername: TextView = findViewById(R.id.text_username)
-    private val textBio: TextView = findViewById(R.id.text_bio)
     private val buttonFollow: MaterialButton = findViewById(R.id.button_follow)
     private val buttonSendMessage: ImageButton = findViewById(R.id.button_send_message)
     private val textPostCount: TextView = findViewById(R.id.text_post_count)
@@ -98,13 +97,6 @@ class UserProfileViewMvcImpl(
 
     override fun bindUsername(username: String) {
         textUsername.text = username
-    }
-
-    override fun bindBio(bio: String) {
-        if (bio.isEmpty()) return
-
-        textBio.visibility = View.VISIBLE
-        textBio.text = bio
     }
 
     override fun bindPostCount(postCount: Int) {

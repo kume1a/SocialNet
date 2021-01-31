@@ -81,8 +81,9 @@ class ViewModelModule {
     @ViewModelKey(UserProfileViewModel::class)
     fun providesUserProfileViewModel(
         followRepository: FollowRepository,
-        postRepository: PostRepository
-    ): ViewModel = UserProfileViewModel(followRepository, postRepository)
+        postRepository: PostRepository,
+        userRepository: UserRepository,
+    ): ViewModel = UserProfileViewModel(followRepository, postRepository, userRepository)
 
     @Provides
     @IntoMap

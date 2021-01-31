@@ -1,6 +1,7 @@
 package com.kumela.socialnetwork.network.repositories
 
 import com.kumela.socialnetwork.models.User
+import com.kumela.socialnetwork.models.UserMeta
 import com.kumela.socialnetwork.network.NetworkError
 import com.kumela.socialnetwork.network.api.ApiService
 import com.kumela.socialnetwork.network.authentication.KeyStore
@@ -19,5 +20,11 @@ class UserRepository(private val apiService: ApiService, private val keyStore: K
         userId: Int = keyStore.getUserId()
     ): Result<User, NetworkError> = withContext(Dispatchers.IO) {
         return@withContext safeCall { apiService.getUser(userId) }.mapToResult()
+    }
+
+    suspend fun fetchUserMeta(
+        userId: Int = keyStore.getUserId()
+    ): Result<UserMeta, NetworkError> = withContext(Dispatchers.IO) {
+        return@withContext safeCall { apiService.getUserMeta(userId) }.mapToResult()
     }
 }

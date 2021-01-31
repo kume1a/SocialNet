@@ -66,20 +66,8 @@ class UserProfileFragment : BaseFragment(), UserProfileViewMvc.Listener {
             ViewModelProvider(this, mViewModelFactory).get(UserProfileViewModel::class.java)
 
         lifecycleScope.launch {
-            val followStatusResult = mViewModel.fetchFollowStatus(argId)
-            followStatusResult.fold(
-                onSuccess = { follows ->
-                    mViewMvc.setFollowingButtonText(
-                        getString(
-                            if (follows) R.string.following
-                            else R.string.follow
-                        )
-                    )
-                },
-                onFailure = { error ->
-                    Log.e(javaClass.simpleName, "onViewCreated: $error")
-                },
-            )
+            fetchFollowStatus()
+            fetchUserMeta()
 
             val posts = mViewModel.getPosts()
             if (posts != null) {
@@ -88,27 +76,6 @@ class UserProfileFragment : BaseFragment(), UserProfileViewMvc.Listener {
                 fetchPosts()
             }
         }
-//        val userPosts = mViewModel.getUserPosts()
-//        val userExtraInfo = mViewModel.getUserExtraInfo()
-//        val userStories = mViewModel.getUserStories()
-//
-//        if (userExtraInfo != null) {
-//            onUserExtraInfoFetched(userExtraInfo)
-//        } else {
-//            mViewModel.fetchUserExtraInfoAndNotify(argId)
-//        }
-//
-//        if (userPosts != null) {
-//            onPostsFetched(userPosts)
-//        } else {
-//            mViewModel.fetchUserPostsAndNotify(argId)
-//        }
-//
-//        if (userStories.isNotEmpty()) {
-//            onStoriesFetched(userStories)
-//        } else {
-//            mViewModel.fetchNextStoriesPageAndNotify(argId)
-//        }
     }
 
     override fun onDestroyView() {
@@ -163,6 +130,37 @@ class UserProfileFragment : BaseFragment(), UserProfileViewMvc.Listener {
 
     override fun onLastStoryBound() {
 //        mViewModel.fetchNextStoriesPageAndNotify(argId)
+    }
+
+    private suspend fun fetchFollowStatus() {
+        val followStatusResult = mViewModel.fetchFollowStatus(argId)
+        followStatusResult.fold(
+            onSuccess = { follows ->
+                mViewMvc.setFollowingButtonText(
+                    getString(
+                        if (follows) R.string.following
+                        else R.string.follow
+                    )
+                )
+            },
+            onFailure = { error ->
+                Log.e(javaClass.simpleName, "onViewCreated: $error")
+            },
+        )
+    }
+
+    private suspend fun fetchUserMeta() {
+        val result = mViewModel.fetchUserMeta(argId)
+        result.fold(
+            onSuccess = { userMeta ->
+                mViewMvc.bindPostCount(userMeta.postCount)
+                mViewMvc.bindFollowerCount(userMeta.followerCount)
+                mViewMvc.bindFollowingCount(userMeta.followingCount)
+            },
+            onFailure = { error ->
+                Log.e(javaClass.simpleName, "fetchUserMeta: $error")
+            }
+        )
     }
 
     private suspend fun fetchPosts() {

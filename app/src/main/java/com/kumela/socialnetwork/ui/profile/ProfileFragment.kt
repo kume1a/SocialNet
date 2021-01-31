@@ -54,7 +54,7 @@ class ProfileFragment : BaseFragment(), ProfileViewMvc.Listener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mViewModel = ViewModelProvider(this, mViewModelFactory).get(ProfileViewModel::class.java)
+        mViewModel = ViewModelProvider(requireActivity(), mViewModelFactory).get(ProfileViewModel::class.java)
         mEventViewModel = ViewModelProvider(requireActivity()).get(EventViewModel::class.java)
 
         mViewMvc.registerListener(this)
@@ -62,6 +62,7 @@ class ProfileFragment : BaseFragment(), ProfileViewMvc.Listener {
 
         lifecycleScope.launchWhenStarted {
             fetchUser()
+            fetchUserMeta()
 
             val posts = mViewModel.getPosts()
             if (posts != null) {
@@ -69,8 +70,7 @@ class ProfileFragment : BaseFragment(), ProfileViewMvc.Listener {
             } else {
                 fetchPosts()
             }
-            mViewModel.getPosts()?.data?.addAll(newPosts)
-            mViewMvc.addPosts(newPosts)
+            mViewModel.getPosts()?.data?.addAll(0, newPosts)
         }
     }
 
@@ -121,6 +121,20 @@ class ProfileFragment : BaseFragment(), ProfileViewMvc.Listener {
             },
             onFailure = { error ->
                 Log.e(javaClass.simpleName, "fetchUser: $error")
+            }
+        )
+    }
+
+    private suspend fun fetchUserMeta() {
+        val result = mViewModel.fetchUserMeta()
+        result.fold(
+            onSuccess = { userMeta ->
+                mViewMvc.bindPostCount(userMeta.postCount)
+                mViewMvc.bindFollowerCount(userMeta.followerCount)
+                mViewMvc.bindFollowingCount(userMeta.followingCount)
+            },
+            onFailure = { error ->
+                Log.e(javaClass.simpleName, "fetchUserMeta: $error")
             }
         )
     }

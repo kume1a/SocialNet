@@ -1,6 +1,7 @@
 package com.kumela.socialnetwork.ui.profile
 
 import com.kumela.socialnetwork.models.User
+import com.kumela.socialnetwork.models.UserMeta
 import com.kumela.socialnetwork.network.NetworkError
 import com.kumela.socialnetwork.network.api.PaginatedPostResponse
 import com.kumela.socialnetwork.network.common.Result
@@ -27,5 +28,9 @@ class ProfileViewModel(
 
     fun getPosts(): PaginatedPostResponse? {
         return getFromCache()
+    }
+
+    suspend fun fetchUserMeta(): Result<UserMeta, NetworkError> {
+        return fetchAndCache { userRepository.fetchUserMeta() }
     }
 }
