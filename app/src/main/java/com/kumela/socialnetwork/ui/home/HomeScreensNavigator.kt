@@ -32,7 +32,7 @@ class HomeScreensNavigator @Inject constructor(private val navController: NavCon
         navController.navigate(action)
     }
 
-    fun toStoryPresenter(userId: String) {
+    fun toStoryPresenter(userId: Int) {
         val action = HomeFragmentDirections.actionHomeFragmentToStoryPresenterFragment(userId)
         navController.navigate(action)
     }

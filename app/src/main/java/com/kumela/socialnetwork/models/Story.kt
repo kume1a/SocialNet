@@ -5,6 +5,6 @@ package com.kumela.socialnetwork.models
  **/
 
 data class Story(
-    val timestamp: Long = 0,
-    val imageUri: String = ""
+    val createdAt: Long,
+    val imageUri: String
 )

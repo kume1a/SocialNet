@@ -20,8 +20,7 @@ interface HomeViewMvc : ObservableViewMvc<HomeViewMvc.Listener> {
         fun onPostDoubleClick(position: Int, feed: Feed)
     }
 
-    fun bindStories(users: List<User>)
-    fun addStory(user: User)
+    fun addStories(users: List<User>)
 
     fun addPosts(posts: List<Feed>)
     fun updatePost(position: Int, feed: Feed)

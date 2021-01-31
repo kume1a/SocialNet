@@ -21,7 +21,7 @@ import com.kumela.socialnetwork.ui.common.controllers.BaseFragment
 import com.kumela.socialnetwork.ui.common.controllers.IntentDispatcher
 import com.kumela.socialnetwork.ui.common.controllers.RequestResultDispatcher
 import com.kumela.socialnetwork.ui.common.viewmodels.ViewModelFactory
-import com.kumela.socialnetwork.ui.story_presenter.StoryViewModel
+import kotlinx.android.synthetic.main.fragment_profile.*
 import javax.inject.Inject
 
 /**
@@ -29,7 +29,7 @@ import javax.inject.Inject
  **/
 
 class HomeFragment : BaseFragment(), HomeViewMvc.Listener,
-    ActivityResultListener, StoryViewModel.Listener {
+    ActivityResultListener {
 
     private lateinit var mViewMvc: HomeViewMvc
     private lateinit var mViewModel: HomeViewModel
@@ -66,11 +66,19 @@ class HomeFragment : BaseFragment(), HomeViewMvc.Listener,
         mEventViewModel = ViewModelProvider(requireActivity()).get(EventViewModel::class.java)
 
         val cachedFeedPosts = mViewModel.getCachedFeedPosts()
+        val cachedStories = mViewModel.getCachedStories()
         lifecycleScope.launchWhenStarted {
             if (cachedFeedPosts != null) {
                 mViewMvc.addPosts(cachedFeedPosts.data)
             } else {
                 fetchFeedPosts()
+            }
+
+            fetchUserAndAddToStory()
+            if (cachedStories != null) {
+                mViewMvc.addStories(cachedStories.data)
+            } else {
+                fetchFeedStories()
             }
 
             for (postIdToNewCommentCount in mEventViewModel.getNewComments()) {
@@ -100,11 +108,11 @@ class HomeFragment : BaseFragment(), HomeViewMvc.Listener,
     }
 
     override fun onStoryClicked(position: Int, user: User) {
-//        if (position == 0) {
-//            mIntentDispatcher.dispatchImagePickerIntent(REQUEST_PICK_STORY_IMAGE)
-//        } else {
-//            mScreensNavigator.toStoryPresenter(user.id)
-//        }
+        if (position == 0) {
+            mIntentDispatcher.dispatchImagePickerIntent(REQUEST_PICK_STORY_IMAGE)
+        } else {
+            mScreensNavigator.toStoryPresenter(user.id)
+        }
     }
 
     override fun onScrolledToBottom() {
@@ -134,21 +142,42 @@ class HomeFragment : BaseFragment(), HomeViewMvc.Listener,
         mScreensNavigator.toComments(postId)
     }
 
-    // story model callbacks
-    override fun onStoryPosterFetched(user: User) {
-        mViewMvc.addStory(user)
-    }
-
     // request result dispatcher
     override fun onRequestResultReceived(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == REQUEST_PICK_STORY_IMAGE && data != null) {
                 if (data.dataString != null) {
                     val imageUri = Uri.parse(data.dataString)
-//                    mScreensNavigator.toStoryUploader(imageUri)
+                    mScreensNavigator.toStoryUploader(imageUri)
                 }
             }
         }
+    }
+
+    private suspend fun fetchFeedStories() {
+        val result = mViewModel.fetchFeedStories()
+        result.fold(
+            onSuccess = { response ->
+                if (response == null) return@fold
+
+                mViewMvc.addStories(response.data)
+            },
+            onFailure = { error ->
+                Log.e(javaClass.simpleName, "fetchFeedStories: $error")
+            }
+        )
+    }
+
+    private suspend fun fetchUserAndAddToStory() {
+        val userResult = mViewModel.fetchUser()
+        userResult.fold(
+            onSuccess = {user ->
+                mViewMvc.addStories(listOf(user))
+            },
+            onFailure = { error ->
+                Log.e(javaClass.simpleName, "fetchFeedStories: $error")
+            }
+        )
     }
 
     private suspend fun fetchFeedPosts() {

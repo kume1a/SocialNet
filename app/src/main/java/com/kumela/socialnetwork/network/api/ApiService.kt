@@ -15,6 +15,7 @@ data class PostBody(val imageUrl: String, val header: String, val description: S
 data class LikeDislikeBody(val postId: Int)
 data class CommentBody(val postId: Int, val body: String)
 data class ReplyBody(val body: String)
+data class StoryBody(val imageUrl: String)
 
 interface PaginatedResponse<T : Any> {
     val data: ArrayList<T>
@@ -48,6 +49,18 @@ data class PaginatedReplyResponse(
     override var page: Int,
     override var perPage: Int
 ): PaginatedResponse<Reply>
+data class PaginatedStoryResponse(
+    override val data: ArrayList<Story>,
+    override var total: Int,
+    override var page: Int,
+    override var perPage: Int
+): PaginatedResponse<Story>
+data class PaginatedUserResponse(
+    override val data: ArrayList<User>,
+    override var total: Int,
+    override var page: Int,
+    override var perPage: Int
+): PaginatedResponse<User>
 
 
 
@@ -80,9 +93,8 @@ interface ApiService {
         @Query("limit") limit: Int
     ): Response<PaginatedPostResponse>
 
-    @GET("/posts/feed/{userId}")
+    @GET("/posts/feed")
     suspend fun getFeedPosts(
-        @Path("userId") userid: Int,
         @Query("page") page: Int,
         @Query("limit") limit: Int
     ): Response<PaginatedFeedResponse>
@@ -126,4 +138,20 @@ interface ApiService {
 
     @GET("/users/{userId}/meta")
     suspend fun getUserMeta(@Path("userId") userId: Int): Response<UserMeta>
+
+    @POST("/stories")
+    suspend fun createStory(@Body body: StoryBody): Response<Story>
+
+    @GET("/stories/user/{userId}")
+    suspend fun getUserStories(
+        @Path("userId") userId: Int,
+        @Query("page") page: Int,
+        @Query("limit") limit: Int
+    ): Response<PaginatedStoryResponse>
+
+    @GET("/stories/feed")
+    suspend fun getFeedStories(
+        @Query("page") page: Int,
+        @Query("limit") limit: Int
+    ): Response<PaginatedUserResponse>
 }

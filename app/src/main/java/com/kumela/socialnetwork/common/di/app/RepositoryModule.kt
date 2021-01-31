@@ -41,4 +41,9 @@ class RepositoryModule {
     @Provides
     fun providesCommentRepository(apiService: ApiService): CommentRepository =
         CommentRepository(apiService)
+
+    @AppScope
+    @Provides
+    fun providesStoryRepository(apiService: ApiService): StoryRepository =
+        StoryRepository(apiService)
 }

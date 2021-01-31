@@ -20,7 +20,7 @@ class StoryPresenterFragment : BaseFragment(), StoryPresenterViewMvc.Listener {
     private lateinit var mViewMvc: StoryPresenterViewMvc
     private lateinit var mViewModel: StoryViewModel
 
-    private lateinit var argInitialAuthorId: String
+    private var argInitialAuthorId: Int = -1
 
     private var mLastImagePage = 0
     private var mLastStoryPage = 0
@@ -63,12 +63,12 @@ class StoryPresenterFragment : BaseFragment(), StoryPresenterViewMvc.Listener {
             feedStories.forEach { mAllStories.addAll(it.stories) }
 
             // find initial feed stories object and it's index
-            val initialFeedStories = feedStories.first { it.userId == argInitialAuthorId }
-            val initialFeedStoriesIndex = feedStories.indexOf(initialFeedStories)
+//            val initialFeedStories = feedStories.first { it.userId == argInitialAuthorId }
+//            val initialFeedStoriesIndex = feedStories.indexOf(initialFeedStories)
 
             // assign initial values for control variables
-            mLastStoryPage = initialFeedStoriesIndex
-            mLastImagePage = mAllStories.indexOf(initialFeedStories.stories[0])
+//            mLastStoryPage = initialFeedStoriesIndex
+//            mLastImagePage = mAllStories.indexOf(initialFeedStories.stories[0])
 
             // bind all images to image pager
             mViewMvc.bindStories(mAllStories)
@@ -77,7 +77,7 @@ class StoryPresenterFragment : BaseFragment(), StoryPresenterViewMvc.Listener {
 //            mViewMvc.bindStoryAuthor(feedStoryAuthors.first { it.id == argInitialAuthorId })
 
             // bind image count for indicator
-            mViewMvc.bindImageCount(initialFeedStories.stories.size, 0)
+//            mViewMvc.bindImageCount(initialFeedStories.stories.size, 0)
 
             // move to initial image
             mViewMvc.imageIndexTo(mLastImagePage)

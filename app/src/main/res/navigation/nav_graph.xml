@@ -236,7 +236,7 @@
         android:name="com.kumela.socialnetwork.ui.story_presenter.StoryPresenterFragment" >
         <argument
             android:name="initialAuthorId"
-            app:argType="string" />
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/replyFragment"

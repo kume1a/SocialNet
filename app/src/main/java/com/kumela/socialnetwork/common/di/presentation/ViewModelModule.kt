@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import com.kumela.socialnetwork.common.di.annotations.ViewModelKey
 import com.kumela.socialnetwork.models.Message
 import com.kumela.socialnetwork.models.UserChat
-import com.kumela.socialnetwork.network.authentication.KeyStore
 import com.kumela.socialnetwork.network.firebase.helpers.QueryPager
 import com.kumela.socialnetwork.network.repositories.*
 import com.kumela.socialnetwork.ui.chat.ChatViewModel
@@ -37,8 +36,9 @@ class ViewModelModule {
     @ViewModelKey(HomeViewModel::class)
     fun providesHomeViewModel(
         postRepository: PostRepository,
-        keyStore: KeyStore
-    ): ViewModel = HomeViewModel(postRepository, keyStore)
+        storyRepository: StoryRepository,
+        userRepository: UserRepository
+    ): ViewModel = HomeViewModel(postRepository, storyRepository, userRepository)
 
     @Provides
     @IntoMap

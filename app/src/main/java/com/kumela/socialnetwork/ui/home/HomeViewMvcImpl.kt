@@ -62,12 +62,8 @@ class HomeViewMvcImpl(
         }
     }
 
-    override fun bindStories(users: List<User>) {
-        storyAdapter.bindStories(users)
-    }
-
-    override fun addStory(user: User) {
-        storyAdapter.addStory(user)
+    override fun addStories(users: List<User>) {
+        storyAdapter.addStories(users)
     }
 
     override fun addPosts(posts: List<Feed>) {

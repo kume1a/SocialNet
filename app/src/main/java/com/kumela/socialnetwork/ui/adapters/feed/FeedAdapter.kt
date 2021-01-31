@@ -27,7 +27,7 @@ class FeedAdapter(
     private val items = arrayListOf<Feed>()
 
     fun addPosts(posts: List<Feed>) {
-        val size = itemCount
+        val size = items.size
         items.addAll(posts)
         notifyItemRangeInserted(size, posts.size)
     }

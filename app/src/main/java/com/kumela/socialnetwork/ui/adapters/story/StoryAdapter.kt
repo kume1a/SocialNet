@@ -16,15 +16,10 @@ class StoryAdapter(
 
     private val items = arrayListOf<User>()
 
-    fun addStory(user: User) {
-        items.add(user)
-        notifyItemInserted(items.size - 1)
-    }
-
-    fun bindStories(users: List<User>) {
-        items.clear()
+    fun addStories(users: List<User>) {
+        val size = items.size
         items.addAll(users)
-        notifyDataSetChanged()
+        notifyItemRangeInserted(size, users.size)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoryViewHolder {
