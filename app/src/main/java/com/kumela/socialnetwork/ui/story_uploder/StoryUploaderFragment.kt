@@ -6,29 +6,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import com.kumela.socialnetwork.network.common.Result
+import com.kumela.socialnetwork.network.common.fold
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper
 import com.kumela.socialnetwork.ui.common.controllers.BaseFragment
+import com.kumela.socialnetwork.ui.common.viewmodels.ViewModelFactory
 import javax.inject.Inject
 
 /**
  * Created by Toko on 06,November,2020
  **/
 
-class StoryUploaderFragment : BaseFragment(), StoryUploaderViewMvc.Listener,
-    StoryUploaderViewModel.Listener {
+class StoryUploaderFragment : BaseFragment(), StoryUploaderViewMvc.Listener {
 
     private lateinit var mViewMvc: StoryUploaderViewMvc
     private lateinit var mViewModel: StoryUploaderViewModel
 
     private lateinit var argImageUri: Uri
 
-    @Inject
-    lateinit var mScreensNavigator: StoryUploaderScreensNavigator
-    @Inject
-    lateinit var mViewMvcFactory: ViewMvcFactory
-    @Inject
-    lateinit var mBottomNavHelper: BottomNavHelper
+    @Inject lateinit var mViewMvcFactory: ViewMvcFactory
+    @Inject lateinit var mViewModelFactory: ViewModelFactory
+    @Inject lateinit var mScreensNavigator: StoryUploaderScreensNavigator
+    @Inject lateinit var mBottomNavHelper: BottomNavHelper
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,19 +51,16 @@ class StoryUploaderFragment : BaseFragment(), StoryUploaderViewMvc.Listener,
 
         argImageUri = args.imageUri
 
-        mViewModel = ViewModelProvider(this).get(StoryUploaderViewModel::class.java)
+        mViewModel = ViewModelProvider(this, mViewModelFactory).get(StoryUploaderViewModel::class.java)
 
         mViewMvc.registerListener(this)
-        mViewModel.registerListener(this)
 
         mViewMvc.bindImage(argImageUri)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-
         mViewMvc.unregisterListener()
-        mViewModel.unregisterListener(this)
     }
 
     override fun onCloseClicked() {
@@ -70,16 +68,25 @@ class StoryUploaderFragment : BaseFragment(), StoryUploaderViewMvc.Listener,
     }
 
     override fun onUploadClicked() {
-        mViewMvc.showProgressIndicationAndDisableButtons()
-        mViewModel.uploadStoryAndNotify(argImageUri)
-    }
+        lifecycleScope.launchWhenStarted {
+            mViewMvc.showProgressIndicationAndDisableButtons()
 
-    // view model callbacks
-    override fun onStoryUploaded() {
-        mScreensNavigator.navigateUp()
-    }
-
-    override fun onStoryUploadFailed() {
-        mViewMvc.hideProgressIndicationAndEnableButtons()
+            val uploadResult = mViewModel.uploadImage(argImageUri)
+            when (uploadResult) {
+                is Result.Success -> {
+                    val imageUrl = uploadResult.value
+                    val storyResult = mViewModel.createStory(imageUrl)
+                    storyResult.fold(
+                        onSuccess = {
+                            mScreensNavigator.navigateUp()
+                        },
+                        onFailure = {
+                            mViewMvc.hideProgressIndicationAndEnableButtons()
+                        }
+                    )
+                }
+                is Result.Failure ->  mViewMvc.hideProgressIndicationAndEnableButtons()
+            }
+        }
     }
 }

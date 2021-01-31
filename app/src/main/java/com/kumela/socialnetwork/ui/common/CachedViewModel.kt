@@ -18,14 +18,17 @@ abstract class CachedViewModel : ViewModel() {
     val dataPages: ConcurrentHashMap<KClass<*>, Int> = ConcurrentHashMap()
 
     suspend inline fun <reified T : Any, F> fetchAndCache(
+        lookForCache: Boolean = true,
         crossinline call: suspend () -> Result<T, F>
     ): Result<T, F> {
         val k = T::class
         var res: Result<T, F>? = null
 
-        val cached = getFromCache<T>()
-        if (cached != null) {
-            return Result.Success(cached)
+        if (lookForCache) {
+            val cached = getFromCache<T>()
+            if (cached != null) {
+                return Result.Success(cached)
+            }
         }
 
         withContext(viewModelScope.coroutineContext) {

@@ -1,54 +1,27 @@
 package com.kumela.socialnetwork.ui.story_uploder
 
 import android.net.Uri
-import android.util.Log
+import androidx.lifecycle.ViewModel
 import com.kumela.socialnetwork.models.Story
-import com.kumela.socialnetwork.network.firebase.ImageType
-import com.kumela.socialnetwork.network.firebase.ImageUseCase
-import com.kumela.socialnetwork.network.firebase.StoryUseCase
-import com.kumela.socialnetwork.ui.common.viewmodels.ObservableViewModel
+import com.kumela.socialnetwork.network.NetworkError
+import com.kumela.socialnetwork.network.common.Result
+import com.kumela.socialnetwork.network.repositories.ImageRepository
+import com.kumela.socialnetwork.network.repositories.ImageType
+import com.kumela.socialnetwork.network.repositories.StoryRepository
 
 /**
  * Created by Toko on 07,November,2020
  **/
 
-class StoryUploaderViewModel : ObservableViewModel<StoryUploaderViewModel.Listener>() {
-
-    interface Listener {
-        fun onStoryUploaded()
-        fun onStoryUploadFailed()
+class StoryUploaderViewModel(
+    private val storyRepository: StoryRepository,
+    private val imageRepository: ImageRepository
+) : ViewModel() {
+    suspend fun createStory(imageUrl: String): Result<Story, NetworkError> {
+        return storyRepository.createStory(imageUrl)
     }
 
-    init {
-        StoryUseCase.registerListener(uuid)
-        ImageUseCase.registerListener(uuid)
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-
-        StoryUseCase.unregisterListener(uuid)
-        ImageUseCase.unregisterListener(uuid)
-    }
-
-    fun uploadStoryAndNotify(imageUri: Uri) {
-        ImageUseCase.uploadImageAndNotify(uuid, ImageType.STORY, imageUri,
-            onSuccessListener = { downloadUri ->
-                StoryUseCase.createStory(uuid, Story(System.currentTimeMillis(), downloadUri),
-                    onSuccessListener = {
-                        for (listener in listeners) {
-                            listener.onStoryUploaded()
-                        }
-                    },
-                    onFailureListener = { exception ->
-                        Log.e(javaClass.simpleName, "uploadStoryAndNotify: ", exception)
-                        for (listener in listeners) {
-                            listener.onStoryUploadFailed()
-                        }
-                    })
-            },
-            onFailureListener = { exception ->
-                Log.e(javaClass.simpleName, "uploadStoryAndNotify: ", exception)
-            })
+    suspend fun uploadImage(imageUri: Uri): Result<String, Exception> {
+       return imageRepository.uploadImage(ImageType.STORY, imageUri)
     }
 }

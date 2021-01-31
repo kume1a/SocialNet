@@ -15,6 +15,7 @@ import com.kumela.socialnetwork.ui.messages.MessagesViewModel
 import com.kumela.socialnetwork.ui.profile.ProfileViewModel
 import com.kumela.socialnetwork.ui.replies.ReplyViewModel
 import com.kumela.socialnetwork.ui.search.SearchViewModel
+import com.kumela.socialnetwork.ui.story_uploder.StoryUploaderViewModel
 import com.kumela.socialnetwork.ui.user_list.UserListViewModel
 import com.kumela.socialnetwork.ui.user_profile.UserProfileViewModel
 import dagger.Module
@@ -105,4 +106,13 @@ class ViewModelModule {
     fun provideReplyViewModel(
         commentRepository: CommentRepository
     ): ViewModel = ReplyViewModel(commentRepository)
+
+
+    @Provides
+    @IntoMap
+    @ViewModelKey(StoryUploaderViewModel::class)
+    fun provideStoryUploaderViewModel(
+        storyRepository: StoryRepository,
+        imageRepository: ImageRepository
+    ): ViewModel = StoryUploaderViewModel(storyRepository, imageRepository)
 }

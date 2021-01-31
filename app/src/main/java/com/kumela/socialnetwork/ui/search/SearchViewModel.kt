@@ -12,9 +12,9 @@ import com.kumela.socialnetwork.ui.common.CachedViewModel
 
 class SearchViewModel(
     private val searchRepository: SearchRepository
-): CachedViewModel() {
+) : CachedViewModel() {
     suspend fun searchUsers(query: String): Result<List<User>, NetworkError> {
-        return fetchAndCache { searchRepository.searchUsers(query) }
+        return fetchAndCache(lookForCache = false) { searchRepository.searchUsers(query) }
     }
 
     fun getCachedUsers(): List<User>? {
