@@ -3,10 +3,8 @@ package com.kumela.socialnetwork.ui.home
 import com.kumela.socialnetwork.models.User
 import com.kumela.socialnetwork.network.NetworkError
 import com.kumela.socialnetwork.network.api.PaginatedFeedResponse
-import com.kumela.socialnetwork.network.api.PaginatedUserResponse
 import com.kumela.socialnetwork.network.common.Result
 import com.kumela.socialnetwork.network.repositories.PostRepository
-import com.kumela.socialnetwork.network.repositories.StoryRepository
 import com.kumela.socialnetwork.network.repositories.UserRepository
 import com.kumela.socialnetwork.ui.common.CachedViewModel
 
@@ -16,7 +14,6 @@ import com.kumela.socialnetwork.ui.common.CachedViewModel
 
 class HomeViewModel(
     private val postRepository: PostRepository,
-    private val storyRepository: StoryRepository,
     private val userRepository: UserRepository,
 ) : CachedViewModel() {
     suspend fun fetchFeedPosts(): Result<PaginatedFeedResponse?, NetworkError> {
@@ -28,16 +25,9 @@ class HomeViewModel(
     suspend fun likePost(postId: Int) = postRepository.likePost(postId)
     suspend fun dislikePost(postId: Int) = postRepository.dislikePost(postId)
 
-    suspend fun fetchFeedStories(): Result<PaginatedUserResponse?, NetworkError> {
-        return fetchAndCachePage { page ->
-            storyRepository.fetchFeedStories(page, 10)
-        }
-    }
-
     suspend fun fetchUser(): Result<User, NetworkError> {
         return fetchAndCache { userRepository.fetchUser() }
     }
 
     fun getCachedFeedPosts(): PaginatedFeedResponse? = getFromCache()
-    fun getCachedStories(): PaginatedUserResponse? = getFromCache()
 }

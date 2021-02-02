@@ -49,12 +49,6 @@ data class PaginatedReplyResponse(
     override var page: Int,
     override var perPage: Int
 ): PaginatedResponse<Reply>
-data class PaginatedStoryResponse(
-    override val data: ArrayList<Story>,
-    override var total: Int,
-    override var page: Int,
-    override var perPage: Int
-): PaginatedResponse<Story>
 data class PaginatedUserResponse(
     override val data: ArrayList<User>,
     override var total: Int,
@@ -143,11 +137,7 @@ interface ApiService {
     suspend fun createStory(@Body body: StoryBody): Response<Story>
 
     @GET("/stories/user/{userId}")
-    suspend fun getUserStories(
-        @Path("userId") userId: Int,
-        @Query("page") page: Int,
-        @Query("limit") limit: Int
-    ): Response<PaginatedStoryResponse>
+    suspend fun getUserStories(@Path("userId") userId: Int): Response<List<Story>>
 
     @GET("/stories/feed")
     suspend fun getFeedStories(

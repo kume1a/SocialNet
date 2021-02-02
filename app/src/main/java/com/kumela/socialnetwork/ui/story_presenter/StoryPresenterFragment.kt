@@ -1,11 +1,13 @@
 package com.kumela.socialnetwork.ui.story_presenter
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.kumela.socialnetwork.models.FeedStoryModel
+import androidx.lifecycle.lifecycleScope
+import com.kumela.socialnetwork.network.common.fold
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper
 import com.kumela.socialnetwork.ui.common.controllers.BaseFragment
@@ -18,13 +20,11 @@ import javax.inject.Inject
 class StoryPresenterFragment : BaseFragment(), StoryPresenterViewMvc.Listener {
 
     private lateinit var mViewMvc: StoryPresenterViewMvc
-    private lateinit var mViewModel: StoryViewModel
+    private lateinit var mViewModel: StoryPresenterViewModel
 
-    private var argInitialAuthorId: Int = -1
-
-    private var mLastImagePage = 0
-    private var mLastStoryPage = 0
-    private val mAllStories = ArrayList<FeedStoryModel>()
+    private var currentUserId: Int = -1
+    private var currentImageIndex = 0
+    private var lastPressTs = 0L
 
     @Inject lateinit var mScreensNavigator: StoryPresenterScreensNavigator
     @Inject lateinit var mViewMvcFactory: ViewMvcFactory
@@ -48,40 +48,15 @@ class StoryPresenterFragment : BaseFragment(), StoryPresenterViewMvc.Listener {
 
         val args = StoryPresenterFragmentArgs.fromBundle(requireArguments())
 
-        argInitialAuthorId = args.initialAuthorId
+        currentUserId = args.initialAuthorId
 
-        mViewModel = ViewModelProvider(requireActivity()).get(StoryViewModel::class.java)
+        mViewModel = ViewModelProvider(requireActivity()).get(StoryPresenterViewModel::class.java)
 
-        mViewMvc.registerListener(this)
-
-        val feedStories = mViewModel.getFeedStories()
-        val feedStoryAuthors = mViewModel.getStoryPosters()
-
-        if (feedStories != null && feedStoryAuthors.isNotEmpty()) {
-            // populate all stories list
-            mAllStories.clear()
-            feedStories.forEach { mAllStories.addAll(it.stories) }
-
-            // find initial feed stories object and it's index
-//            val initialFeedStories = feedStories.first { it.userId == argInitialAuthorId }
-//            val initialFeedStoriesIndex = feedStories.indexOf(initialFeedStories)
-
-            // assign initial values for control variables
-//            mLastStoryPage = initialFeedStoriesIndex
-//            mLastImagePage = mAllStories.indexOf(initialFeedStories.stories[0])
-
-            // bind all images to image pager
-            mViewMvc.bindStories(mAllStories)
-
-            // bind initial story author
-//            mViewMvc.bindStoryAuthor(feedStoryAuthors.first { it.id == argInitialAuthorId })
-
-            // bind image count for indicator
-//            mViewMvc.bindImageCount(initialFeedStories.stories.size, 0)
-
-            // move to initial image
-            mViewMvc.imageIndexTo(mLastImagePage)
+        lifecycleScope.launchWhenStarted {
+            fetchUserStoriesAndBind()
         }
+
+        mViewMvc. registerListener(this)
     }
 
     override fun onDestroyView() {
@@ -94,30 +69,84 @@ class StoryPresenterFragment : BaseFragment(), StoryPresenterViewMvc.Listener {
         mScreensNavigator.navigateUp()
     }
 
-    override fun onPageChanged(position: Int) {
-        val feedStories = mViewModel.getFeedStories()!!
-        val storyPage = feedStories.indexOfFirst { it.stories.contains(mAllStories[position]) }
+    override fun onUserClicked() {
+        Log.d(javaClass.simpleName, "onUserClicked() called")
+    }
 
-        if (storyPage != mLastStoryPage) {
-            val currentFeedStory = feedStories[storyPage]
+    override fun onReverse() {
+        mViewMvc.reverse()
+    }
 
-            // change story author and reset indicator
-//            mViewMvc.bindStoryAuthor(
-//                mViewModel.getStoryPosters().first { it.id == currentFeedStory.userId })
-            mViewMvc.bindImageCount(
-                currentFeedStory.stories.size,
-                if (mLastStoryPage > storyPage) currentFeedStory.stories.size - 1 else 0
-            )
-        } else {
-            // change the indicator index
-            if (position > mLastImagePage) {
-                mViewMvc.nextIndex()
-            } else if (position < mLastImagePage) {
-                mViewMvc.previousIndex()
+    override fun onSkip() {
+        mViewMvc.skip()
+    }
+
+    override fun onPressDown(): Boolean {
+        mViewMvc.pause()
+        lastPressTs = System.currentTimeMillis()
+        return false
+    }
+
+    override fun onPressUp(): Boolean {
+        mViewMvc.resume()
+        return 500L < System.currentTimeMillis() - lastPressTs
+    }
+
+    override fun onNext() {
+        val stories = mViewModel.getStories(currentUserId)
+        if (stories != null) {
+            mViewMvc.bindImage(stories[++currentImageIndex].imageUrl)
+        }
+    }
+
+    override fun onPrevious() {
+        if (currentImageIndex - 1 < 0) return
+
+        val stories = mViewModel.getStories(currentUserId)
+        if (stories != null) {
+            mViewMvc.bindImage(stories[--currentImageIndex].imageUrl)
+        }
+    }
+
+    override fun onBack() {
+        val users = mViewModel.getCachedStoryAuthors()!!.data
+        if (users.first().id != currentUserId) {
+            currentImageIndex = 0
+            currentUserId = users[users.indexOfFirst { it.id == currentUserId } - 1].id
+            lifecycleScope.launchWhenStarted {
+                fetchUserStoriesAndBind()
             }
         }
+    }
 
-        mLastStoryPage = storyPage
-        mLastImagePage = position
+    override fun onComplete() {
+        val users = mViewModel.getCachedStoryAuthors()!!.data
+        if (users.last().id == currentUserId) {
+            mScreensNavigator.navigateUp()
+        } else {
+            currentImageIndex = 0
+            currentUserId = users[users.indexOfFirst { it.id == currentUserId } + 1].id
+            lifecycleScope.launchWhenStarted {
+                fetchUserStoriesAndBind()
+            }
+        }
+    }
+
+    private suspend fun fetchUserStoriesAndBind() {
+        val result = mViewModel.fetchStories(currentUserId)
+        result.fold(
+            onSuccess = { stories ->
+                val user =
+                    mViewModel.getCachedStoryAuthors()!!.data.first { it.id == currentUserId }
+
+                mViewMvc.bindUser(user)
+                mViewMvc.bindImage(stories.first().imageUrl)
+                mViewMvc.bindCount(stories.size)
+                mViewMvc.start()
+            },
+            onFailure = { error ->
+                Log.e(javaClass.simpleName, "fetchUserStoriesAndBind: $error")
+            }
+        )
     }
 }

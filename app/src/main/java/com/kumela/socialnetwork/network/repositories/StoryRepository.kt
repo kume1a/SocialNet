@@ -3,7 +3,6 @@ package com.kumela.socialnetwork.network.repositories
 import com.kumela.socialnetwork.models.Story
 import com.kumela.socialnetwork.network.NetworkError
 import com.kumela.socialnetwork.network.api.ApiService
-import com.kumela.socialnetwork.network.api.PaginatedStoryResponse
 import com.kumela.socialnetwork.network.api.PaginatedUserResponse
 import com.kumela.socialnetwork.network.api.StoryBody
 import com.kumela.socialnetwork.network.common.Result
@@ -21,11 +20,9 @@ class StoryRepository(private val apiService: ApiService) {
     }
 
     suspend fun fetchUserStories(
-        userId: Int,
-        page: Int,
-        limit: Int,
-    ): Result<PaginatedStoryResponse, NetworkError> = withContext(Dispatchers.IO) {
-        return@withContext safeCall { apiService.getUserStories(userId, page, limit) }.mapToResult()
+        userId: Int
+    ): Result<List<Story>, NetworkError> = withContext(Dispatchers.IO) {
+        return@withContext safeCall { apiService.getUserStories(userId) }.mapToResult()
     }
 
     suspend fun fetchFeedStories(

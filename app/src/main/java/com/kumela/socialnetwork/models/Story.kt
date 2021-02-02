@@ -5,6 +5,8 @@ package com.kumela.socialnetwork.models
  **/
 
 data class Story(
+    val id: Int,
+    val userId: Int,
     val createdAt: Long,
-    val imageUri: String
+    val imageUrl: String
 )

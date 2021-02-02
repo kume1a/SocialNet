@@ -34,6 +34,6 @@ class ProfileStoryItemViewMvc(
     fun bindStoryModel(story: Story) {
         this.story = story
 
-        imageStory.load(story.imageUri)
+        imageStory.load(story.imageUrl)
     }
 }

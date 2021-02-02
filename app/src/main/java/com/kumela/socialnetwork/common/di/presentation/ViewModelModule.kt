@@ -15,6 +15,7 @@ import com.kumela.socialnetwork.ui.messages.MessagesViewModel
 import com.kumela.socialnetwork.ui.profile.ProfileViewModel
 import com.kumela.socialnetwork.ui.replies.ReplyViewModel
 import com.kumela.socialnetwork.ui.search.SearchViewModel
+import com.kumela.socialnetwork.ui.story_presenter.StoryPresenterViewModel
 import com.kumela.socialnetwork.ui.story_uploder.StoryUploaderViewModel
 import com.kumela.socialnetwork.ui.user_list.UserListViewModel
 import com.kumela.socialnetwork.ui.user_profile.UserProfileViewModel
@@ -37,9 +38,8 @@ class ViewModelModule {
     @ViewModelKey(HomeViewModel::class)
     fun providesHomeViewModel(
         postRepository: PostRepository,
-        storyRepository: StoryRepository,
         userRepository: UserRepository
-    ): ViewModel = HomeViewModel(postRepository, storyRepository, userRepository)
+    ): ViewModel = HomeViewModel(postRepository, userRepository)
 
     @Provides
     @IntoMap
@@ -115,4 +115,11 @@ class ViewModelModule {
         storyRepository: StoryRepository,
         imageRepository: ImageRepository
     ): ViewModel = StoryUploaderViewModel(storyRepository, imageRepository)
+
+    @Provides
+    @IntoMap
+    @ViewModelKey(StoryPresenterViewModel::class)
+    fun provideStoryPresenterViewModel(
+        storyRepository: StoryRepository
+    ): ViewModel = StoryPresenterViewModel(storyRepository)
 }

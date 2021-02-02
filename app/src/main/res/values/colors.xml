@@ -21,6 +21,7 @@
     <color name="color_dialog_blur">#40000000</color>
     <color name="icon_disabled">#666666</color>
     <color name="input_field">#F3F3F3</color>
+    <color name="gray_scale">#8affffff</color>
 
     <color name="secondary_text_light">#E8E8E8</color>
 </resources>

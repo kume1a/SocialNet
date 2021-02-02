@@ -21,6 +21,7 @@ import com.kumela.socialnetwork.ui.common.controllers.BaseFragment
 import com.kumela.socialnetwork.ui.common.controllers.IntentDispatcher
 import com.kumela.socialnetwork.ui.common.controllers.RequestResultDispatcher
 import com.kumela.socialnetwork.ui.common.viewmodels.ViewModelFactory
+import com.kumela.socialnetwork.ui.story_presenter.StoryPresenterViewModel
 import kotlinx.android.synthetic.main.fragment_profile.*
 import javax.inject.Inject
 
@@ -34,6 +35,7 @@ class HomeFragment : BaseFragment(), HomeViewMvc.Listener,
     private lateinit var mViewMvc: HomeViewMvc
     private lateinit var mViewModel: HomeViewModel
     private lateinit var mEventViewModel: EventViewModel
+    private lateinit var mStoryPresenterViewModel: StoryPresenterViewModel
 
     @Inject lateinit var mViewMvcFactory: ViewMvcFactory
     @Inject lateinit var mViewModelFactory: ViewModelFactory
@@ -64,9 +66,13 @@ class HomeFragment : BaseFragment(), HomeViewMvc.Listener,
         mViewModel =
             ViewModelProvider(requireActivity(), mViewModelFactory).get(HomeViewModel::class.java)
         mEventViewModel = ViewModelProvider(requireActivity()).get(EventViewModel::class.java)
+        mStoryPresenterViewModel = ViewModelProvider(
+            requireActivity(),
+            mViewModelFactory
+        ).get(StoryPresenterViewModel::class.java)
 
         val cachedFeedPosts = mViewModel.getCachedFeedPosts()
-        val cachedStories = mViewModel.getCachedStories()
+        val cachedStories = mStoryPresenterViewModel.getCachedStoryAuthors()
         lifecycleScope.launchWhenStarted {
             if (cachedFeedPosts != null) {
                 mViewMvc.addPosts(cachedFeedPosts.data)
@@ -155,7 +161,7 @@ class HomeFragment : BaseFragment(), HomeViewMvc.Listener,
     }
 
     private suspend fun fetchFeedStories() {
-        val result = mViewModel.fetchFeedStories()
+        val result = mStoryPresenterViewModel.fetchFeedStories()
         result.fold(
             onSuccess = { response ->
                 if (response == null) return@fold
@@ -171,7 +177,7 @@ class HomeFragment : BaseFragment(), HomeViewMvc.Listener,
     private suspend fun fetchUserAndAddToStory() {
         val userResult = mViewModel.fetchUser()
         userResult.fold(
-            onSuccess = {user ->
+            onSuccess = { user ->
                 mViewMvc.addStories(listOf(user))
             },
             onFailure = { error ->

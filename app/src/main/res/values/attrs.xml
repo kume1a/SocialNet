@@ -52,10 +52,15 @@
         <attr name="color2" format="color" />
     </declare-styleable>
 
+    <declare-styleable name="StoryProgressView">
+        <attr name="colorActive" format="color" />
+        <attr name="colorInactive" format="color" />
+    </declare-styleable>
+
     <attr name="PagerIndexIndicator" format="reference" />
     <attr name="RoundedImageView" format="reference" />
     <attr name="BottomNavStyle" format="reference" />
     <attr name="PopupMenu" format="reference" />
     <attr name="AuthBackgroundInk" format="reference" />
-
+    <attr name="StoriesProgressView" format="reference" />
 </resources>

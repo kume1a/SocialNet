@@ -1,6 +1,5 @@
 package com.kumela.socialnetwork.ui.story_presenter
 
-import com.kumela.socialnetwork.models.FeedStoryModel
 import com.kumela.socialnetwork.models.User
 import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
 
@@ -11,13 +10,27 @@ import com.kumela.socialnetwork.ui.common.mvc.ObservableViewMvc
 interface StoryPresenterViewMvc : ObservableViewMvc<StoryPresenterViewMvc.Listener> {
     interface Listener {
         fun onCloseClicked()
-        fun onPageChanged(position: Int)
+        fun onUserClicked()
+
+        fun onReverse()
+        fun onSkip()
+        fun onPressDown(): Boolean
+        fun onPressUp(): Boolean
+
+        fun onNext()
+        fun onPrevious()
+        fun onBack()
+        fun onComplete()
     }
 
-    fun bindStories(feedStories: List<FeedStoryModel>)
-    fun bindStoryAuthor(user: User)
-    fun bindImageCount(count: Int, initialIndex: Int)
-    fun nextIndex()
-    fun previousIndex()
-    fun imageIndexTo(index: Int)
+    fun bindUser(user: User)
+    fun bindImage(imageUrl: String)
+    fun bindCount(count: Int)
+    fun start()
+
+    fun pause()
+    fun resume()
+
+    fun reverse()
+    fun skip()
 }
