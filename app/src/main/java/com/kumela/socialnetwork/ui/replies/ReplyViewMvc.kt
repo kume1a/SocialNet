@@ -9,6 +9,8 @@ interface ReplyViewMvc: ObservableViewMvc<ReplyViewMvc.Listener> {
     interface Listener {
         fun onNavigateUpClicked()
 
+        fun onKeyboardUp()
+
         fun onUserClicked(user: User)
         fun onLikeClicked(reply: Reply)
         fun onLastReplyBound()
@@ -20,6 +22,7 @@ interface ReplyViewMvc: ObservableViewMvc<ReplyViewMvc.Listener> {
         fun onPostClicked()
     }
 
+    fun scrollToBottom()
     fun bindComment(comment: Comment)
 
     fun requestInputFocus()

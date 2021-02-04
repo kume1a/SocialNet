@@ -102,6 +102,10 @@ class ReplyFragment : BaseFragment(), ReplyViewMvc.Listener {
         mScreensNavigator.navigateUp()
     }
 
+    override fun onKeyboardUp() {
+        mViewMvc.scrollToBottom()
+    }
+
     override fun onCommentUserClicked() {
         mScreensNavigator.toUserProfile(argCommentUserId!!, argCommentUserImageUrl, argCommentUserName)
     }
@@ -133,6 +137,8 @@ class ReplyFragment : BaseFragment(), ReplyViewMvc.Listener {
         val reply = mViewMvc.getBody().trim()
 
         if (reply.isBlank()) return
+
+        mViewMvc.scrollToBottom()
 
         lifecycleScope.launchWhenStarted {
             val result = mViewModel.createReply(argPostId!!, argCommentId!!, reply)

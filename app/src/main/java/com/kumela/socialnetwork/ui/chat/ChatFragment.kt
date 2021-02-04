@@ -57,6 +57,8 @@ class ChatFragment : BaseFragment(), ChatViewMvc.Listener {
         mViewModel = ViewModelProvider(this, mViewModelFactory).get(ChatViewModel::class.java)
 
         mViewMvc.registerListener(this)
+
+//        https://gumroad.com/l/izPnS
     }
 
     override fun onDestroy() {

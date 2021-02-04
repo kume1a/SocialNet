@@ -64,6 +64,12 @@ class ReplyViewMvcImpl(
 
         toolbar.addView(toolbarViewMvc.rootView)
 
+        recyclerReplies.addOnLayoutChangeListener { _, _, _, _, bottom, _, _, _, oldBottom ->
+            if (bottom < oldBottom) {
+                recyclerReplies.postDelayed({ listener?.onKeyboardUp() }, 100)
+            }
+        }
+
         recyclerReplies.apply {
             val lm = WrapContentLinearLayoutManager(context, LinearLayoutManager.VERTICAL, true)
             lm.stackFromEnd = true
@@ -76,6 +82,13 @@ class ReplyViewMvcImpl(
         commentTextLike.setOnClickListener { listener?.onCommentLikeClicked() }
         commentTextReply.setOnClickListener { listener?.onCommentReplyClicked() }
         buttonPost.setOnClickListener { listener?.onPostClicked() }
+    }
+
+    override fun scrollToBottom() {
+        recyclerReplies.postDelayed(
+            { recyclerReplies.smoothScrollToPosition(0) },
+            100
+        )
     }
 
     override fun bindComment(comment: Comment) {

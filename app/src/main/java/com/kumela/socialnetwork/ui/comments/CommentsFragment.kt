@@ -202,8 +202,12 @@ class CommentsFragment : BaseFragment(), CommentsViewMvc.Listener {
                 val cachedComments = mViewModel.getCachedComments()
                 if (cachedComments?.data != null) {
                     val index = cachedComments.data.indexOf(comment)
-                    cachedComments.data.remove(comment)
-                    cachedComments.data.add(index, newComment)
+                    try {
+                        cachedComments.data.remove(comment)
+                        cachedComments.data.add(index, newComment)
+                    } catch (e: Exception) {
+                        Log.e(javaClass.simpleName, "fetchReplies: ", e)
+                    }
                 }
             }
             is Result.Failure -> Log.e(javaClass.simpleName, "fetchReplies: ${result.failure}")
