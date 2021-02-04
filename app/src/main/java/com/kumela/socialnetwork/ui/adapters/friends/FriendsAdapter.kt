@@ -14,12 +14,16 @@ class FriendsAdapter(
     private val listener: (User) -> Unit
 ) : RecyclerView.Adapter<FriendsAdapter.FriendsViewHolder>(), FriendsItemViewMvc.Listener {
 
-    private val items = arrayListOf<User>()
+    private val items = ArrayList<User>()
 
-    fun bindUsers(users: List<User>) {
-        items.clear()
+    fun addUsers(users: List<User>) {
+        val size = items.size
         items.addAll(users)
-        notifyDataSetChanged()
+        if (size == 0) {
+            notifyDataSetChanged()
+        } else {
+            notifyItemRangeInserted(size, users.size)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendsViewHolder {

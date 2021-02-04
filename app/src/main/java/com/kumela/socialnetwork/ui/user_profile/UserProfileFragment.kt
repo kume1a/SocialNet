@@ -71,7 +71,9 @@ class UserProfileFragment : BaseFragment(), UserProfileViewMvc.Listener {
 
             val posts = mViewModel.getPosts()
             if (posts != null) {
-                mViewMvc.addPosts(posts.data)
+                if (posts.data.isNotEmpty()) {
+                    mViewMvc.addPosts(posts.data)
+                }
             } else {
                 fetchPosts()
             }

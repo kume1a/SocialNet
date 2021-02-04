@@ -15,8 +15,8 @@ interface MessagesViewMvc : ObservableViewMvc<MessagesViewMvc.Listener> {
         fun onSearchClicked()
     }
 
-    fun bindFriends(users: List<User>)
+    fun addUsers(users: List<User>)
 
-    fun bindChats(chats: List<ChatList>)
+    fun addChats(chats: List<ChatList>)
     fun addOrUpdateChat(chat: ChatList)
 }

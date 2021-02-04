@@ -145,12 +145,12 @@
         tools:layout="@layout/fragment_chat">
         <argument
             android:name="userId"
+            app:argType="integer" />
+        <argument
+            android:name="userImageUrl"
             app:argType="string" />
         <argument
-            android:name="userImageUri"
-            app:argType="string" />
-        <argument
-            android:name="userUsername"
+            android:name="userName"
             app:argType="string" />
     </fragment>
     <fragment

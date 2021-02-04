@@ -3,7 +3,6 @@ package com.kumela.socialnetwork.ui.adapters.messages
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kumela.socialnetwork.models.list.MessageList
-import com.kumela.socialnetwork.network.firebase.UserUseCase
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 
 /**
@@ -21,7 +20,7 @@ class MessageAdapter(
     }
 
     private val items = arrayListOf<MessageList>()
-    private val uid = UserUseCase.uid
+    private val uid = ""
 
     fun addMessage(message: MessageList) {
         items.add(0, message)

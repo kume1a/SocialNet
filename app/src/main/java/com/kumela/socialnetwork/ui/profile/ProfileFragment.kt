@@ -54,7 +54,10 @@ class ProfileFragment : BaseFragment(), ProfileViewMvc.Listener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mViewModel = ViewModelProvider(requireActivity(), mViewModelFactory).get(ProfileViewModel::class.java)
+        mViewModel = ViewModelProvider(
+            requireActivity(),
+            mViewModelFactory
+        ).get(ProfileViewModel::class.java)
         mEventViewModel = ViewModelProvider(requireActivity()).get(EventViewModel::class.java)
 
         mViewMvc.registerListener(this)
@@ -66,7 +69,9 @@ class ProfileFragment : BaseFragment(), ProfileViewMvc.Listener {
 
             val posts = mViewModel.getPosts()
             if (posts != null) {
-                mViewMvc.addPosts(posts.data)
+                if (posts.data.isNotEmpty()) {
+                    mViewMvc.addPosts(posts.data)
+                }
             } else {
                 fetchPosts()
             }

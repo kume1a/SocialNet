@@ -14,9 +14,9 @@ class UserProfileScreensNavigator @Inject constructor(private val navController:
     }
 
     fun toChat(userId: String, userImageUri: String, userUsername: String) {
-        val action =
-            UserProfileFragmentDirections.actionUserProfileFragmentToChatFragment(userId, userImageUri, userUsername)
-        navController.navigate(action)
+//        val action =
+//            UserProfileFragmentDirections.actionUserProfileFragmentToChatFragment(userId, userImageUri, userUsername)
+//        navController.navigate(action)
     }
 
     fun toDataPresenter(dataType: DataType, userId: String) {

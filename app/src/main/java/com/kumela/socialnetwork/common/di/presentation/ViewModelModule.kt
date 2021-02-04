@@ -2,8 +2,6 @@ package com.kumela.socialnetwork.common.di.presentation
 
 import androidx.lifecycle.ViewModel
 import com.kumela.socialnetwork.common.di.annotations.ViewModelKey
-import com.kumela.socialnetwork.models.Message
-import com.kumela.socialnetwork.models.UserChat
 import com.kumela.socialnetwork.network.firebase.helpers.QueryPager
 import com.kumela.socialnetwork.network.repositories.*
 import com.kumela.socialnetwork.ui.chat.ChatViewModel
@@ -45,15 +43,13 @@ class ViewModelModule {
     @IntoMap
     @ViewModelKey(MessagesViewModel::class)
     fun providesMessagesViewModel(
-        @Named("userIdsQueryPager") followingUserIdsQueryPager: QueryPager<String>,
-        userChatsQueryPager: QueryPager<UserChat>
-    ): ViewModel = MessagesViewModel(followingUserIdsQueryPager, userChatsQueryPager)
+        userRepository: UserRepository
+    ): ViewModel = MessagesViewModel(userRepository)
 
     @Provides
     @IntoMap
     @ViewModelKey(ChatViewModel::class)
-    fun providesChatViewModel(messageQueryPager: QueryPager<Message>): ViewModel =
-        ChatViewModel(messageQueryPager)
+    fun providesChatViewModel(): ViewModel = ChatViewModel()
 
     @Provides
     @IntoMap

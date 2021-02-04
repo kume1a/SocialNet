@@ -14,9 +14,9 @@ class MessagesScreensNavigator @Inject constructor(private val navController: Na
         navController.navigate(action)
     }
 
-    fun toChat(userId: String, userImageUri: String, userUsername: String) {
+    fun toChat(userId: Int, userImageUrl: String, userName: String) {
         val action = MessagesFragmentDirections
-            .actionMessagesFragmentToChatFragment(userId, userImageUri, userUsername)
+            .actionMessagesFragmentToChatFragment(userId, userImageUrl, userName)
         navController.navigate(action)
     }
 }

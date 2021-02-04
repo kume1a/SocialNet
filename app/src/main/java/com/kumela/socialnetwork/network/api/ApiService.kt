@@ -144,4 +144,13 @@ interface ApiService {
         @Query("page") page: Int,
         @Query("limit") limit: Int
     ): Response<PaginatedUserResponse>
+
+    @POST("/users/present")
+    suspend fun postUserPresence(): Response<Unit>
+
+    @GET("/users/following")
+    suspend fun getFollowingUsers(
+        @Query("page") page: Int,
+        @Query("limit") limit: Int
+    ): Response<PaginatedUserResponse>
 }

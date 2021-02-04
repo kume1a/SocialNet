@@ -1,5 +1,6 @@
 package com.kumela.socialnetwork.common.di.app
 
+import com.kumela.socialnetwork.common.App
 import com.kumela.socialnetwork.common.di.activity.ActivityComponent
 import com.kumela.socialnetwork.common.di.annotations.AppScope
 import dagger.Component
@@ -14,4 +15,5 @@ import dagger.Component
 interface AppComponent {
 
     fun newActivityComponentBuilder(): ActivityComponent.Builder
+    fun inject(app: App)
 }

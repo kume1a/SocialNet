@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kumela.socialnetwork.R
 import com.kumela.socialnetwork.models.User
 import com.kumela.socialnetwork.models.list.ChatList
-import com.kumela.socialnetwork.ui.adapters.friends.FriendsAdapter
 import com.kumela.socialnetwork.ui.adapters.chats.ChatsAdapter
+import com.kumela.socialnetwork.ui.adapters.friends.FriendsAdapter
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.mvc.BaseObservableViewMvc
 import com.kumela.socialnetwork.ui.common.toolbar.ToolbarViewMvc
@@ -63,11 +63,11 @@ class MessagesViewMvcImpl(
         }
     }
 
-    override fun bindFriends(users: List<User>) {
-        friendsAdapter.bindUsers(users)
+    override fun addUsers(users: List<User>) {
+        friendsAdapter.addUsers(users)
     }
 
-    override fun bindChats(chats: List<ChatList>) {
+    override fun addChats(chats: List<ChatList>) {
         chatAdapter.bindChats(chats)
     }
 
