@@ -16,27 +16,16 @@ class MessageAdapter(
 
     interface Listener {
         fun onScrolledToTop()
-        fun onHeartClicked(message: MessageList)
+        fun onMessageLongClick(message: MessageList)
     }
 
     private val items = arrayListOf<MessageList>()
     private val uid = ""
 
-    fun addMessage(message: MessageList) {
-        items.add(0, message)
-        notifyItemInserted(0)
-    }
-
     fun addMessages(messages: List<MessageList>) {
         val oldSize = items.size
         items.addAll(messages)
         notifyItemRangeInserted(oldSize, messages.size)
-    }
-
-    fun bindMessages(messages: List<MessageList>) {
-        items.clear()
-        items.addAll(messages)
-        notifyDataSetChanged()
     }
 
     fun updateMessage(message: MessageList) {
@@ -94,8 +83,8 @@ class MessageAdapter(
     class ChatViewHolderRight(val viewMvc: MessageRightItemViewMvc) :
         RecyclerView.ViewHolder(viewMvc.rootView)
 
-    override fun onHeartClicked(message: MessageList) {
-        listener.onHeartClicked(message)
+    override fun onLongClick(message: MessageList) {
+        listener.onMessageLongClick(message)
     }
 
     companion object {

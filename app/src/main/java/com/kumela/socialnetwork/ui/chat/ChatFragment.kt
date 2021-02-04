@@ -6,9 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.kumela.socialnetwork.models.Message
 import com.kumela.socialnetwork.models.list.MessageList
-import com.kumela.socialnetwork.network.firebase.UserUseCase
 import com.kumela.socialnetwork.ui.common.ViewMvcFactory
 import com.kumela.socialnetwork.ui.common.bottomnav.BottomNavHelper
 import com.kumela.socialnetwork.ui.common.controllers.BaseFragment
@@ -71,38 +69,49 @@ class ChatFragment : BaseFragment(), ChatViewMvc.Listener {
         mScreensNavigator.navigateUp()
     }
 
-    override fun onEmojiClicked() {
-        Log.d(javaClass.simpleName, "onEmojiClicked() called")
+    override fun onKeyboardUp() {
+        mViewMvc.scrollToBottom()
     }
 
-    override fun onShareFileClicked() {
-        Log.d(javaClass.simpleName, "onShareFileClicked() called")
+    override fun onPlusClicked() {
+        mViewMvc.showUploadOptions()
+    }
+
+    override fun onMinusClicked() {
+        mViewMvc.hideUploadOptions()
+    }
+
+    override fun onPictureClicked() {
+        mViewMvc.hideUploadOptions()
+        Log.d(javaClass.simpleName, "onPictureClicked() called")
+    }
+
+    override fun onVideoClicked() {
+        mViewMvc.hideUploadOptions()
+        Log.d(javaClass.simpleName, "onVideoClicked() called")
+    }
+
+    override fun onAudioClicked() {
+        mViewMvc.hideUploadOptions()
+        Log.d(javaClass.simpleName, "onAudioClicked() called")
     }
 
     override fun onSendClicked() {
-        val message = mViewMvc.getCurrentMessage().trim()
+        val message = mViewMvc.getMessage().trim()
 
         if (message.isBlank()) return
 
-        val messageModel = Message("", UserUseCase.uid, message, System.currentTimeMillis(), false)
-        mViewMvc.clearMessageField()
-    }
-
-    override fun onMessageBoxFocused() {
-        mViewMvc.transitionToEnd()
-    }
-
-    override fun onMessageBoxFocusLost() {
-        mViewMvc.transitionToStart()
+//        val messageModel = Message("", UserUseCase.uid, message, System.currentTimeMillis(), false)
+        mViewMvc.clearInputField()
     }
 
     override fun onScrolledToTop() {
     }
 
-    override fun onHeartClicked(message: MessageList) {
+    override fun onMessageLongClick(message: MessageList) {
+        Log.d(javaClass.simpleName, "onMessageLongClick() called with: message = $message")
     }
-
-    // view model callbacks
+// view model callbacks
 //    override fun onMessagesFetched(messages: List<Message>) {
 //    }
 //

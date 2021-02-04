@@ -11,27 +11,30 @@ interface ChatViewMvc : ObservableViewMvc<ChatViewMvc.Listener> {
     interface Listener {
         fun onBackPressed()
 
-        fun onEmojiClicked()
-        fun onShareFileClicked()
+        fun onPlusClicked()
+        fun onMinusClicked()
+        fun onPictureClicked()
+        fun onVideoClicked()
+        fun onAudioClicked()
+
         fun onSendClicked()
 
-        fun onMessageBoxFocused()
-        fun onMessageBoxFocusLost()
+        fun onKeyboardUp()
 
         fun onScrolledToTop()
-        fun onHeartClicked(message: MessageList)
+        fun onMessageLongClick(message: MessageList)
     }
 
     fun bindToolbarText(text: String)
 
-    fun transitionToEnd()
-    fun transitionToStart()
+    fun scrollToBottom()
 
-    fun getCurrentMessage(): String
-    fun clearMessageField()
+    fun showUploadOptions()
+    fun hideUploadOptions()
 
-    fun addMessage(message: MessageList)
-    fun bindMessages(messages: List<MessageList>)
+    fun getMessage(): String
+    fun clearInputField()
+
     fun addMessages(messages: List<MessageList>)
     fun updateMessage(message: MessageList)
 }

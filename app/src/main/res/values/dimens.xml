@@ -2,4 +2,6 @@
 <resources>
     <dimen name="pager_index_indicator_default_horizontal_margin">8dp</dimen>
     <dimen name="auth_translate">-100dp</dimen>
+    <dimen name="chat_group_icon_size">52dp</dimen>
+    <dimen name="chat_group_radius">110dp</dimen>
 </resources>

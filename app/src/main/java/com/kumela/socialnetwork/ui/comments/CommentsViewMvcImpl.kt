@@ -17,6 +17,7 @@ import com.kumela.socialnetwork.ui.common.mvc.BaseObservableViewMvc
 import com.kumela.socialnetwork.ui.common.toolbar.ToolbarViewMvc
 import com.kumela.socialnetwork.ui.common.utils.WrapContentLinearLayoutManager
 
+
 /**
  * Created by Toko on 24,September,2020
  **/
@@ -64,8 +65,15 @@ class CommentsViewMvcImpl(
         toolbarViewMvc.setTitle("Comments")
         toolbarViewMvc.setTitleStyle(18f, R.color.primary_text, true, View.TEXT_ALIGNMENT_CENTER)
         toolbarViewMvc.enableUpButtonAndListen { listener?.onNavigateUpClicked() }
-
         toolbar.addView(toolbarViewMvc.rootView)
+
+        recyclerComments.addOnLayoutChangeListener { _, _, _, _, bottom, _, _, _, oldBottom ->
+            if (bottom < oldBottom) {
+                recyclerComments.postDelayed({
+                    listener?.onKeyboardUp()
+                }, 100)
+            }
+        }
 
         recyclerComments.apply {
             val lm = WrapContentLinearLayoutManager(context, LinearLayoutManager.VERTICAL, true)
@@ -75,6 +83,12 @@ class CommentsViewMvcImpl(
         }
 
         buttonPost.setOnClickListener { listener?.onPostClicked() }
+    }
+
+    override fun scrollToBottom() {
+        recyclerComments.postDelayed({
+            recyclerComments.smoothScrollToPosition(0)
+        }, 100)
     }
 
     override fun addComments(comments: List<Comment>) {

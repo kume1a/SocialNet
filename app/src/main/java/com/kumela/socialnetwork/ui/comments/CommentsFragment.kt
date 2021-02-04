@@ -82,7 +82,10 @@ class CommentsFragment : BaseFragment(), CommentsViewMvc.Listener {
                             mutableListOf(reply)
                         }
 
-                        val newComment = comment.copy(replyCount = (comment.replyCount ?: 0) + 1, firstReplies = newReplies)
+                        val newComment = comment.copy(
+                            replyCount = (comment.replyCount ?: 0) + 1,
+                            firstReplies = newReplies
+                        )
                         val index = cached.indexOf(comment)
                         cached.remove(comment)
                         cached.add(index, newComment)
@@ -103,6 +106,10 @@ class CommentsFragment : BaseFragment(), CommentsViewMvc.Listener {
     // view callbacks
     override fun onNavigateUpClicked() {
         mScreensNavigator.navigateUp()
+    }
+
+    override fun onKeyboardUp() {
+        mViewMvc.scrollToBottom()
     }
 
     override fun onUserClicked(user: User) {
@@ -145,6 +152,8 @@ class CommentsFragment : BaseFragment(), CommentsViewMvc.Listener {
         val comment = mViewMvc.getComment().trim()
 
         if (comment.isBlank()) return
+
+        mViewMvc.scrollToBottom()
 
         lifecycleScope.launchWhenStarted {
             val result = mViewModel.createComment(argPostId!!, comment)

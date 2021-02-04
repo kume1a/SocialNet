@@ -196,8 +196,8 @@ class MainActivity : BaseActivity(),
                 // check if touch event is not inside the focus
                 if (!rect.contains(event.rawX.toInt(), event.rawY.toInt())) {
 
-                    // dirty way to check if touch event is on sendButton in ChatFragment
-                    if (v.id == R.id.et_input_message &&
+                    // dirty way to check if touch event is on sendButton in ChatFragment and CommentFragment
+                    if ((v.id == R.id.et_input_message || v.id == R.id.et_input) &&
                         event.rawY <= rect.bottom &&
                         event.rawY >= rect.top &&
                         event.rawX >= rect.right

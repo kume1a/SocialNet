@@ -4,8 +4,7 @@
 
     <color name="primary">#3b3661</color>
     <color name="primary_dark">#2C2561</color>
-    <color name="primary_light50">#80E1BEE7</color>
-    <color name="primary_light20">#33E1BEE7</color>
+    <color name="primary_light">#dd3b3661</color>
     <color name="accent">#52c5f0</color>
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#757575</color>

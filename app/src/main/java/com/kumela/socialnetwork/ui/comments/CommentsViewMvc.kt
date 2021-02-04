@@ -12,6 +12,8 @@ interface CommentsViewMvc : ObservableViewMvc<CommentsViewMvc.Listener> {
     interface Listener {
         fun onNavigateUpClicked()
 
+        fun onKeyboardUp()
+
         fun onUserClicked(user: User)
         fun onLikeClicked(comment: Comment)
         fun onReplyClicked(comment: Comment)
@@ -20,6 +22,8 @@ interface CommentsViewMvc : ObservableViewMvc<CommentsViewMvc.Listener> {
 
         fun onPostClicked()
     }
+
+    fun scrollToBottom()
 
     fun addComments(comments: List<Comment>)
     fun addComment(comment: Comment)
