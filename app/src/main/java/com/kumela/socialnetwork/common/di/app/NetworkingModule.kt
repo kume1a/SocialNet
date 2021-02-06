@@ -7,9 +7,11 @@ import com.kumela.socialnetwork.common.di.annotations.AppScope
 import com.kumela.socialnetwork.network.api.ApiService
 import com.kumela.socialnetwork.network.authentication.KeyStore
 import com.kumela.socialnetwork.network.common.GsonConverters
-import com.kumela.socialnetwork.network.common.HttpClient
+import com.kumela.socialnetwork.network.common.HttpInterceptor
 import dagger.Module
 import dagger.Provides
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -20,7 +22,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 @Module
 class NetworkingModule {
     @Provides
-    fun providesHttpClient(keyStore: KeyStore): HttpClient = HttpClient(keyStore)
+    fun providesHttpInterceptor(keyStore: KeyStore): Interceptor = HttpInterceptor(keyStore)
+
+    @Provides
+    fun providesHttpClient(interceptor: Interceptor): OkHttpClient =
+        OkHttpClient.Builder()
+            .addInterceptor(interceptor)
+            .build()
 
     @Provides
     fun providesGsonConverters(): GsonConverters = GsonConverters()
@@ -33,11 +41,11 @@ class NetworkingModule {
 
     @AppScope
     @Provides
-    fun providesRetrofit(httpClient: HttpClient, gson: Gson): Retrofit =
+    fun providesRetrofit(httpClient: OkHttpClient, gson: Gson): Retrofit =
         Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
-            .client(httpClient.getClient())
+            .client(httpClient)
             .build()
 
     @AppScope
